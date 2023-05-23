@@ -1,25 +1,23 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SFML/Graphics.hpp>
-#include "../levels/Level.h"
-#include "../entities/Tower.h"
 #include "../entities/Mob.h"
+#include "../entities/Tower.h"
+#include "../levels/Level.h"
+#include <SFML/Graphics.hpp>
 
 class Game {
 public:
-    Game();
-    void run();
+  Game();
+  void run();
 
 private:
-    void processEvents();
-    void update();
-    void render();
+  void processEvents();
+  void update();
+  void render();
 
-    sf::RenderWindow window;
-    Level level;
-    Tower tower;  // This will become a list of towers in the real game
-    Mob mob;  // This will become a list of mobs in the real game
+  sf::RenderWindow window;
+  Level level;
 };
 
 #endif
