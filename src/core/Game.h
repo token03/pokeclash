@@ -15,7 +15,9 @@ private:
   void processEvents();
   void update();
   void render();
+  bool isValidPlacement(int x, int y);
 
+private:
   sf::RenderWindow window;
   Level level;
 };

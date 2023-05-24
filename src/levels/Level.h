@@ -14,9 +14,10 @@ public:
   std::vector<Mob> &getMobs() { return mobs; }
 
 private:
-  sf::RectangleShape tiles[20][20];
   std::vector<Tower> towers;
   std::vector<Mob> mobs;
+  int width;
+  int height;
 };
 
 #endif
