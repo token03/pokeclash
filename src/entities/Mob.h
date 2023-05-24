@@ -5,10 +5,13 @@
 
 class Mob {
 public:
-    Mob(int posX, int posY);
-    void draw(sf::RenderWindow& window);
+  Mob(int posX, int posY);
+  void draw(sf::RenderWindow &window);
+
 private:
-    sf::CircleShape shape;
+  sf::CircleShape shape;
+  int posX;
+  int posY;
 };
 
 #endif

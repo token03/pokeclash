@@ -15,9 +15,9 @@ public:
   void sell();
 
 private:
-  sf::RectangleShape shape;
-  int tileX;
-  int tileY;
+  sf::CircleShape shape;
+  int posX;
+  int posY;
   float range;
   float damage;
   float attackSpeed;
