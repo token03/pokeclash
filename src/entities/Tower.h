@@ -16,16 +16,17 @@ public:
   // virtual void attack(Mob &mob) = 0;
   void upgrade();
   void sell();
-  void update();
+  void update(float dt);
 
 private:
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
   sf::CircleShape shape;
   sf::Vector2f position;
+  float attackTimer = 0.0f;
+  float attackDelay = 1.0f;
   float range;
   float damage;
-  float attackSpeed;
   float size;
 };
 

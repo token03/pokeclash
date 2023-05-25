@@ -10,7 +10,7 @@ class Level {
 public:
   Level(int width, int height);
   void draw(sf::RenderWindow &window);
-  void update();
+  void update(float dt);
   std::vector<Tower> &getTowers() { return towers; }
   std::vector<Mob> &getMobs() { return mobs; }
 

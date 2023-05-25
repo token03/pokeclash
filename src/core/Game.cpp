@@ -12,9 +12,11 @@ Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), level(40, 40) {
 }
 
 void Game::run() {
+  sf::Clock clock;
   while (window.isOpen()) {
     processEvents();
-    update();
+    float dt = clock.restart().asSeconds();
+    update(dt);
     render();
   }
 }
@@ -38,9 +40,10 @@ void Game::processEvents() {
   }
 }
 
-void Game::update() {
+void Game::update(float dt) {
   // Here you'd update the game objects, for example move the mobs, make the
   // towers attack, etc.
+  level.update(dt);
 }
 
 void Game::render() {

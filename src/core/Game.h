@@ -13,7 +13,7 @@ public:
 
 private:
   void processEvents();
-  void update();
+  void update(float dt);
   void render();
   bool isValidPlacement(int x, int y);
 

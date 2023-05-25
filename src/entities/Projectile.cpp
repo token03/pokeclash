@@ -9,7 +9,7 @@ Projectile::Projectile(sf::Vector2f position, Mob *target, float speed)
       sf::Color::Yellow); // For visibility, set the color to yellow.
 }
 
-void Projectile::update() {
+void Projectile::update(float dt) {
   if (target != nullptr) {
     // Calculate direction to the target.
     sf::Vector2f direction = target->getPosition() - shape.getPosition();

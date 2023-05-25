@@ -8,7 +8,7 @@ class Projectile {
 public:
   Projectile(sf::Vector2f position, Mob *target, float speed);
 
-  void update(); // Move the projectile towards the target.
+  void update(float dt); // Move the projectile towards the target.
   void draw(sf::RenderWindow &window);
 
   // Add other functions as needed, e.g. to check if the projectile has hit its

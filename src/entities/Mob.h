@@ -9,7 +9,7 @@ public:
   Mob(float posX, float posY); // change int to float here
   void draw(sf::RenderWindow &window);
   sf::Vector2f getPosition() const;
-  void update();
+  void update(float dt);
 
 private:
   sf::Vector2f position;
