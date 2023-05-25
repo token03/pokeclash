@@ -11,3 +11,22 @@ void Level::draw(sf::RenderWindow &window) {
     mob.draw(window);
   }
 }
+void Level::update() {
+  for (Tower &tower : towers) {
+    // Clear the tower's targets before adding new ones.
+    tower.clearTargets();
+
+    for (Mob &mob : mobs) {
+      // If the mob is in range of the tower, add it to the tower's targets.
+      if (tower.isInRange(mob)) {
+        tower.addTarget(&mob);
+      }
+
+      // Update the mob's position or state.
+      mob.update();
+    }
+
+    // After adding all the targets, update the tower's state.
+    tower.update();
+  }
+}

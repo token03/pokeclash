@@ -1,9 +1,14 @@
 #include "Game.h"
 #include <SFML/Window/Mouse.hpp>
+#include <iostream>
 
 Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), level(40, 40) {
+  std::cout << "Game constructor" << std::endl;
+  window.setFramerateLimit(60);
   level.getTowers().emplace_back(200, 200);
-  level.getMobs().emplace_back(100.f, 100.f);
+  std::cout << "Tower added" << std::endl;
+  level.getMobs().emplace_back(100, 100);
+  std::cout << "Mob added" << std::endl;
 }
 
 void Game::run() {
@@ -39,7 +44,7 @@ void Game::update() {
 }
 
 void Game::render() {
-  window.clear();
+  window.clear(sf::Color::White);
   level.draw(window);
   window.display();
 }

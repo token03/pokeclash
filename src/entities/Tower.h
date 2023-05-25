@@ -10,15 +10,19 @@ public:
   Tower(int posX, int posY);
   void draw(sf::RenderWindow &window);
   bool isInRange(const Mob &mob) const;
+  void clearTargets();
+  void addTarget(Mob *mob);
   // virtual void target(const std::vector<Mob> &mobs) = 0;
   // virtual void attack(Mob &mob) = 0;
   void upgrade();
   void sell();
+  void update();
 
 private:
+  std::vector<Mob *> targets;
+  std::vector<Projectile> projectiles;
   sf::CircleShape shape;
-  int posX;
-  int posY;
+  sf::Vector2f position;
   float range;
   float damage;
   float attackSpeed;
