@@ -2,6 +2,7 @@
 #define TOWER_H
 
 #include "Mob.h"
+#include "Projectile.h"
 #include <SFML/Graphics.hpp>
 
 class Tower {

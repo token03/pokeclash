@@ -5,13 +5,15 @@
 
 class Mob {
 public:
-  Mob(int posX, int posY);
+  Mob(float posX, float posY); // change int to float here
   void draw(sf::RenderWindow &window);
+  sf::Vector2f getPosition();
 
 private:
   sf::CircleShape shape;
-  int posX;
-  int posY;
+  float speed;
+  float health;
+  float size;
 };
 
 #endif

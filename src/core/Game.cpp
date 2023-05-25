@@ -3,7 +3,7 @@
 
 Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), level(40, 40) {
   level.getTowers().emplace_back(200, 200);
-  level.getMobs().emplace_back(100, 100);
+  level.getMobs().emplace_back(100.f, 100.f);
 }
 
 void Game::run() {

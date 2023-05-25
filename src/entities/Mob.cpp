@@ -1,11 +1,11 @@
 #include "Mob.h"
 
-Mob::Mob(int posX, int posY) {
-    shape = sf::CircleShape(10.f);
-    shape.setPosition(posX, posY);
-    shape.setFillColor(sf::Color::Red);
+Mob::Mob(float posX, float posY) { // change int to float here
+  shape = sf::CircleShape(10.f);
+  shape.setPosition(posX, posY);
+  shape.setFillColor(sf::Color::Red);
 }
 
-void Mob::draw(sf::RenderWindow& window) {
-    window.draw(shape);
-}
+sf::Vector2f Mob::getPosition() { return shape.getPosition(); }
+
+void Mob::draw(sf::RenderWindow &window) { window.draw(shape); }
