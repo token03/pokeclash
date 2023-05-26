@@ -7,7 +7,9 @@ Mob::Mob(Path &path) : path(path), currentPathPoint(0) {
   health = 100;
   speed = 20.0f;
   shape = sf::CircleShape(size);
-  shape.setPosition(path.getPoint(0));
+  position = sf::Vector2f(path.getPoint(0).x - size, path.getPoint(0).y - size);
+  std::cout << path.getPoint(0).x << std::endl;
+  shape.setPosition(position);
   shape.setFillColor(sf::Color::Red);
 }
 

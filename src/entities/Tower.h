@@ -27,7 +27,7 @@ private:
   float attackDelay = 0.25f;
   float range;
   float damage;
-  float size;
+  float radius;
   int windowHeight;
   int windowWidth;
 };

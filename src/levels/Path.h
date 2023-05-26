@@ -13,9 +13,11 @@ public:
   void clearPoints();
   sf::Vector2f getPoint(int index) const;
   int getNumPoints() const;
+  bool overlap(sf::Vector2i position, int radius);
 
 private:
   std::vector<sf::Vector2f> points;
+  int radius;
 };
 
 #endif

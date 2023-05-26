@@ -14,6 +14,7 @@ public:
   void draw(sf::RenderWindow &window);
   void update(float dt);
   void addTower(int x, int y);
+  bool validTowerPlacement(sf::Vector2i position, int radius);
 
 private:
   int width;

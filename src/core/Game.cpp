@@ -2,7 +2,9 @@
 #include <SFML/Window/Mouse.hpp>
 #include <iostream>
 
-Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), level(40, 40) {
+Game::Game()
+    : window(sf::VideoMode(800, 600), "Pokeclash"),
+      level(window.getSize().x, window.getSize().y) {
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
 }
@@ -27,9 +29,7 @@ void Game::processEvents() {
     case sf::Event::MouseButtonPressed:
       if (event.mouseButton.button == sf::Mouse::Left) {
         sf::Vector2i position = sf::Mouse::getPosition(window);
-        if (isValidPlacement(position.x, position.y)) {
-          level.addTower(position.x, position.y);
-        }
+        level.addTower(position.x, position.y);
       }
       break;
     }
