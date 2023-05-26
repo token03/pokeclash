@@ -1,5 +1,4 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#pragma once
 
 #include "UIComponent.h"
 
@@ -10,5 +9,3 @@ public:
   void update(float dt) override;
   // Other button-specific methods...
 };
-
-#endif

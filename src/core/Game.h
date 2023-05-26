@@ -1,5 +1,4 @@
-#ifndef GAME_H
-#define GAME_H
+#pragma once
 
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
@@ -21,5 +20,3 @@ private:
   sf::RenderWindow window;
   Level level;
 };
-
-#endif

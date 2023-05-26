@@ -1,5 +1,4 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
+#pragma once
 
 #include "Mob.h"
 #include <SFML/Graphics.hpp>
@@ -21,5 +20,3 @@ private:
   float speed;            // The speed at which the projectile moves.
   sf::Vector2f direction; // The position of the target when the projectile
 };
-
-#endif

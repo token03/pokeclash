@@ -1,5 +1,4 @@
-#ifndef TOWER_H
-#define TOWER_H
+#pragma once
 
 #include "Mob.h"
 #include "Projectile.h"
@@ -31,5 +30,3 @@ private:
   int windowHeight;
   int windowWidth;
 };
-
-#endif

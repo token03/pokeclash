@@ -1,5 +1,4 @@
-#ifndef UICONTAINER_H
-#define UICONTAINER_H
+#pragma once
 
 #include "UIComponent.h"
 
@@ -12,4 +11,3 @@ public:
 private:
   std::vector<UIComponent *> components;
 };
-#endif

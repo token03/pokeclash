@@ -1,5 +1,4 @@
-#ifndef PATH_H
-#define PATH_H
+#pragma once
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -19,5 +18,3 @@ private:
   std::vector<sf::Vector2f> points;
   int radius;
 };
-
-#endif

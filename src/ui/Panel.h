@@ -1,5 +1,4 @@
-#ifndef PANEL_H
-#define PANEL_H
+#pragma once
 
 #include "UIComponent.h"
 
@@ -11,5 +10,3 @@ public:
   void addComponent(UIComponent &component);
   // Other panel-specific methods...
 };
-
-#endif

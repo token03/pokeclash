@@ -1,5 +1,4 @@
-#ifndef MOB_H
-#define MOB_H
+#pragma once
 
 #include "../levels/Path.h"
 #include <SFML/Graphics.hpp>
@@ -23,5 +22,3 @@ private:
   int health;
   int size;
 };
-
-#endif

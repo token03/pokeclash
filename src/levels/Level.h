@@ -1,5 +1,4 @@
-#ifndef LEVEL_H
-#define LEVEL_H
+#pragma once
 
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
@@ -23,5 +22,3 @@ private:
   std::vector<Tower> towers;
   Path path;
 };
-
-#endif
