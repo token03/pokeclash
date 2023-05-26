@@ -6,7 +6,7 @@ Tower::Tower(int posX, int posY) {
   radius = 10;
   position = sf::Vector2f(posX, posY);
   shape = sf::CircleShape(20);
-  shape.setPosition(posX - 20, posY - 20);
+  shape.setPosition(posX - radius, posY - radius);
   shape.setFillColor(sf::Color::Blue);
   shape.setRadius(10);
   range = 100;
