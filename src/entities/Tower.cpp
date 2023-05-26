@@ -13,6 +13,8 @@ Tower::Tower(int posX, int posY) {
 void Tower::draw(sf::RenderWindow &window) {
   // Draw the tower itself.
   window.draw(shape);
+  windowHeight = window.getSize().y;
+  windowWidth = window.getSize().x;
 
   // Draw a circle representing the tower's range.
   sf::CircleShape rangeCircle(range);
@@ -44,14 +46,21 @@ void Tower::update(float dt) {
   // timer.
   if (attackTimer >= attackDelay) {
     for (Mob *target : targets) {
-      projectiles.push_back(Projectile(position, target, 1.0f));
+      projectiles.push_back(Projectile(position, target, 5.0f));
     }
     attackTimer = 0.0f; // Reset the attack timer.
   }
 
   // Update each projectile.
   for (Projectile &projectile : projectiles) {
-    projectile.update(dt);
+    if (projectile.isCollidingWithTarget()) {
+      projectile.onHit();
+      projectiles.erase(projectiles.begin());
+    } else if (projectile.isOutOfBounds(windowHeight, windowWidth)) {
+      projectiles.erase(projectiles.begin());
+    } else {
+      projectile.update(dt);
+    }
   }
 }
 

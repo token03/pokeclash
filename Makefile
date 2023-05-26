@@ -10,7 +10,7 @@ SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 # Specify the directories containing source code
 SRC_DIR = ./src
 OBJ_DIR = ./obj
-BIN_DIR = ./bin
+BIN_DIR = ./
 
 # Specify the name of the output executable
 EXEC = $(BIN_DIR)/pokeclash

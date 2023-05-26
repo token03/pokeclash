@@ -3,7 +3,9 @@
 
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
+#include "Path.h"
 #include <SFML/Graphics.hpp>
+#include <memory>
 #include <vector>
 
 class Level {
@@ -11,14 +13,14 @@ public:
   Level(int width, int height);
   void draw(sf::RenderWindow &window);
   void update(float dt);
-  std::vector<Tower> &getTowers() { return towers; }
-  std::vector<Mob> &getMobs() { return mobs; }
+  void addTower(int x, int y);
 
 private:
-  std::vector<Tower> towers;
-  std::vector<Mob> mobs;
   int width;
   int height;
+  std::vector<std::unique_ptr<Mob>> mobs;
+  std::vector<Tower> towers;
+  Path path;
 };
 
 #endif

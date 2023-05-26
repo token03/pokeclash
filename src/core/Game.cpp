@@ -5,10 +5,6 @@
 Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), level(40, 40) {
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
-  level.getTowers().emplace_back(200, 200);
-  std::cout << "Tower added" << std::endl;
-  level.getMobs().emplace_back(100, 100);
-  std::cout << "Mob added" << std::endl;
 }
 
 void Game::run() {
@@ -32,7 +28,7 @@ void Game::processEvents() {
       if (event.mouseButton.button == sf::Mouse::Left) {
         sf::Vector2i position = sf::Mouse::getPosition(window);
         if (isValidPlacement(position.x, position.y)) {
-          level.getTowers().emplace_back(position.x, position.y);
+          level.addTower(position.x, position.y);
         }
       }
       break;

@@ -1,17 +1,43 @@
 #include "Mob.h"
+#include <cmath>
+#include <iostream>
 
-Mob::Mob(float posX, float posY) { // change int to float here
-  shape = sf::CircleShape(10.f);
-  shape.setPosition(posX, posY);
-  position = sf::Vector2f(posX - 10, posY - 10);
+Mob::Mob(Path &path) : path(path), currentPathPoint(0) {
+  size = 10;
+  health = 100;
+  speed = 20.0f;
+  shape = sf::CircleShape(size);
+  shape.setPosition(path.getPoint(0));
   shape.setFillColor(sf::Color::Red);
 }
 
-sf::Vector2f Mob::getPosition() const { return shape.getPosition(); }
+sf::Vector2f Mob::getPosition() const { return position; }
+
+int Mob::getSize() const { return size; }
 
 void Mob::draw(sf::RenderWindow &window) { window.draw(shape); }
 
 void Mob::update(float dt) {
-  position.x += 0.1f;
-  shape.setPosition(position);
+  if (currentPathPoint < path.getNumPoints()) {
+    sf::Vector2f targetPoint = path.getPoint(currentPathPoint);
+    sf::Vector2f direction = targetPoint - position;
+    float distance =
+        std::sqrt(direction.x * direction.x + direction.y * direction.y);
+
+    // Check if the mob has reached the current point
+    if (distance < size) {
+      currentPathPoint++;
+    } else {
+      // Normalize direction vector
+      direction /= distance;
+      position += speed * direction * dt;
+      shape.setPosition(position);
+    }
+  }
 }
+void Mob::onHit(int damage) {
+  health -= damage;
+  std::cout << "Mob health: " << health << std::endl;
+}
+
+bool Mob::isDead() const { return health <= 0; }
