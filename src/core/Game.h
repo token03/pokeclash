@@ -20,6 +20,7 @@ private:
   void update(float dt);
   void render();
   bool isValidPlacement(int x, int y);
+  bool isPaused;
 
 private:
   sf::RenderWindow window;

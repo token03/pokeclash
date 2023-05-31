@@ -2,7 +2,7 @@
 
 Game::Game()
     : window(sf::VideoMode(800, 600), "Pokeclash"),
-      level(window.getSize().x, window.getSize().y) {
+      level(window.getSize().x, window.getSize().y), isPaused(false) {
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
 
@@ -39,6 +39,11 @@ void Game::processEvents() {
         level.addTower(position.x, position.y);
       }
       break;
+    case sf::Event::KeyPressed:
+      if (event.key.code == sf::Keyboard::P) {
+        isPaused = !isPaused;
+      }
+      break;
     }
   }
 }
@@ -51,18 +56,25 @@ Game::~Game() {
 void Game::update(float dt) {
   // Here you'd update the game objects, for example move the mobs, make the
   // towers attack, etc.
-  level.update(dt);
+  if (!isPaused) {
+    level.update(dt);
+  }
 }
 
 void Game::render() {
   window.clear(sf::Color::White);
 
-  // Add ImGui windows, buttons, etc. here
-  ImGui::Begin("UI Window");
-  if (ImGui::Button("Click me")) {
-    std::cout << "Button clicked!" << std::endl;
+  // Render the pause menu when paused
+  if (isPaused) {
+    ImGui::Begin("Pause Menu");
+    if (ImGui::Button("Resume")) {
+      isPaused = false;
+    }
+    if (ImGui::Button("Quit")) {
+      window.close();
+    }
+    ImGui::End();
   }
-  ImGui::End();
 
   level.draw(window);
 
