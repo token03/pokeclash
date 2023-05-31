@@ -1,14 +1,14 @@
 #include "Game.h"
-#include <SFML/Window/Mouse.hpp>
-#include <iostream>
 
 Game::Game()
     : window(sf::VideoMode(800, 600), "Pokeclash"),
       level(window.getSize().x, window.getSize().y) {
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
-}
 
+  // Initialize ImGui here
+  ImGui::SFML::Init(window);
+}
 void Game::run() {
   sf::Clock clock;
   while (window.isOpen()) {
