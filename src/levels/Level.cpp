@@ -41,6 +41,7 @@ void Level::update(float dt) {
 
 void Level::addTower(int x, int y) {
   if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
+    std::cout << "Tower added" << std::endl;
     towers.emplace_back(x, y);
   } else {
     std::cout << "Invalid tower placement" << std::endl;
