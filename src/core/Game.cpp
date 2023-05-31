@@ -6,8 +6,10 @@ Game::Game()
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
 
-  // Initialize ImGui here
-  ImGui::SFML::Init(window);
+  bool initialized = ImGui::SFML::Init(window);
+  if (!initialized) {
+    // Handle the initialization failure
+  }
 }
 
 void Game::run() {
@@ -66,7 +68,17 @@ void Game::render() {
 
   // Render the pause menu when paused
   if (isPaused) {
-    ImGui::Begin("Pause Menu");
+
+    sf::Vector2u windowSize = window.getSize();
+    ImDrawList *drawList = ImGui::GetForegroundDrawList();
+
+    drawList->AddRectFilled(ImVec2(0, 0), ImVec2(windowSize.x, windowSize.y),
+                            IM_COL32(0, 0, 0, 128));
+    ImGui::SetNextWindowPos(ImVec2(windowSize.x / 2, windowSize.y / 2),
+                            ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+
+    // Use ImGuiWindowFlags_NoTitleBar to disable the title bar
+    ImGui::Begin("Pause Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
     if (ImGui::Button("Resume")) {
       isPaused = false;
     }
