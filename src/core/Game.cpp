@@ -9,10 +9,16 @@ Game::Game()
   // Initialize ImGui here
   ImGui::SFML::Init(window);
 }
+
 void Game::run() {
   sf::Clock clock;
+  sf::Clock imguiClock; // separate clock for ImGui
   while (window.isOpen()) {
     processEvents();
+
+    // update ImGui
+    ImGui::SFML::Update(window, imguiClock.restart());
+
     float dt = clock.restart().asSeconds();
     update(dt);
     render();
@@ -22,6 +28,7 @@ void Game::run() {
 void Game::processEvents() {
   sf::Event event;
   while (window.pollEvent(event)) {
+    ImGui::SFML::ProcessEvent(event);
     switch (event.type) {
     case sf::Event::Closed:
       window.close();
@@ -36,6 +43,11 @@ void Game::processEvents() {
   }
 }
 
+Game::~Game() {
+  // Shutdown ImGui
+  ImGui::SFML::Shutdown();
+}
+
 void Game::update(float dt) {
   // Here you'd update the game objects, for example move the mobs, make the
   // towers attack, etc.
@@ -44,7 +56,19 @@ void Game::update(float dt) {
 
 void Game::render() {
   window.clear(sf::Color::White);
+
+  // Add ImGui windows, buttons, etc. here
+  ImGui::Begin("UI Window");
+  if (ImGui::Button("Click me")) {
+    std::cout << "Button clicked!" << std::endl;
+  }
+  ImGui::End();
+
   level.draw(window);
+
+  // Render ImGui here
+  ImGui::SFML::Render(window);
+
   window.display();
 }
 
