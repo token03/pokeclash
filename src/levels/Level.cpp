@@ -58,3 +58,12 @@ bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   // Check if the position is on the path.
   return !path.overlap(position, radius);
 }
+
+Tower *Level::getTowerAtPosition(int x, int y) {
+  for (Tower &tower : towers) {
+    if (tower.isClicked(x, y)) {
+      return &tower;
+    }
+  }
+  return nullptr;
+}

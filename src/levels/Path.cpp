@@ -7,7 +7,7 @@ Path::Path() {
   points.push_back(sf::Vector2f(50.0f, 50.0f));
   points.push_back(sf::Vector2f(50.0f, 250.0f));
   points.push_back(sf::Vector2f(250.0f, 250.0f));
-  radius = 10;
+  radius = 30;
 }
 
 void Path::draw(sf::RenderWindow &window) {

@@ -40,6 +40,8 @@ bool Tower::isInRange(const Mob &mob) const {
   return distance <= range;
 }
 
+sf::Vector2f Tower::getPosition() { return position; }
+
 void Tower::update(float dt) {
   // Update the attack timer.
   attackTimer += dt;
@@ -69,3 +71,25 @@ void Tower::update(float dt) {
 void Tower::addTarget(Mob *target) { targets.push_back(target); }
 
 void Tower::clearTargets() { targets.clear(); }
+
+bool Tower::isClicked(int x, int y) const {
+  // Check if the given coordinates are within the tower's bounds.
+  return x >= position.x - radius && x <= position.x + radius &&
+         y >= position.y - radius && y <= position.y + radius;
+}
+
+void Tower::upgrade() {
+  if (stage == TowerStage::FIRST) {
+    stage = TowerStage::SECOND;
+    range = 150;
+    damage = 10;
+  } else if (stage == TowerStage::SECOND) {
+    stage = TowerStage::THIRD;
+    range = 200;
+    damage = 15;
+  } else if (stage == TowerStage::THIRD) {
+    stage = TowerStage::LEGENDARY;
+    range = 250;
+    damage = 20;
+  }
+}

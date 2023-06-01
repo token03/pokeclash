@@ -14,6 +14,7 @@ public:
   void update(float dt);
   void addTower(int x, int y);
   bool validTowerPlacement(sf::Vector2i position, int radius);
+  Tower *getTowerAtPosition(int x, int y);
 
 private:
   int width;

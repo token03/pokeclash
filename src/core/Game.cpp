@@ -38,7 +38,7 @@ void Game::processEvents() {
     case sf::Event::MouseButtonPressed:
       if (event.mouseButton.button == sf::Mouse::Left) {
         sf::Vector2i position = sf::Mouse::getPosition(window);
-        level.addTower(position.x, position.y);
+        handleClick(position.x, position.y);
       }
       break;
     case sf::Event::KeyPressed:
@@ -88,6 +88,11 @@ void Game::render() {
     ImGui::End();
   }
 
+  // Render the tower menu if it exists
+  if (towerMenu_.has_value()) {
+    towerMenu_->render();
+  }
+
   level.draw(window);
 
   // Render ImGui here
@@ -96,8 +101,17 @@ void Game::render() {
   window.display();
 }
 
-bool Game::isValidPlacement(int x, int y) {
-  // TODO: Add more logic to check if the placement is valid.
-  // For now, we only check if the tower is within the bounds of the level.
-  return x >= 0 && y >= 0 && x < 800 && y < 600;
+void Game::handleClick(int x, int y) {
+  // Check if any ImGui window is being hovered over
+  if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
+    // If not, handle the click in the game
+    Tower *tower = level.getTowerAtPosition(x, y);
+    if (tower) {
+      // If a tower was clicked, open the upgrade menu
+      towerMenu_ = TowerMenu(tower);
+    } else {
+      // If no tower was clicked, add a new tower
+      level.addTower(x, y);
+    }
+  }
 }
