@@ -50,7 +50,7 @@ void Tower::update(float dt) {
   // timer.
   if (attackTimer >= attackDelay) {
     for (Mob *target : targets) {
-      projectiles.push_back(Projectile(position, target, 5.0f));
+      projectiles.emplace_back(position, target, 5.0f);
     }
     attackTimer = 0.0f; // Reset the attack timer.
   }
