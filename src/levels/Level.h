@@ -5,6 +5,7 @@
 #include "../entities/TowerFactory.h"
 #include "Path.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 #include <memory>
 #include <vector>
 
@@ -13,7 +14,7 @@ public:
   Level(int width, int height);
   void draw(sf::RenderWindow &window);
   void update(float dt);
-  void addTower(const std::string &type, int x, int y);
+  void addTower(const TowerType type, int x, int y);
   bool validTowerPlacement(sf::Vector2i position, int radius);
   Tower *getTowerAtPosition(int x, int y);
 

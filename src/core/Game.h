@@ -2,6 +2,7 @@
 
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
+#include "../entities/TowerFactory.h"
 #include "../levels/Level.h"
 #include "../ui/TowerMenu.h"
 #include <SFML/Graphics.hpp>

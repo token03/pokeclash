@@ -111,7 +111,7 @@ void Game::handleClick(int x, int y) {
       towerMenu_ = TowerMenu(tower);
     } else {
       // If no tower was clicked, add a new tower
-      level.addTower("Charmander", x, y);
+      level.addTower(TowerType::Charmander, x, y);
     }
   }
 }

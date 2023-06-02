@@ -1,8 +1,7 @@
 #include "Level.h"
-#include <iostream>
 
 Level::Level(int width, int height) : width(width), height(height), path() {
-  addTower("Charmander", 200, 200);
+  addTower(TowerType::Charmander, 200, 200);
   std::cout << "Tower added" << std::endl;
   mobs.emplace_back(std::make_unique<Mob>(path));
   std::cout << "Mob added" << std::endl;
@@ -39,7 +38,7 @@ void Level::update(float dt) {
   }
 }
 
-void Level::addTower(const std::string &type, int x, int y) {
+void Level::addTower(const TowerType type, int x, int y) {
   if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
     std::cout << "Tower added" << std::endl;
     towers.push_back(TowerFactory::createTower(type, x, y));
