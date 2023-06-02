@@ -4,8 +4,9 @@
 #include "Projectile.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
+#include <vector>
 
-enum class TowerStage { FIRST, SECOND, THIRD, LEGENDARY };
+enum class TowerStage { FIRST, SECOND, THIRD };
 
 class Tower {
 public:
@@ -15,12 +16,12 @@ public:
   bool isClicked(int x, int y) const;   // Check if the tower is clicked.
   void clearTargets();                  // Clear the tower's targets.
   void addTarget(Mob *mob);             // Add a mob to the tower's targets.
-  void upgrade();                       // Upgrade the tower.
+  virtual void upgrade() = 0;           // Upgrade the tower.
   void sell();                          // Sell the tower.
   void update(float dt);                // Update the tower's state.
   sf::Vector2f getPosition();           // Returns the tower's position.
 
-private:
+protected:
   TowerStage stage = TowerStage::FIRST;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
