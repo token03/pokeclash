@@ -1,10 +1,16 @@
 #include "Game.h"
+#include <filesystem>
 
-Game::Game()
-    : window(sf::VideoMode(800, 600), "Pokeclash"),
-      level(window.getSize().x, window.getSize().y), isPaused(false) {
+Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), isPaused(false) {
   std::cout << "Game constructor" << std::endl;
   window.setFramerateLimit(60);
+
+  loadTextures();
+
+  level = std::make_unique<Level>(window.getSize().x, window.getSize().y,
+                                  TextureManager::getInstance());
+
+  resourceIndicator = std::make_unique<ResourceIndicator>(*level);
 
   bool initialized = ImGui::SFML::Init(window);
   if (!initialized) {
@@ -59,7 +65,7 @@ void Game::update(float dt) {
   // Here you'd update the game objects, for example move the mobs, make the
   // towers attack, etc.
   if (!isPaused) {
-    level.update(dt);
+    level->update(dt);
   }
 }
 
@@ -93,7 +99,8 @@ void Game::render() {
     towerMenu_->render();
   }
 
-  level.draw(window);
+  level->draw(window);
+  resourceIndicator->draw(window);
 
   // Render ImGui here
   ImGui::SFML::Render(window);
@@ -105,13 +112,31 @@ void Game::handleClick(int x, int y) {
   // Check if any ImGui window is being hovered over
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
     // If not, handle the click in the game
-    Tower *tower = level.getTowerAtPosition(x, y);
+    Tower *tower = level->getTowerAtPosition(x, y);
     if (tower) {
       // If a tower was clicked, open the upgrade menu
       towerMenu_ = TowerMenu(tower);
     } else {
       // If no tower was clicked, add a new tower
-      level.addTower(TowerType::Charmander, x, y);
+      level->addTower(TowerType::Charmander, x, y);
     }
   }
+}
+
+void Game::loadTextures() {
+  std::string textureFolderPath = "../assets/textures/";
+
+  for (const auto &entry :
+       std::filesystem::directory_iterator(textureFolderPath)) {
+    // Get the path to the file and convert it to a string
+    std::string filePath = entry.path().string();
+
+    // Get the filename (without the extension)
+    std::string filename = entry.path().stem().string();
+
+    // Load the texture
+    TextureManager::getInstance().loadTexture(filename, filePath);
+  }
+
+  std::cout << "Textures Loaded!" << std::endl;
 }

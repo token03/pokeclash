@@ -1,10 +1,12 @@
 #include "Level.h"
 
-Level::Level(int width, int height) : width(width), height(height), path() {
+Level::Level(int width, int height, TextureManager &textureManager)
+    : width(width), height(height), path(), textureManager(textureManager) {
   addTower(TowerType::Charmander, 200, 200);
-  std::cout << "Tower added" << std::endl;
   mobs.emplace_back(std::make_unique<Mob>(path));
   std::cout << "Mob added" << std::endl;
+  credits = 999;
+  health = 100;
 }
 
 void Level::draw(sf::RenderWindow &window) {
@@ -18,22 +20,32 @@ void Level::draw(sf::RenderWindow &window) {
 }
 
 void Level::update(float dt) {
-  for (const auto &tower : towers) {
-    // Clear the tower's targets before adding new ones.
+  mobTimer += dt;
+  if (mobTimer >= 1.0f) {
+    mobs.emplace_back(std::make_unique<Mob>(path));
+    mobTimer = 0.0f;
+  }
+
+  for (auto &mob : mobs) {
+    if (mob->isDead()) {
+      credits += 10;            // increase credits
+      mobs.erase(mobs.begin()); // remove dead mob
+      break;
+    }
+    if (mob->hasReachedFinalPoint()) {
+      health--;                 // decrease health
+      mobs.erase(mobs.begin()); // remove mob that reached the end
+      break;
+    }
+    mob->update(dt);
+  }
+  for (auto &tower : towers) {
     tower->clearTargets();
-    for (const auto &mob : mobs) {
-      // If the mob is in range of the tower, add it to the tower's targets.
+    for (auto &mob : mobs) {
       if (tower->isInRange(*mob)) {
         tower->addTarget(mob.get());
       }
-      // Update the mob's position or state.
-      if (mob->isDead()) {
-        mobs.erase(mobs.begin());
-      } else {
-        mob->update(dt);
-      }
     }
-    // After adding all the targets, update the tower's state.
     tower->update(dt);
   }
 }
@@ -41,12 +53,11 @@ void Level::update(float dt) {
 void Level::addTower(const TowerType type, int x, int y) {
   if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
     std::cout << "Tower added" << std::endl;
-    towers.push_back(TowerFactory::createTower(type, x, y));
+    towers.push_back(TowerFactory::createTower(type, x, y, textureManager));
   } else {
     std::cout << "Invalid tower placement" << std::endl;
   }
 }
-
 bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   // Check if the position is within the bounds of the level.
   if (position.x - radius < 0 || position.x + radius >= width ||

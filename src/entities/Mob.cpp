@@ -13,10 +13,6 @@ Mob::Mob(Path &path) : path(path), currentPathPoint(0) {
   shape.setFillColor(sf::Color::Red);
 }
 
-sf::Vector2f Mob::getPosition() const { return position; }
-
-int Mob::getSize() const { return size; }
-
 void Mob::draw(sf::RenderWindow &window) { window.draw(shape); }
 
 void Mob::update(float dt) {
@@ -37,9 +33,12 @@ void Mob::update(float dt) {
     }
   }
 }
+
 void Mob::onHit(int damage) {
   health -= damage;
   std::cout << "Mob health: " << health << std::endl;
 }
 
-bool Mob::isDead() const { return health <= 0; }
+bool Mob::hasReachedFinalPoint() const {
+  return currentPathPoint == path.getNumPoints();
+}

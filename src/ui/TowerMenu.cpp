@@ -1,13 +1,13 @@
 #include "TowerMenu.h"
 
-TowerMenu::TowerMenu(Tower *tower) : tower_(tower) {}
+TowerMenu::TowerMenu(Tower *tower) : tower_(tower), visible(true) {}
 
 void TowerMenu::render() {
+
   ImGui::Begin("Tower Menu", nullptr, ImGuiWindowFlags_AlwaysAutoResize);
 
   if (tower_) {
-    ImGui::Text("Tower at (%f, %f)", tower_->getPosition().x,
-                tower_->getPosition().y);
+    ImGui::Text("Name: %s", tower_->getName().c_str());
 
     if (ImGui::Button("Upgrade")) {
       tower_->upgrade();
@@ -16,3 +16,5 @@ void TowerMenu::render() {
 
   ImGui::End();
 }
+
+void TowerMenu::toggle() { visible = !visible; }

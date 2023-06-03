@@ -3,13 +3,16 @@
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
 #include "../entities/TowerFactory.h"
+#include "../graphics/TextureManager.h"
 #include "../levels/Level.h"
+#include "../ui/ResourceIndicator.h"
 #include "../ui/TowerMenu.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
 #include <iostream>
+#include <memory>
 #include <optional>
 
 class Game {
@@ -27,7 +30,9 @@ private:
   bool isPaused;
 
 private:
+  void loadTextures();
   sf::RenderWindow window;
-  Level level;
+  std::unique_ptr<ResourceIndicator> resourceIndicator;
+  std::unique_ptr<Level> level;
   std::optional<TowerMenu> towerMenu_;
 };

@@ -2,7 +2,11 @@
 #include <cmath>
 #include <iostream>
 
-Tower::Tower(int posX, int posY) {
+sf::Vector2f Tower::getPosition() { return position; }
+std::string Tower::getName() { return name; }
+
+Tower::Tower(int posX, int posY, TextureManager &textureManager)
+    : textureManager(textureManager) {
   radius = 10;
   position = sf::Vector2f(posX, posY);
   shape = sf::CircleShape(20);
@@ -14,7 +18,7 @@ Tower::Tower(int posX, int posY) {
 
 void Tower::draw(sf::RenderWindow &window) {
   // Draw the tower itself.
-  window.draw(shape);
+  window.draw(sprite);
   windowHeight = window.getSize().y;
   windowWidth = window.getSize().x;
 
@@ -39,8 +43,6 @@ bool Tower::isInRange(const Mob &mob) const {
                              std::pow(mobPosition.y - position.y, 2));
   return distance <= range;
 }
-
-sf::Vector2f Tower::getPosition() { return position; }
 
 void Tower::update(float dt) {
   // Update the attack timer.
@@ -76,4 +78,10 @@ bool Tower::isClicked(int x, int y) const {
   // Check if the given coordinates are within the tower's bounds.
   return x >= position.x - radius && x <= position.x + radius &&
          y >= position.y - radius && y <= position.y + radius;
+}
+
+void Tower::setSprite(std::string key) {
+  sprite.setTexture(textureManager.getRef(key));
+  sprite.setPosition(position.x - sprite.getTextureRect().width / 2,
+                     position.y - sprite.getTextureRect().height / 2);
 }

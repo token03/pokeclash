@@ -15,8 +15,9 @@ public:
 
 private:
   sf::CircleShape shape;  // The graphical representation of the projectile.
+  sf::Vector2f direction; // The position of the target when the projectile
+  sf::Sprite sprite;      // The graphical representation of the projectile.
   Mob *target;            // The mob that this projectile is moving towards.
   int damage;             // The amount of damage this projectile deals.
   float speed;            // The speed at which the projectile moves.
-  sf::Vector2f direction; // The position of the target when the projectile
 };
