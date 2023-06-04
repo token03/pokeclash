@@ -20,30 +20,30 @@ public:
   virtual void upgrade() = 0;           // Upgrade the tower.
   void sell();                          // Sell the tower.
   void update(float dt);                // Update the tower's state.
-  sf::Vector2f getPosition();           // Returns the tower's position.
-  std::string getName();                // Returns the tower's name.
-  float getDamage();                    // Returns the tower's damage.
-  float getRange();                     // Returns the tower's range.
-  float getRadius();                    // Returns the tower's radius.
-  int getCost();                        // Returns the tower's cost.
-  int getSellValue();                   // Returns the tower's sell value.
-  TowerStage getStage();                // Returns the tower's stage.
-  std::vector<Mob *> getTargets();      // Returns the tower's targets.
-  void setSprite(std::string);          // Sets the tower's sprite.
+  sf::Vector2f getPosition() const { return position; } // Returns position.
+  std::string getName() const { return name; }  // Returns the tower's name.
+  float getDamage() const { return damage; }    // Returns the tower's damage.
+  float getRange() const { return range; }      // Returns the tower's range.
+  float getRadius() const { return radius; }    // Returns the tower's radius.
+  int getCost() const { return cost; }          // Returns the tower's cost.
+  TowerStage getStage() const { return stage; } // Returns the tower's stage.
+  void setSprite(std::string);                  // Sets the tower's sprite.
 
 protected:
   TextureManager &textureManager;
-  TowerStage stage = TowerStage::FIRST;
+  TowerStage stage;
   std::string name;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
-  sf::CircleShape shape;
   sf::Vector2f position;
   sf::Sprite sprite;
-  float attackTimer = 0.0f, attackDelay = 0.25f;
+  float attackTimer;
+  float attackDelay;
   float range;
   float damage;
   float radius;
   int windowHeight;
   int windowWidth;
+  int cost;
+  int maxTargets;
 };

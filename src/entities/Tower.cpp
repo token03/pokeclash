@@ -2,18 +2,18 @@
 #include <cmath>
 #include <iostream>
 
-sf::Vector2f Tower::getPosition() { return position; }
-std::string Tower::getName() { return name; }
-
 Tower::Tower(int posX, int posY, TextureManager &textureManager)
     : textureManager(textureManager) {
-  radius = 10;
   position = sf::Vector2f(posX, posY);
-  shape = sf::CircleShape(20);
-  shape.setPosition(posX - radius, posY - radius);
-  shape.setFillColor(sf::Color::Blue);
-  shape.setRadius(10);
+  radius = 10;
   range = 100;
+  damage = 10;
+  attackDelay = 0.25f;
+  attackTimer = 0.0f;
+  stage = TowerStage::FIRST;
+  maxTargets = 1;
+  cost = 100;
+  name = "Tower";
 }
 
 void Tower::draw(sf::RenderWindow &window) {
@@ -70,7 +70,11 @@ void Tower::update(float dt) {
   }
 }
 
-void Tower::addTarget(Mob *target) { targets.push_back(target); }
+void Tower::addTarget(Mob *target) {
+  if (targets.size() < maxTargets) {
+    targets.push_back(target);
+  }
+}
 
 void Tower::clearTargets() { targets.clear(); }
 

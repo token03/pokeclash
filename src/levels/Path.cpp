@@ -46,16 +46,12 @@ void Path::addPoint(sf::Vector2f point) { points.push_back(point); }
 
 void Path::addPoint(float x, float y) { points.push_back(sf::Vector2f(x, y)); }
 
-void Path::clearPoints() { points.clear(); }
-
 sf::Vector2f Path::getPoint(int index) const {
   if (index >= 0 && index < (int)points.size()) {
     return points[index];
   }
   return sf::Vector2f(); // Return a zero vector if index is out of range
 }
-
-int Path::getNumPoints() const { return points.size(); }
 
 bool Path::overlap(sf::Vector2i point, int radius) {
   if (points.size() < 2)

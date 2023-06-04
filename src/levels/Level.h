@@ -16,6 +16,7 @@ public:
   void draw(sf::RenderWindow &window);
   void update(float dt);
   void addTower(const TowerType type, int x, int y);
+  void addMob();
   bool validTowerPlacement(sf::Vector2i position, int radius);
   Tower *getTowerAtPosition(int x, int y);
   int getCredits() const { return credits; }

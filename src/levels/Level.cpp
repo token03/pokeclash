@@ -58,6 +58,12 @@ void Level::addTower(const TowerType type, int x, int y) {
     std::cout << "Invalid tower placement" << std::endl;
   }
 }
+
+void Level::addMob() {
+  mobs.emplace_back(std::make_unique<Mob>(path));
+  std::cout << "Mob added" << std::endl;
+}
+
 bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   // Check if the position is within the bounds of the level.
   if (position.x - radius < 0 || position.x + radius >= width ||
