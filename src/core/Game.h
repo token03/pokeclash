@@ -2,7 +2,7 @@
 
 #include "../entities/Mob.h"
 #include "../entities/Tower.h"
-#include "../entities/TowerFactory.h"
+#include "../entities/TowerFactory.hpp"
 #include "../graphics/TextureManager.h"
 #include "../levels/Level.h"
 #include "../ui/ResourceIndicator.h"
