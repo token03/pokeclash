@@ -11,13 +11,13 @@ enum class TowerStage { FIRST, SECOND, THIRD };
 
 class Tower {
 public:
-  Tower(int posX, int posY, TextureManager &textureManager); // Constructor.
-  void draw(sf::RenderWindow &window);                       // Draw the tower.
+  Tower(int posX, int posY);            // Constructor.
+  void draw(sf::RenderWindow &window);  // Draw the tower.
   bool isInRange(const Mob &mob) const; // Check if the mob is in range.
   bool isClicked(int x, int y) const;   // Check if the tower is clicked.
   void clearTargets();                  // Clear the tower's targets.
   void addTarget(Mob *mob);             // Add a mob to the tower's targets.
-  virtual void upgrade() = 0;           // Upgrade the tower.
+  virtual int upgrade(int money) = 0;   // Upgrade the tower.
   void sell();                          // Sell the tower.
   void update(float dt);                // Update the tower's state.
   sf::Vector2f getPosition() const { return position; } // Returns position.
@@ -26,6 +26,7 @@ public:
   float getRange() const { return range; }      // Returns the tower's range.
   float getRadius() const { return radius; }    // Returns the tower's radius.
   int getCost() const { return cost; }          // Returns the tower's cost.
+  int getLevel() const { return level; }        // Returns the tower's level.
   TowerStage getStage() const { return stage; } // Returns the tower's stage.
   void setSprite(std::string);                  // Sets the tower's sprite.
 
@@ -42,8 +43,10 @@ protected:
   float range;
   float damage;
   float radius;
+  int level;
   int windowHeight;
   int windowWidth;
   int cost;
+  int upgradeCost;
   int maxTargets;
 };

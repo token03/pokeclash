@@ -26,3 +26,9 @@ sf::Texture &TextureManager::getRef(const std::string &texture) {
   /* Retrieve a texture from the map by its name. */
   return this->textures.at(texture);
 }
+
+// TODO: Create overload of getRef for PokemonType
+// sf::Texture &TextureManager::getRef(const PokemonType &type) {
+// convert enum to string
+// return this->textures.at(texture);
+// }

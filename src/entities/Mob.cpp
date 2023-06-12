@@ -2,18 +2,16 @@
 #include <cmath>
 #include <iostream>
 
-Mob::Mob(Path &path) : path(path), currentPathPoint(0) {
-  size = 10;
-  health = 100;
-  speed = 20.0f;
-  shape = sf::CircleShape(size);
-  position = sf::Vector2f(path.getPoint(0).x - size, path.getPoint(0).y - size);
-  std::cout << path.getPoint(0).x << std::endl;
+Mob::Mob(Path &path, int health, float speed, int size, sf::Texture &texture)
+    : path(path), speed(speed), health(health), size(size), currentPathPoint(0),
+      shape(size), position(sf::Vector2f(path.getPoint(0).x - size,
+                                         path.getPoint(0).y - size)) {
+  setSprite(texture);
   shape.setPosition(position);
   shape.setFillColor(sf::Color::Red);
 }
 
-void Mob::draw(sf::RenderWindow &window) { window.draw(shape); }
+void Mob::draw(sf::RenderWindow &window) { window.draw(sprite); }
 
 void Mob::update(float dt) {
   if (currentPathPoint < path.getNumPoints()) {
@@ -29,7 +27,7 @@ void Mob::update(float dt) {
       // Normalize direction vector
       direction /= distance;
       position += speed * direction * dt;
-      shape.setPosition(position);
+      sprite.setPosition(position);
     }
   }
 }
@@ -41,4 +39,10 @@ void Mob::onHit(int damage) {
 
 bool Mob::hasReachedFinalPoint() const {
   return currentPathPoint == path.getNumPoints();
+}
+
+void Mob::setSprite(sf::Texture &texture) {
+  sprite.setTexture(texture);
+  sprite.setPosition(position.x - sprite.getTextureRect().width / 2.f,
+                     position.y - sprite.getTextureRect().height / 2.f);
 }

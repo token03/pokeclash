@@ -8,9 +8,12 @@ void TowerMenu::render() {
 
   if (tower_) {
     ImGui::Text("Name: %s", tower_->getName().c_str());
+    ImGui::Text("Level: %d", tower_->getLevel());
+    ImGui::Text("Damage: %.2f", tower_->getDamage());
+    ImGui::Text("Range: %.2f", tower_->getRange());
 
     if (ImGui::Button("Upgrade")) {
-      tower_->upgrade();
+      tower_->upgrade(99);
     }
   }
 

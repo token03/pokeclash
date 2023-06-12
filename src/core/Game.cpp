@@ -7,8 +7,7 @@ Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), isPaused(false) {
 
   loadTextures();
 
-  level = std::make_unique<Level>(window.getSize().x, window.getSize().y,
-                                  TextureManager::getInstance());
+  level = std::make_unique<Level>(window.getSize().x, window.getSize().y);
 
   resourceIndicator = std::make_unique<ResourceIndicator>(*level);
 
@@ -118,7 +117,7 @@ void Game::handleClick(int x, int y) {
       towerMenu_ = TowerMenu(tower);
     } else {
       // If no tower was clicked, add a new tower
-      level->addTower(TowerType::Charmander, x, y);
+      level->addTower(PokemonType::Charmander, x, y);
     }
   }
 }

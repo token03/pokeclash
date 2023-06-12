@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../entities/Mob.h"
+#include "../entities/MobFactory.hpp"
 #include "../entities/Tower.h"
 #include "../entities/TowerFactory.hpp"
 #include "../graphics/TextureManager.h"
@@ -12,11 +13,11 @@
 
 class Level {
 public:
-  Level(int width, int height, TextureManager &textureManager);
+  Level(int width, int height);
   void draw(sf::RenderWindow &window);
   void update(float dt);
-  void addTower(const TowerType type, int x, int y);
-  void addMob();
+  void addTower(const PokemonType type, int x, int y);
+  void addMob(const PokemonType type);
   bool validTowerPlacement(sf::Vector2i position, int radius);
   Tower *getTowerAtPosition(int x, int y);
   int getCredits() const { return credits; }

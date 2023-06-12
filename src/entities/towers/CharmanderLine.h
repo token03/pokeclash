@@ -4,6 +4,6 @@
 
 class CharmanderTower : public Tower {
 public:
-  CharmanderTower(int posX, int posY, TextureManager &textureManager);
-  void upgrade() override;
+  CharmanderTower(int posX, int posY);
+  int upgrade(int money) override;
 };

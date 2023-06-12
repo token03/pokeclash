@@ -2,8 +2,8 @@
 #include <cmath>
 #include <iostream>
 
-Tower::Tower(int posX, int posY, TextureManager &textureManager)
-    : textureManager(textureManager) {
+Tower::Tower(int posX, int posY)
+    : textureManager(TextureManager::getInstance()) {
   position = sf::Vector2f(posX, posY);
   radius = 10;
   range = 100;

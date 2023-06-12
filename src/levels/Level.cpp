@@ -1,9 +1,10 @@
 #include "Level.h"
 
-Level::Level(int width, int height, TextureManager &textureManager)
-    : width(width), height(height), path(), textureManager(textureManager) {
-  addTower(TowerType::Charmander, 200, 200);
-  mobs.emplace_back(std::make_unique<Mob>(path));
+Level::Level(int width, int height)
+    : width(width), height(height), path(),
+      textureManager(TextureManager::getInstance()) {
+  addTower(PokemonType::Charmander, 200, 200);
+  addMob(PokemonType::Charmander);
   std::cout << "Mob added" << std::endl;
   credits = 999;
   health = 100;
@@ -22,7 +23,7 @@ void Level::draw(sf::RenderWindow &window) {
 void Level::update(float dt) {
   mobTimer += dt;
   if (mobTimer >= 1.0f) {
-    mobs.emplace_back(std::make_unique<Mob>(path));
+    addMob(PokemonType::Charmander);
     mobTimer = 0.0f;
   }
 
@@ -50,17 +51,17 @@ void Level::update(float dt) {
   }
 }
 
-void Level::addTower(const TowerType type, int x, int y) {
+void Level::addTower(const PokemonType type, int x, int y) {
   if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
     std::cout << "Tower added" << std::endl;
-    towers.push_back(TowerFactory::createTower(type, x, y, textureManager));
+    towers.push_back(TowerFactory::createTower(type, x, y));
   } else {
     std::cout << "Invalid tower placement" << std::endl;
   }
 }
 
-void Level::addMob() {
-  mobs.emplace_back(std::make_unique<Mob>(path));
+void Level::addMob(const PokemonType type) {
+  mobs.push_back(MobFactory::createMob(type, path));
   std::cout << "Mob added" << std::endl;
 }
 
