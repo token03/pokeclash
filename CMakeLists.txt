@@ -22,5 +22,9 @@ add_library(imgui-sfml ${IMGUI_SFML_SRCS})
 target_include_directories(imgui-sfml PUBLIC "${PROJECT_SOURCE_DIR}/external/imgui-sfml")
 target_link_libraries(imgui-sfml PUBLIC imgui sfml-graphics sfml-audio sfml-window sfml-system)
 
+# Add pugixml
+add_subdirectory(${PROJECT_SOURCE_DIR}/external/pugixml)
+
 find_package(OpenGL REQUIRED)
-target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio sfml-window sfml-system imgui imgui-sfml OpenGL::GL)
+target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio sfml-window sfml-system imgui imgui-sfml OpenGL::GL pugixml)
+
