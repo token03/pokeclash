@@ -1,8 +1,6 @@
 #include "Level.h"
 
-Level::Level(int width, int height)
-    : width(width), height(height), path(),
-      textureManager(TextureManager::getInstance()) {
+Level::Level(int width, int height) : width(width), height(height), path() {
   addTower(PokemonType::Charmander, 200, 200);
   addMob(PokemonType::Charmander);
   std::cout << "Mob added" << std::endl;
@@ -23,7 +21,7 @@ void Level::draw(sf::RenderWindow &window) {
 void Level::update(float dt) {
   mobTimer += dt;
   if (mobTimer >= 1.0f) {
-    addMob(PokemonType::Charmander);
+    addMob(PokemonType::Bulbasaur);
     mobTimer = 0.0f;
   }
 

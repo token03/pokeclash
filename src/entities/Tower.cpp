@@ -2,8 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Tower::Tower(int posX, int posY)
-    : textureManager(TextureManager::getInstance()) {
+Tower::Tower(int posX, int posY) {
   position = sf::Vector2f(posX, posY);
   radius = 10;
   range = 100;
@@ -85,7 +84,7 @@ bool Tower::isClicked(int x, int y) const {
 }
 
 void Tower::setSprite(std::string key) {
-  sprite.setTexture(textureManager.getRef(key));
+  sprite.setTexture(TextureManager::getInstance().getRef(key));
   sprite.setPosition(position.x - sprite.getTextureRect().width / 2,
                      position.y - sprite.getTextureRect().height / 2);
 }

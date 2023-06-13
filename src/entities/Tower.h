@@ -19,7 +19,7 @@ public:
   void addTarget(Mob *mob);             // Add a mob to the tower's targets.
   virtual int upgrade(int money) = 0;   // Upgrade the tower.
   void sell();                          // Sell the tower.
-  void update(float dt);                // Update the tower's state.
+  virtual void update(float dt);        // Update the tower's state.
   sf::Vector2f getPosition() const { return position; } // Returns position.
   std::string getName() const { return name; }  // Returns the tower's name.
   float getDamage() const { return damage; }    // Returns the tower's damage.
@@ -31,7 +31,6 @@ public:
   void setSprite(std::string);                  // Sets the tower's sprite.
 
 protected:
-  TextureManager &textureManager;
   TowerStage stage;
   std::string name;
   std::vector<Mob *> targets;

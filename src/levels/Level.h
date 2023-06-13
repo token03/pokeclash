@@ -26,7 +26,6 @@ public:
 private:
   int width;
   int height;
-  TextureManager &textureManager;
   std::vector<std::unique_ptr<Mob>> mobs;
   std::vector<std::unique_ptr<Tower>> towers;
   Path path;

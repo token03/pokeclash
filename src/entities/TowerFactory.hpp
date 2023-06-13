@@ -14,6 +14,10 @@ enum class PokemonType {
 
 class TowerFactory {
 public:
+  TowerFactory(const TowerFactory &) = default;
+  TowerFactory(TowerFactory &&) = default;
+  TowerFactory &operator=(const TowerFactory &) = default;
+  TowerFactory &operator=(TowerFactory &&) = default;
   static std::unique_ptr<Tower> createTower(const PokemonType type, int x,
                                             int y) {
     if (type == PokemonType::Charmander) {

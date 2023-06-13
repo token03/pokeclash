@@ -4,26 +4,26 @@
 #include "Mob.h"
 #include "TowerFactory.hpp"
 #include <memory>
-#include <vector>
 
 class MobFactory {
 public:
+  MobFactory(const MobFactory &) = default;
+  MobFactory(MobFactory &&) = default;
+  MobFactory &operator=(const MobFactory &) = default;
+  MobFactory &operator=(MobFactory &&) = default;
   static std::unique_ptr<Mob> createMob(const PokemonType type, Path &path) {
     TextureManager &textureManager = TextureManager::getInstance();
-    sf::Texture &texture =
-        textureManager.getRef("Charmander"); // filler default value
     switch (type) {
-    case PokemonType::Bulbasaur:
-      texture = textureManager.getRef("Bulbasaur");
+    case PokemonType::Bulbasaur: {
+      sf::Texture &texture = textureManager.getRef("Bulbasaur");
       return std::make_unique<Mob>(path, 100, 50, 10, texture);
-      break;
-    case PokemonType::Charmander:
-      texture = textureManager.getRef("Charmander");
+    }
+    case PokemonType::Charmander: {
+      sf::Texture &texture = textureManager.getRef("Charmander");
       return std::make_unique<Mob>(path, 100, 50, 10, texture);
-      break;
+    }
     default:
       throw std::invalid_argument("Invalid mob type");
-      break;
     }
   }
 };
