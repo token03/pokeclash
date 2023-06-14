@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../graphics/AnimatedSprite.h"
 #include "../graphics/TextureManager.h"
 #include "Mob.h"
 #include "Projectile.h"
@@ -7,7 +8,8 @@
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
-enum class TowerStage { FIRST, SECOND, THIRD };
+enum class TowerStage { First, Second, Third };
+enum class TowerState { Idle, Attacking };
 
 class Tower {
 public:
@@ -32,6 +34,9 @@ public:
 
 protected:
   TowerStage stage;
+  TowerState state;
+  Direction direction;
+  std::map<TowerState, AnimatedSprite> animations;
   std::string name;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;

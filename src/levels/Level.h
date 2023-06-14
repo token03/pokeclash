@@ -7,7 +7,6 @@
 #include "../graphics/TextureManager.h"
 #include "Path.h"
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <memory>
 #include <vector>
 

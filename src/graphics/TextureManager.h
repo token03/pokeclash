@@ -1,23 +1,30 @@
 #pragma once
+#include "pugixml.hpp"
 #include <SFML/Graphics.hpp>
+#include <filesystem>
 #include <map>
 #include <string>
+
+struct AnimationData {
+  std::string name;
+  int index;
+  int frameWidth;
+  int frameHeight;
+  std::vector<float> durations;
+};
 
 class TextureManager {
 public:
   static TextureManager &getInstance();
-
-  // Loads a texture from a file into the map if it hasn't already been loaded.
   void loadTexture(const std::string &name, const std::string &filename);
-
-  // Retrieves a texture from the map by its name.
+  void loadAnimations(const std::filesystem::path &directory);
+  void loadAnimationData(const std::string &key, const pugi::xml_node &node);
+  AnimationData &getAnimationData(const std::string &animation);
   sf::Texture &getRef(const std::string &texture);
 
 private:
-  // The map that links names to sf::Texture objects.
   std::map<std::string, sf::Texture> textures;
-
-  // Private constructor and copy constructor for singleton pattern.
+  std::map<std::string, AnimationData> animationData;
   TextureManager() {}
   TextureManager(TextureManager const &) = delete;
   void operator=(TextureManager const &) = delete;

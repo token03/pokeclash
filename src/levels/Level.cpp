@@ -1,4 +1,7 @@
 #include "Level.h"
+#include <iostream>
+
+using std::cout, std::endl;
 
 Level::Level(int width, int height) : width(width), height(height), path() {
   addTower(PokemonType::Charmander, 200, 200);
@@ -51,23 +54,23 @@ void Level::update(float dt) {
 
 void Level::addTower(const PokemonType type, int x, int y) {
   if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
-    std::cout << "Tower added" << std::endl;
+    cout << "Tower added" << endl;
     towers.push_back(TowerFactory::createTower(type, x, y));
   } else {
-    std::cout << "Invalid tower placement" << std::endl;
+    cout << "Invalid tower placement" << endl;
   }
 }
 
 void Level::addMob(const PokemonType type) {
   mobs.push_back(MobFactory::createMob(type, path));
-  std::cout << "Mob added" << std::endl;
+  cout << "Mob added" << endl;
 }
 
 bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   // Check if the position is within the bounds of the level.
   if (position.x - radius < 0 || position.x + radius >= width ||
       position.y - radius < 0 || position.y + radius >= height) {
-    std::cout << "Out of bounds" << std::endl;
+    cout << "Out of bounds" << endl;
     return false;
   }
   // Check if the position is on the path.

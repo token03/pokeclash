@@ -1,5 +1,6 @@
 #include "Game.h"
 #include <filesystem>
+using std::string;
 
 Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), isPaused(false) {
   std::cout << "Game constructor" << std::endl;
@@ -123,19 +124,21 @@ void Game::handleClick(int x, int y) {
 }
 
 void Game::loadTextures() {
-  std::string textureFolderPath = "../assets/textures/";
+  string textureFolderPath = "../assets/textures/";
 
   for (const auto &entry :
        std::filesystem::directory_iterator(textureFolderPath)) {
-    // Get the path to the file and convert it to a string
-    std::string filePath = entry.path().string();
+    if (entry.is_directory()) {
+      // Process each character's directory
+      TextureManager::getInstance().loadAnimations(entry.path());
 
-    // Get the filename (without the extension)
-    std::string filename = entry.path().stem().string();
-
-    // Load the texture
-    TextureManager::getInstance().loadTexture(filename, filePath);
+      // Rest of the code for creating animated sprite instances...
+    } else {
+      string filePath = entry.path().string();
+      string filename = entry.path().stem().string();
+      TextureManager::getInstance().loadTexture(filename, filePath);
+    }
   }
 
-  std::cout << "Textures Loaded!" << std::endl;
+  std::cout << "Textures and animations loaded!" << std::endl;
 }

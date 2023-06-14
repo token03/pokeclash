@@ -1,4 +1,5 @@
 #include "CharmanderLine.h"
+#include <iostream>
 
 CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
   // Here you can set attributes that are specific to a Charmander tower.
@@ -8,6 +9,8 @@ CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
   setSprite(name);
   range = 100;
   damage = 10;
+  animations[TowerState::Idle] = AnimatedSprite("KyogreIdle");
+  animations[TowerState::Attacking] = AnimatedSprite("KyogreAttack");
 }
 
 int CharmanderTower::upgrade(int money) {
@@ -17,14 +20,14 @@ int CharmanderTower::upgrade(int money) {
   level++;
   damage += 5;
 
-  if (stage == TowerStage::FIRST && level >= 15) {
-    stage = TowerStage::SECOND;
+  if (stage == TowerStage::First && level >= 15) {
+    stage = TowerStage::Second;
     name = "Charmeleon";
     setSprite("Bulbasaur");
     range = 200;
     damage = 20;
-  } else if (stage == TowerStage::SECOND && level >= 30) {
-    stage = TowerStage::THIRD;
+  } else if (stage == TowerStage::Second && level >= 30) {
+    stage = TowerStage::Third;
     name = "Charizard";
     range = 300;
     damage = 30;

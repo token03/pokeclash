@@ -3,13 +3,15 @@
 #include <iostream>
 
 Tower::Tower(int posX, int posY) {
+  state = TowerState::Idle;
+  direction = Direction::South;
   position = sf::Vector2f(posX, posY);
   radius = 10;
   range = 100;
   damage = 10;
   attackDelay = 0.25f;
   attackTimer = 0.0f;
-  stage = TowerStage::FIRST;
+  stage = TowerStage::First;
   maxTargets = 1;
   cost = 100;
   name = "Tower";
@@ -17,7 +19,8 @@ Tower::Tower(int posX, int posY) {
 
 void Tower::draw(sf::RenderWindow &window) {
   // Draw the tower itself.
-  window.draw(sprite);
+  animations[state].setPosition(position);
+  animations[state].draw(window, direction);
   windowHeight = window.getSize().y;
   windowWidth = window.getSize().x;
 
@@ -45,6 +48,7 @@ bool Tower::isInRange(const Mob &mob) const {
 
 void Tower::update(float dt) {
   // Update the attack timer.
+  animations[state].update(dt, direction);
   attackTimer += dt;
 
   // If the attack timer has reached the attack delay, attack and reset the
