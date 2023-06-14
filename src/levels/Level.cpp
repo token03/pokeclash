@@ -4,15 +4,14 @@
 using std::cout, std::endl;
 
 Level::Level(int width, int height) : width(width), height(height), path() {
-  addTower(PokemonType::Charmander, 200, 200);
-  addMob(PokemonType::Charmander);
-  std::cout << "Mob added" << std::endl;
   credits = 999;
   health = 100;
+
   if (!backgroundTexture.loadFromFile("../assets/bg/town.png")) {
     // Handle error...
     std::cerr << "Failed to load background image\n";
   }
+
   backgroundSprite.setTexture(backgroundTexture);
   sf::Vector2u textureSize = backgroundTexture.getSize();
 
@@ -43,18 +42,17 @@ void Level::update(float dt) {
     mobTimer = 0.0f;
   }
 
-  for (auto &mob : mobs) {
-    if (mob->isDead()) {
-      credits += 10;            // increase credits
-      mobs.erase(mobs.begin()); // remove dead mob
-      break;
+  for (auto mob = mobs.begin(); mob != mobs.end();) {
+    if ((*mob)->isDead()) {
+      credits += 10;         // increase credits
+      mob = mobs.erase(mob); // remove dead mob
+    } else if ((*mob)->hasReachedFinalPoint()) {
+      health--;              // decrease health
+      mob = mobs.erase(mob); // remove mob that reached the end
+    } else {
+      (*mob)->update(dt);
+      ++mob;
     }
-    if (mob->hasReachedFinalPoint()) {
-      health--;                 // decrease health
-      mobs.erase(mobs.begin()); // remove mob that reached the end
-      break;
-    }
-    mob->update(dt);
   }
 
   for (auto &tower : towers) {
@@ -68,10 +66,10 @@ void Level::update(float dt) {
   }
 }
 
-void Level::addTower(const PokemonType type, int x, int y) {
-  if (validTowerPlacement(sf::Vector2i(x, y), 10)) {
+void Level::addTower(const PokemonType type, sf::Vector2i position) {
+  if (validTowerPlacement(position, 20)) {
     cout << "Tower added" << endl;
-    towers.push_back(TowerFactory::createTower(type, x, y));
+    towers.push_back(TowerFactory::createTower(type, position));
   } else {
     cout << "Invalid tower placement" << endl;
   }
@@ -104,9 +102,9 @@ bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   return !path.overlap(position, radius);
 }
 
-Tower *Level::getTowerAtPosition(int x, int y) {
+Tower *Level::getTowerAtPosition(sf::Vector2i position) {
   for (const auto &tower : towers) {
-    if (tower->isClicked(x, y)) {
+    if (tower->isClicked(position)) {
       return tower.get();
     }
   }

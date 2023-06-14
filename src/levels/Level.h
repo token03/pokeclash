@@ -15,13 +15,14 @@ public:
   Level(int width, int height);
   void draw(sf::RenderWindow &window);
   void update(float dt);
-  void addTower(const PokemonType type, int x, int y);
+  void addTower(const PokemonType type, sf::Vector2i position);
   void sellTower(Tower *tower);
   void addMob(const PokemonType type);
   bool validTowerPlacement(sf::Vector2i position, int radius);
-  Tower *getTowerAtPosition(int x, int y);
+  Tower *getTowerAtPosition(sf::Vector2i position);
   int getCredits() const { return credits; }
   int getHealth() const { return health; }
+  void setBackground();
 
 private:
   int width;

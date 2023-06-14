@@ -13,15 +13,15 @@ enum class TowerState { Idle, Attacking };
 
 class Tower {
 public:
-  Tower(int posX, int posY);            // Constructor.
-  void draw(sf::RenderWindow &window);  // Draw the tower.
-  bool isInRange(const Mob &mob) const; // Check if the mob is in range.
-  bool isClicked(int x, int y) const;   // Check if the tower is clicked.
-  void clearTargets();                  // Clear the tower's targets.
-  void addTarget(Mob *mob);             // Add a mob to the tower's targets.
-  virtual int upgrade(int money) = 0;   // Upgrade the tower.
-  void sell();                          // Sell the tower.
-  virtual void update(float dt);        // Update the tower's state.
+  Tower(int posX, int posY);                   // Constructor.
+  void draw(sf::RenderWindow &window);         // Draw the tower.
+  bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
+  bool isClicked(sf::Vector2i clickPos) const; // Check if the tower is clicked.
+  void clearTargets();                         // Clear the tower's targets.
+  void addTarget(Mob *mob);           // Add a mob to the tower's targets.
+  virtual int upgrade(int money) = 0; // Upgrade the tower.
+  void sell();                        // Sell the tower.
+  virtual void update(float dt);      // Update the tower's state.
   sf::Vector2f getPosition() const { return position; } // Returns position.
   std::string getName() const { return name; }  // Returns the tower's name.
   float getDamage() const { return damage; }    // Returns the tower's damage.

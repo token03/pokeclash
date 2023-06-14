@@ -24,7 +24,7 @@ public:
 private:
   void processEvents();
   void update(float dt);
-  void handleClick(int x, int y);
+  void handleClick(sf::Vector2i position);
   void render();
   bool isValidPlacement(int x, int y);
   bool isPaused;

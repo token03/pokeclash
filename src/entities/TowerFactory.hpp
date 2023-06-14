@@ -18,10 +18,10 @@ public:
   TowerFactory(TowerFactory &&) = default;
   TowerFactory &operator=(const TowerFactory &) = default;
   TowerFactory &operator=(TowerFactory &&) = default;
-  static std::unique_ptr<Tower> createTower(const PokemonType type, int x,
-                                            int y) {
+  static std::unique_ptr<Tower> createTower(const PokemonType type,
+                                            sf::Vector2i position) {
     if (type == PokemonType::Charmander) {
-      return std::make_unique<CharmanderTower>(x, y);
+      return std::make_unique<CharmanderTower>(position.x, position.y);
     } else {
       throw std::invalid_argument("Invalid tower type");
     }

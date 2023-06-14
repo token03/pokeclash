@@ -88,10 +88,11 @@ void Tower::addTarget(Mob *target) {
 
 void Tower::clearTargets() { targets.clear(); }
 
-bool Tower::isClicked(int x, int y) const {
+bool Tower::isClicked(sf::Vector2i clickPos) const {
   // Check if the given coordinates are within the tower's bounds.
-  return x >= position.x - radius && x <= position.x + radius &&
-         y >= position.y - radius && y <= position.y + radius;
+  return clickPos.x >= position.x - radius &&
+         clickPos.x <= position.x + radius &&
+         clickPos.y >= position.y - radius && clickPos.y <= position.y + radius;
 }
 
 void Tower::setSprite(std::string key) {

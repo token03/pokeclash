@@ -44,7 +44,7 @@ void Game::processEvents() {
     case sf::Event::MouseButtonPressed:
       if (event.mouseButton.button == sf::Mouse::Left) {
         sf::Vector2i position = sf::Mouse::getPosition(window);
-        handleClick(position.x, position.y);
+        handleClick(position);
       }
       break;
     case sf::Event::KeyPressed:
@@ -108,13 +108,13 @@ void Game::render() {
   window.display();
 }
 
-void Game::handleClick(int x, int y) {
+void Game::handleClick(sf::Vector2i position) {
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
-    Tower *tower = level->getTowerAtPosition(x, y);
+    Tower *tower = level->getTowerAtPosition(position);
     if (tower) {
       towerMenu_ = TowerMenu(tower, level.get());
     } else {
-      level->addTower(PokemonType::Charmander, x, y);
+      level->addTower(PokemonType::Charmander, position);
     }
   }
   if (towerMenu_.has_value() && !towerMenu_->isVisible()) {
