@@ -53,10 +53,6 @@ void AnimatedSprite::draw(sf::RenderWindow &window, Direction direction) {
   sf::IntRect currentRect_(currentFrame_ * frameWidth_,
                            static_cast<int>(direction) * frameHeight_,
                            frameWidth_, frameHeight_);
-
-  std::cout << "Current Rect: " << currentRect_.left << " " << currentRect_.top
-            << " " << currentRect_.width << " " << currentRect_.height << "\n";
-
   sprite_.setTexture(spriteSheet_);
   sprite_.setTextureRect(currentRect_);
   sprite_.setScale(2, 2);

@@ -4,7 +4,6 @@ ResourceIndicator::ResourceIndicator(Level &level) : level(level) {
   if (!font.loadFromFile("../assets/fonts/pokemon.ttf")) {
     // handle error
   }
-
   healthText.setFont(font);
   healthText.setCharacterSize(24);
   healthText.setFillColor(sf::Color::Red);

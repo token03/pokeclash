@@ -31,6 +31,8 @@ public:
   int getLevel() const { return level; }        // Returns the tower's level.
   TowerStage getStage() const { return stage; } // Returns the tower's stage.
   void setSprite(std::string);                  // Sets the tower's sprite.
+  Direction getDirectionToTarget(const Mob *target) const;
+  bool hasBeenSold() const { return isSold; } // Returns if the tower is sold.
 
 protected:
   TowerStage stage;
@@ -53,4 +55,5 @@ protected:
   int cost;
   int upgradeCost;
   int maxTargets;
+  bool isSold;
 };

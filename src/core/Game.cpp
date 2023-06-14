@@ -109,17 +109,16 @@ void Game::render() {
 }
 
 void Game::handleClick(int x, int y) {
-  // Check if any ImGui window is being hovered over
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
-    // If not, handle the click in the game
     Tower *tower = level->getTowerAtPosition(x, y);
     if (tower) {
-      // If a tower was clicked, open the upgrade menu
-      towerMenu_ = TowerMenu(tower);
+      towerMenu_ = TowerMenu(tower, level.get());
     } else {
-      // If no tower was clicked, add a new tower
       level->addTower(PokemonType::Charmander, x, y);
     }
+  }
+  if (towerMenu_.has_value() && !towerMenu_->isVisible()) {
+    towerMenu_.reset();
   }
 }
 

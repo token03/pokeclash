@@ -9,9 +9,23 @@ Level::Level(int width, int height) : width(width), height(height), path() {
   std::cout << "Mob added" << std::endl;
   credits = 999;
   health = 100;
+  if (!backgroundTexture.loadFromFile("../assets/bg/town.png")) {
+    // Handle error...
+    std::cerr << "Failed to load background image\n";
+  }
+  backgroundSprite.setTexture(backgroundTexture);
+  sf::Vector2u textureSize = backgroundTexture.getSize();
+
+  // Calculate the scale factors
+  float scaleX = static_cast<float>((float)width / textureSize.x);
+  float scaleY = static_cast<float>((float)height / textureSize.y);
+
+  // Apply the scale to the sprite
+  backgroundSprite.setScale(scaleX, scaleY);
 }
 
 void Level::draw(sf::RenderWindow &window) {
+  window.draw(backgroundSprite);
   for (const auto &tower : towers) {
     tower->draw(window);
   }
@@ -23,6 +37,7 @@ void Level::draw(sf::RenderWindow &window) {
 
 void Level::update(float dt) {
   mobTimer += dt;
+
   if (mobTimer >= 1.0f) {
     addMob(PokemonType::Bulbasaur);
     mobTimer = 0.0f;
@@ -41,6 +56,7 @@ void Level::update(float dt) {
     }
     mob->update(dt);
   }
+
   for (auto &tower : towers) {
     tower->clearTargets();
     for (auto &mob : mobs) {
@@ -58,6 +74,17 @@ void Level::addTower(const PokemonType type, int x, int y) {
     towers.push_back(TowerFactory::createTower(type, x, y));
   } else {
     cout << "Invalid tower placement" << endl;
+  }
+}
+
+void Level::sellTower(Tower *tower) {
+  for (auto it = towers.begin(); it != towers.end(); ++it) {
+    if ((*it)->getPosition() == tower->getPosition()) {
+      std::cout << "Tower at " << (*it)->getPosition().x << ", "
+                << (*it)->getPosition().y << " sold\n";
+      towers.erase(it);
+      break;
+    }
   }
 }
 

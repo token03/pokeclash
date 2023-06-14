@@ -16,6 +16,7 @@ public:
   void draw(sf::RenderWindow &window);
   void update(float dt);
   void addTower(const PokemonType type, int x, int y);
+  void sellTower(Tower *tower);
   void addMob(const PokemonType type);
   bool validTowerPlacement(sf::Vector2i position, int radius);
   Tower *getTowerAtPosition(int x, int y);
@@ -32,4 +33,6 @@ private:
   int health;
   int wave;
   float mobTimer;
+  sf::Texture backgroundTexture;
+  sf::Sprite backgroundSprite;
 };
