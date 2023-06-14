@@ -1,10 +1,12 @@
 # pokeclash
 
-pokemon tower defense game using sfml
+fun little pokemon tower defense game written in c++
 
 ## Build Setup
 
-Before you start with the setup, make sure that you have a C++ compiler that supports C++20, OpenGL, and SFML installed on your machine.
+Before you start with the setup, make sure that you have a C++ compiler that supports C++20
+
+Make sure you also have OpenGL, and SFML installed on your machine.
 
 1. **Clone the repository**
 
@@ -52,7 +54,3 @@ This project uses the following projects:
 - [SFML](https://github.com/SFML/SFML) for rendering
 - [Dear Imgui](https://github.com/ocornut/imgui) for gui
 - [pugixml](https://github.com/zeux/pugixml) for xml parsing
-
-```
-
-```
