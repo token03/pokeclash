@@ -16,7 +16,7 @@ public:
     switch (type) {
     case PokemonType::Bulbasaur: {
       sf::Texture &texture = textureManager.getRef("Bulbasaur");
-      return std::make_unique<Mob>(path, 100, 100, 10, texture);
+      return std::make_unique<Mob>(path, 100, 40, 20, texture);
     }
     case PokemonType::Charmander: {
       sf::Texture &texture = textureManager.getRef("Charmander");

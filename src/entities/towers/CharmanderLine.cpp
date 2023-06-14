@@ -8,7 +8,7 @@ CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
   name = "Charmander";
   setSprite(name);
   range = 100;
-  radius = 30;
+  radius = 15;
   damage = 10;
   upgradeCost = 50;
   animations[TowerState::Idle] = AnimatedSprite("CharmanderIdle");

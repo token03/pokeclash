@@ -2,9 +2,9 @@
 #include <cmath>
 #include <iostream>
 
-Projectile::Projectile(sf::Vector2f position, Mob *target, float speed)
-    : target(target), speed(speed) {
-  damage = 10;
+Projectile::Projectile(sf::Vector2f position, Mob *target, int damage,
+                       float speed)
+    : target(target), speed(speed), damage(damage) {
   shape = sf::CircleShape(5); // Small circle shape for the projectile.
   shape.setPosition(position);
   shape.setFillColor(sf::Color::Yellow);

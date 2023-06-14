@@ -62,8 +62,6 @@ Game::~Game() {
 }
 
 void Game::update(float dt) {
-  // Here you'd update the game objects, for example move the mobs, make the
-  // towers attack, etc.
   if (!isPaused) {
     level->update(dt);
   }
@@ -72,9 +70,7 @@ void Game::update(float dt) {
 void Game::render() {
   window.clear(sf::Color::White);
 
-  // Render the pause menu when paused
   if (isPaused) {
-
     sf::Vector2u windowSize = window.getSize();
     ImDrawList *drawList = ImGui::GetForegroundDrawList();
 
@@ -83,7 +79,6 @@ void Game::render() {
     ImGui::SetNextWindowPos(ImVec2(windowSize.x / 2, windowSize.y / 2),
                             ImGuiCond_Once, ImVec2(0.5f, 0.5f));
 
-    // Use ImGuiWindowFlags_NoTitleBar to disable the title bar
     ImGui::Begin("Pause Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
     if (ImGui::Button("Resume")) {
       isPaused = false;
@@ -94,7 +89,6 @@ void Game::render() {
     ImGui::End();
   }
 
-  // Render the tower menu if it exists
   if (towerMenu_.has_value()) {
     towerMenu_->render();
   }

@@ -1,7 +1,7 @@
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.1.2)
 project(pokeclash)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(SRC_DIR src)
@@ -25,6 +25,8 @@ target_link_libraries(imgui-sfml PUBLIC imgui sfml-graphics sfml-audio sfml-wind
 # Add pugixml
 add_subdirectory(${PROJECT_SOURCE_DIR}/external/pugixml)
 
+set(OpenGL_GL_PREFERENCE "GLVND")
 find_package(OpenGL REQUIRED)
+
 target_link_libraries(${PROJECT_NAME} PUBLIC sfml-graphics sfml-audio sfml-window sfml-system imgui imgui-sfml OpenGL::GL pugixml)
 

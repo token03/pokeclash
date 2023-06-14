@@ -4,9 +4,9 @@
 #include <iostream>
 
 Path::Path() {
-  points.push_back(sf::Vector2f(50.0f, 50.0f));
-  points.push_back(sf::Vector2f(50.0f, 250.0f));
-  points.push_back(sf::Vector2f(250.0f, 250.0f));
+  points.push_back(sf::Vector2f(100.0f, 100.0f));
+  points.push_back(sf::Vector2f(100.0f, 500.0f));
+  points.push_back(sf::Vector2f(300.0f, 500.0f));
   radius = 30;
 }
 

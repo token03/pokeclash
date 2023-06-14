@@ -31,10 +31,19 @@ void Tower::draw(sf::RenderWindow &window) {
   rangeCircle.setOutlineColor(sf::Color::Green);
   rangeCircle.setOutlineThickness(1.0f);
 
+  // Draw a circle representing the tower's radius.
+  sf::CircleShape radiusCircle(radius);
+  radiusCircle.setFillColor(sf::Color::Transparent);
+  radiusCircle.setOutlineColor(sf::Color::Red);
+  radiusCircle.setOutlineThickness(1.0f);
+
   // Position the range circle so its center is at the tower's position.
   rangeCircle.setPosition(position.x - range, position.y - range);
+  radiusCircle.setPosition(position.x - radius, position.y - radius);
 
   window.draw(rangeCircle);
+  window.draw(radiusCircle);
+
   for (Projectile &projectile : projectiles) {
     projectile.draw(window);
   }
@@ -62,7 +71,7 @@ void Tower::update(float dt) {
   // timer.
   if (attackTimer >= attackDelay) {
     for (Mob *target : targets) {
-      projectiles.emplace_back(position, target, 5.0f);
+      projectiles.emplace_back(position, target, damage, 10.0f);
     }
     attackTimer = 0.0f; // Reset the attack timer.
   }

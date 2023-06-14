@@ -2,8 +2,8 @@
 #include "../../graphics/TextureManager.h"
 
 BulletProjectile::BulletProjectile(sf::Vector2f position, Mob *target,
-                                   float speed)
-    : Projectile(position, target, speed) {
+                                   int damage, float speed)
+    : Projectile(position, target, damage, speed) {
   // Change the shape and color of the projectile to be bullet-like.
   shape.setRadius(2);
   shape.setFillColor(sf::Color::Black);

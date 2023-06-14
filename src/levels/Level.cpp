@@ -31,6 +31,9 @@ void Level::draw(sf::RenderWindow &window) {
   for (const auto &mob : mobs) {
     mob->draw(window);
   }
+  for (const auto &mob : mobs) {
+    mob->drawHpBar(window);
+  }
   path.draw(window);
 }
 

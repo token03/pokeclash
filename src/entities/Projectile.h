@@ -5,7 +5,7 @@
 
 class Projectile {
 public:
-  Projectile(sf::Vector2f position, Mob *target, float speed);
+  Projectile(sf::Vector2f position, Mob *target, int damage, float speed);
   virtual void update(float dt); // Move the projectile towards the target.
   virtual void draw(sf::RenderWindow &window);
   virtual void onHit(); // Called when the projectile hits the target.
