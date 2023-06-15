@@ -3,7 +3,7 @@
 #include "Mob.h"
 #include "Projectile.h"
 #include "Tower.h"
-#include "projectiles/BulletProjectile.h"
+#include "projectiles/BulletProjectile.hpp"
 #include <memory>
 #include <vector>
 

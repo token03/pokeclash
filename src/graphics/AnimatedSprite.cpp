@@ -59,9 +59,13 @@ void AnimatedSprite::draw(sf::RenderWindow &window, Direction direction) {
 
   // The origin determines the "center" of the sprite for transformations (like
   // position)
-  sprite_.setOrigin(frameWidth_ / 2, frameHeight_ / 2);
+  sprite_.setOrigin((float)frameWidth_ / 2, (float)frameHeight_ / 2);
   sprite_.setPosition(position_);
 
   window.draw(sprite_);
 }
 void AnimatedSprite::setPosition(const sf::Vector2f &pos) { position_ = pos; }
+
+sf::IntRect AnimatedSprite::getRect() const {
+  return sf::IntRect(currentFrame_ * frameWidth_, 0, frameWidth_, frameHeight_);
+}

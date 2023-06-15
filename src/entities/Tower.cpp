@@ -63,6 +63,10 @@ void Tower::update(float dt) {
   // If there are targets, set the direction to face the first target.
   if (!targets.empty()) {
     direction = getDirectionToTarget(targets[0]);
+    state = TowerState::Attacking;
+  } else {
+    state = TowerState::Idle;
+    direction = Direction::South;
   }
 
   animations[state].update(dt, direction);

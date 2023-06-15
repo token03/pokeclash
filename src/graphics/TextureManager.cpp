@@ -93,7 +93,6 @@ void TextureManager::loadAnimationData(const string &key,
   std::cout << "Loaded animation data: " << key << std::endl;
   std::cout << "Frame width: " << animData.frameWidth << std::endl;
   std::cout << "Frame height: " << animData.frameHeight << std::endl;
-  std::cout << "Name: " << animData.name << std::endl;
 }
 
 AnimationData &TextureManager::getAnimationData(const string &animation) {

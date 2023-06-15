@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Moves>
+    <Move>
+        <Name>Flamethrower</Name>
+        <Type>Fire</Type>
+        <Damage>90</Damage>
+        <Speed>60</Speed>
+        <BoundingBox>
+            <Width>50</Width>
+            <Height>10</Height>
+        </BoundingBox>
+        <SpriteName>flamethrower.png</SpriteName>
+        <ProjectileType>BeamProjectile</ProjectileType>
+        <Category>Special</Category>
+    </Move>
+    <Move>
+        <Name>Water Gun</Name>
+        <Type>Water</Type>
+        <Damage>40</Damage>
+        <Speed>60</Speed>
+        <BoundingBox>
+            <Width>10</Width>
+            <Height>10</Height>
+        </BoundingBox>
+        <SpriteName>water_gun.png</SpriteName>
+        <ProjectileType>BulletProjectile</ProjectileType>
+        <Category>Special</Category>
+    </Move>
+    <Move>
+        <Name>Tackle</Name>
+        <Type>Normal</Type>
+        <Damage>40</Damage>
+        <Speed>50</Speed>
+        <BoundingBox>
+            <Width>20</Width>
+            <Height>20</Height>
+        </BoundingBox>
+        <SpriteName>tackle.png</SpriteName>
+        <ProjectileType>BulletProjectile</ProjectileType>
+        <Category>Physical</Category>
+    </Move>
+    <!-- More moves... -->
+</Moves>

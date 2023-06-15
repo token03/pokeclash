@@ -28,6 +28,7 @@ public:
   void draw(sf::RenderWindow &window, Direction dir);
   void setPosition(const sf::Vector2f &pos);
   sf::Vector2f getPosition() const { return position_; }
+  sf::IntRect getRect() const;
   std::string getName() const { return name; }
 
 private:

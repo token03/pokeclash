@@ -11,8 +11,8 @@ CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
   radius = 15;
   damage = 10;
   upgradeCost = 50;
-  animations[TowerState::Idle] = AnimatedSprite("CharmanderIdle");
-  animations[TowerState::Attacking] = AnimatedSprite("CharmanderAttack");
+  animations[TowerState::Idle] = AnimatedSprite("CharmanderSleep");
+  animations[TowerState::Attacking] = AnimatedSprite("CharmanderStrike");
 }
 
 int CharmanderTower::upgrade(int money) {
@@ -25,15 +25,15 @@ int CharmanderTower::upgrade(int money) {
   if (stage == TowerStage::First && level >= 2) {
     stage = TowerStage::Second;
     name = "Charmeleon";
-    animations[TowerState::Idle] = AnimatedSprite("CharmeleonIdle");
-    animations[TowerState::Attacking] = AnimatedSprite("CharmeleonAttack");
+    animations[TowerState::Idle] = AnimatedSprite("CharmeleonSleep");
+    animations[TowerState::Attacking] = AnimatedSprite("CharmeleonShoot");
     range = 200;
     damage = 20;
   } else if (stage == TowerStage::Second && level >= 3) {
     stage = TowerStage::Third;
     name = "Charizard";
-    animations[TowerState::Idle] = AnimatedSprite("CharizardIdle");
-    animations[TowerState::Attacking] = AnimatedSprite("CharizardAttack");
+    animations[TowerState::Idle] = AnimatedSprite("CharizardSleep");
+    animations[TowerState::Attacking] = AnimatedSprite("CharizardShoot");
     range = 300;
     damage = 30;
   }

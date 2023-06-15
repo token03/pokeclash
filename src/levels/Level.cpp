@@ -6,45 +6,33 @@ using std::cout, std::endl;
 Level::Level(int width, int height) : width(width), height(height), path() {
   credits = 999;
   health = 100;
-
-  if (!backgroundTexture.loadFromFile("../assets/bg/town.png")) {
-    // Handle error...
-    std::cerr << "Failed to load background image\n";
-  }
-
-  backgroundSprite.setTexture(backgroundTexture);
-  sf::Vector2u textureSize = backgroundTexture.getSize();
-
-  // Calculate the scale factors
-  float scaleX = static_cast<float>((float)width / textureSize.x);
-  float scaleY = static_cast<float>((float)height / textureSize.y);
-
-  // Apply the scale to the sprite
-  backgroundSprite.setScale(scaleX, scaleY);
+  setBackground();
+  Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 1.0f),
+                 MobBatch(PokemonType::Charmander, 3, 1.0f)});
+  waves.push_back(std::move(testWave));
 }
 
 void Level::draw(sf::RenderWindow &window) {
   window.draw(backgroundSprite);
-  for (const auto &tower : towers) {
-    tower->draw(window);
-  }
+  path.draw(window);
   for (const auto &mob : mobs) {
     mob->draw(window);
   }
   for (const auto &mob : mobs) {
     mob->drawHpBar(window);
   }
-  path.draw(window);
+  for (const auto &tower : towers) {
+    tower->draw(window);
+  }
 }
 
 void Level::update(float dt) {
-  mobTimer += dt;
+  updateWave(dt);
+  updateMobs(dt);
+  updateTowers(dt);
+}
 
-  if (mobTimer >= 1.0f) {
-    addMob(PokemonType::Bulbasaur);
-    mobTimer = 0.0f;
-  }
-
+void Level::updateMobs(float dt) {
   for (auto mob = mobs.begin(); mob != mobs.end();) {
     if ((*mob)->isDead()) {
       credits += 10;         // increase credits
@@ -57,7 +45,9 @@ void Level::update(float dt) {
       ++mob;
     }
   }
+}
 
+void Level::updateTowers(float dt) {
   for (auto &tower : towers) {
     tower->clearTargets();
     for (auto &mob : mobs) {
@@ -66,6 +56,26 @@ void Level::update(float dt) {
       }
     }
     tower->update(dt);
+  }
+}
+
+void Level::updateWave(float dt) {
+  if (!waves.empty()) {
+    Wave &currentWave = waves.front();
+    currentWave.update(dt);
+
+    if (currentWave.isFinished()) {
+      waves.erase(waves.begin());
+    } else {
+      if (currentWave.shouldSpawnMob()) {
+        addMob(currentWave.getCurrentType());
+        currentWave.mobSpawned();
+      }
+    }
+  } else {
+    Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 1.0f),
+                   MobBatch(PokemonType::Charmander, 3, 1.0f)});
+    waves.push_back(std::move(testWave));
   }
 }
 
@@ -112,4 +122,15 @@ Tower *Level::getTowerAtPosition(sf::Vector2i position) {
     }
   }
   return nullptr;
+}
+
+void Level::setBackground() {
+  if (!backgroundTexture.loadFromFile("../assets/bg/town.png")) {
+    std::cerr << "Failed to load background image\n";
+  }
+  backgroundSprite.setTexture(backgroundTexture);
+  sf::Vector2u textureSize = backgroundTexture.getSize();
+  float scaleX = static_cast<float>((float)width / textureSize.x);
+  float scaleY = static_cast<float>((float)height / textureSize.y);
+  backgroundSprite.setScale(scaleX, scaleY);
 }

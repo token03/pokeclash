@@ -48,6 +48,6 @@ void Projectile::onHit() {
 
 void Projectile::setSprite(std::string key) {
   sprite.setTexture(TextureManager::getInstance().getRef(key));
-  sprite.setPosition(position.x - sprite.getTextureRect().width / 2,
-                     position.y - sprite.getTextureRect().height / 2);
+  sprite.setPosition(position.x - (float)sprite.getTextureRect().width / 2,
+                     position.y - (float)sprite.getTextureRect().height / 2);
 }
