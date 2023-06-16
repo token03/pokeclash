@@ -2,8 +2,7 @@
 #include <filesystem>
 using std::string;
 
-Game::Game() : window(sf::VideoMode(800, 600), "Pokeclash"), isPaused(false) {
-  std::cout << "Game constructor" << std::endl;
+Game::Game() : window(sf::VideoMode(1000, 700), "Pokeclash"), isPaused(false) {
   window.setFramerateLimit(60);
 
   loadTextures();
@@ -51,6 +50,28 @@ void Game::processEvents() {
       if (event.key.code == sf::Keyboard::P) {
         isPaused = !isPaused;
       }
+      break;
+    case sf::Event::Resized:
+    case sf::Event::LostFocus:
+    case sf::Event::GainedFocus:
+    case sf::Event::TextEntered:
+    case sf::Event::KeyReleased:
+    case sf::Event::MouseWheelMoved:
+    case sf::Event::MouseWheelScrolled:
+    case sf::Event::MouseButtonReleased:
+    case sf::Event::MouseMoved:
+    case sf::Event::MouseEntered:
+    case sf::Event::MouseLeft:
+    case sf::Event::JoystickButtonPressed:
+    case sf::Event::JoystickButtonReleased:
+    case sf::Event::JoystickMoved:
+    case sf::Event::JoystickConnected:
+    case sf::Event::JoystickDisconnected:
+    case sf::Event::TouchBegan:
+    case sf::Event::TouchMoved:
+    case sf::Event::TouchEnded:
+    case sf::Event::SensorChanged:
+    case sf::Event::Count:
       break;
     }
   }
@@ -119,17 +140,28 @@ void Game::handleClick(sf::Vector2i position) {
 void Game::loadTextures() {
   string textureFolderPath = "../assets/textures/";
 
-  for (const auto &entry :
+  for (const auto &subDirectory :
        std::filesystem::directory_iterator(textureFolderPath)) {
-    if (entry.is_directory()) {
-      // Process each character's directory
-      TextureManager::getInstance().loadAnimations(entry.path());
+    if (subDirectory.is_directory()) {
+      string subDirName = subDirectory.path().filename().string();
+      string subFolderPath = subDirectory.path().string();
 
-      // Rest of the code for creating animated sprite instances...
-    } else {
-      string filePath = entry.path().string();
-      string filename = entry.path().stem().string();
-      TextureManager::getInstance().loadTexture(filename, filePath);
+      if (subDirName == "pokemon") {
+        for (const auto &entry :
+             std::filesystem::directory_iterator(subFolderPath)) {
+          if (entry.is_directory()) {
+            TextureManager::getInstance().loadAnimations(entry.path());
+          } else {
+            string filePath = entry.path().string();
+            string filename = entry.path().stem().string();
+            TextureManager::getInstance().loadTexture(filename, filePath);
+          }
+        }
+      } else if (subDirName == "projectiles") {
+        for (const auto &entry :
+             std::filesystem::directory_iterator(subFolderPath)) {
+        }
+      }
     }
   }
 
