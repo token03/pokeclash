@@ -19,7 +19,7 @@ public:
     switch (type) {
     case PokemonType::Bulbasaur: {
       maxHp = 100;
-      speed = 30;
+      speed = 40;
       size = 20;
       aniKey = "BulbasaurWalk";
       break;

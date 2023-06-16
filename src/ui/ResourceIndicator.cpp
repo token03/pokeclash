@@ -8,11 +8,15 @@ ResourceIndicator::ResourceIndicator(Level &level) : level(level) {
   healthText.setCharacterSize(24);
   healthText.setFillColor(sf::Color::Red);
   healthText.setPosition(600, 30);
+  healthText.setOutlineColor(sf::Color::White);
+  healthText.setOutlineThickness(1);
 
   creditsText.setFont(font);
   creditsText.setCharacterSize(24);
   creditsText.setFillColor(sf::Color::Blue);
   creditsText.setPosition(600, 54);
+  creditsText.setOutlineColor(sf::Color::White);
+  creditsText.setOutlineThickness(1);
 }
 
 void ResourceIndicator::draw(sf::RenderWindow &window) {

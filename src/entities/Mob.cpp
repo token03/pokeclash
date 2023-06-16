@@ -2,17 +2,30 @@
 #include <cmath>
 #include <iostream>
 
-Mob::Mob(Path &path, int maxHp, float speed, int size, std::string &key)
+Mob::Mob(Path &path, int maxHp, float speed, float size, std::string &key)
     : path(path), speed(speed), maxHp(maxHp), hp(maxHp), size(size),
       sprite(key), currentPathPoint(0), shape(size),
-      position(
-          sf::Vector2f(path.getPoint(0).x - size, path.getPoint(0).y - size)) {
+      position(path.getPoint(0).x, path.getPoint(0).y) {
   direction = Direction::South;
+  sprite.setPosition(position);
   shape.setPosition(position);
   shape.setFillColor(sf::Color::Red);
 }
 
-void Mob::draw(sf::RenderWindow &window) { sprite.draw(window, direction); }
+void Mob::draw(sf::RenderWindow &window) {
+  sprite.draw(window, direction);
+
+  // Draw a circle representing the tower's radius.
+  sf::CircleShape radiusCircle(size);
+  radiusCircle.setFillColor(sf::Color::Transparent);
+  radiusCircle.setOutlineColor(sf::Color::Red);
+  radiusCircle.setOutlineThickness(1.0f);
+
+  // Position the range circle so its center is at the tower's position.
+  radiusCircle.setPosition(position.x - size, position.y - size);
+
+  window.draw(radiusCircle);
+}
 
 void Mob::drawHpBar(sf::RenderWindow &window) {
   // Draw the HP bar background
@@ -52,11 +65,12 @@ void Mob::drawHpBar(sf::RenderWindow &window) {
 void Mob::update(float dt) {
   if (currentPathPoint < path.getNumPoints()) {
     sf::Vector2f targetPoint = path.getPoint(currentPathPoint);
-    sf::Vector2f dir = targetPoint - position;
+    sf::Vector2f dir = targetPoint - sf::Vector2f(position.x + size / 2,
+                                                  position.y + size / 2);
     float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
     // Check if the mob has reached the current point
-    if (distance < size) {
+    if (distance < 1) {
       currentPathPoint++;
     } else {
       // Normalize direction vector

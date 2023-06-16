@@ -1,9 +1,12 @@
 #include "Wave.h"
 
-Wave::Wave(std::initializer_list<MobBatch> batches)
-    : batches(batches), currentBatch(this->batches.begin()), timer(0.0f),
-      spawnMob(false) {}
-
+Wave::Wave(std::initializer_list<MobBatch> batchesInit)
+    : batches(batchesInit.begin(), batchesInit.end()),
+      currentBatch(batches.begin()) {
+  if (!batches.empty()) {
+    timer = batches.front().spawnInterval;
+  }
+}
 bool Wave::isFinished() const { return currentBatch == batches.end(); }
 
 void Wave::update(float dt) {

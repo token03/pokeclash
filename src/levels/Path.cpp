@@ -1,4 +1,5 @@
 #include "Path.h"
+#include <SFML/Graphics/CircleShape.hpp>
 #include <SFML/System/Vector2.hpp>
 #include <cmath>
 #include <iostream>
@@ -15,6 +16,12 @@ void Path::draw(sf::RenderWindow &window) {
     return; // We need at least two points to draw a line
 
   for (size_t i = 0; i < points.size() - 1; ++i) {
+    sf::CircleShape circle(5);
+    circle.setFillColor(sf::Color::Red);
+    circle.setOrigin(5, 5);
+    circle.setPosition(points[i]);
+    window.draw(circle);
+
     sf::Vertex line[] = {sf::Vertex(points[i], sf::Color::Red),
                          sf::Vertex(points[i + 1], sf::Color::Red)};
     window.draw(line, 2, sf::Lines);
@@ -29,16 +36,17 @@ void Path::draw(sf::RenderWindow &window) {
     float angle = std::atan2(dy, dx) * 180.f / M_PI; // Convert to degrees
     float length = std::sqrt(dx * dx + dy * dy);
 
-    sf::RectangleShape rectangle;
-    rectangle.setSize(sf::Vector2f(length, 2.f * radius));
-    rectangle.setFillColor(
-        sf::Color(255, 165, 0, 64)); // Orange color with transparency
-    rectangle.setOrigin(0.f,
-                        radius); // Center the rectangle on the line segment
-    rectangle.setPosition(point1);
-    rectangle.setRotation(angle);
-
-    window.draw(rectangle);
+    /* sf::RectangleShape rectangle; */
+    /* rectangle.setSize(sf::Vector2f(length, 2.f * radius)); */
+    /* rectangle.setFillColor( */
+    /*     sf::Color(255, 165, 0, 64)); // Orange color with transparency */
+    /* rectangle.setOrigin(0.f, */
+    /*                     radius); // Center the rectangle on the line segment
+     */
+    /* rectangle.setPosition(point1); */
+    /* rectangle.setRotation(angle); */
+    /**/
+    /* window.draw(rectangle); */
   }
 }
 

@@ -7,8 +7,8 @@ Level::Level(int width, int height) : width(width), height(height), path() {
   credits = 999;
   health = 100;
   setBackground();
-  Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 1.0f),
-                 MobBatch(PokemonType::Charmander, 3, 1.0f)});
+  Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 2.0f),
+                 MobBatch(PokemonType::Charmander, 3, 2.0f)});
   waves.push_back(std::move(testWave));
 }
 

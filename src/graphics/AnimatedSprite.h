@@ -27,6 +27,7 @@ public:
   void update(float dt, Direction dir);
   void draw(sf::RenderWindow &window, Direction dir);
   void setPosition(const sf::Vector2f &pos);
+  void setOrigin(int radius);
   sf::Vector2f getPosition() const { return position_; }
   sf::IntRect getRect() const;
   std::string getName() const { return name; }

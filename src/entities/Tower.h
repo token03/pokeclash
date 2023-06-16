@@ -38,12 +38,11 @@ protected:
   TowerStage stage;
   TowerState state;
   Direction direction;
-  std::map<TowerState, AnimatedSprite> animations;
+  std::map<TowerState, std::unique_ptr<AnimatedSprite>> animations;
   std::string name;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
   sf::Vector2f position;
-  sf::Sprite sprite;
   float attackTimer;
   float attackDelay;
   float range;

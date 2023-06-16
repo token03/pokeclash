@@ -9,7 +9,8 @@
 
 class Mob {
 public:
-  Mob(Path &path, int maxHp, float speed, int size, std::string &animationKey);
+  Mob(Path &path, int maxHp, float speed, float size,
+      std::string &animationKey);
   void draw(sf::RenderWindow &window);      // Draw the mob.
   void drawHpBar(sf::RenderWindow &window); // Draw the mob's HP bar.
   sf::Vector2f getPosition() const { return position; } // Get position.
@@ -30,5 +31,5 @@ private:
   float speed;
   int maxHp;
   int hp;
-  int size;
+  float size;
 };

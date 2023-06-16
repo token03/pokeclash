@@ -20,8 +20,8 @@ Tower::Tower(int posX, int posY) {
 
 void Tower::draw(sf::RenderWindow &window) {
   // Draw the tower itself.
-  animations[state].setPosition(position);
-  animations[state].draw(window, direction);
+  animations[state]->setPosition(position);
+  animations[state]->draw(window, direction);
   windowHeight = window.getSize().y;
   windowWidth = window.getSize().x;
 
@@ -69,10 +69,8 @@ void Tower::update(float dt) {
     direction = Direction::South;
   }
 
-  animations[state].update(dt, direction);
+  animations[state]->update(dt, direction);
 
-  // If the attack timer has reached the attack delay, attack and reset the
-  // timer.
   if (attackTimer >= attackDelay) {
     for (Mob *target : targets) {
       projectiles.emplace_back(position, target, damage, 10.0f);
@@ -80,7 +78,6 @@ void Tower::update(float dt) {
     attackTimer = 0.0f; // Reset the attack timer.
   }
 
-  // Update each projectile.
   for (Projectile &projectile : projectiles) {
     if (projectile.isCollidingWithTarget()) {
       projectile.onHit();
@@ -106,12 +103,6 @@ bool Tower::isClicked(sf::Vector2i clickPos) const {
   return clickPos.x >= position.x - radius &&
          clickPos.x <= position.x + radius &&
          clickPos.y >= position.y - radius && clickPos.y <= position.y + radius;
-}
-
-void Tower::setSprite(std::string key) {
-  sprite.setTexture(TextureManager::getInstance().getRef(key));
-  sprite.setPosition(position.x - sprite.getTextureRect().width / 2,
-                     position.y - sprite.getTextureRect().height / 2);
 }
 
 Direction Tower::getDirectionToTarget(const Mob *target) const {

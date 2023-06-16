@@ -11,7 +11,11 @@ AnimatedSprite::AnimatedSprite(const std::string &name)
   if (frameWidth_ == 0 || frameHeight_ == 0) {
     std::cerr << "Error: No frames were loaded for animation " << name << "\n";
   }
+  // Set scale and origin only once here
+  sprite_.setScale(2, 2);
+  sprite_.setOrigin(frameWidth_, frameHeight_);
 }
+
 void AnimatedSprite::setSpriteSheet(const std::string &key) {
   spriteSheet_ = TextureManager::getInstance().getRef(key);
 
@@ -19,8 +23,7 @@ void AnimatedSprite::setSpriteSheet(const std::string &key) {
   if (spriteSheet_.getSize().x == 0 || spriteSheet_.getSize().y == 0) {
     std::cerr << "Error: Failed to load sprite sheet for key " << key << "\n";
   }
-  std::cout << "Sprite Size: " << spriteSheet_.getSize().x << " "
-            << spriteSheet_.getSize().y << "\n";
+  sprite_.setTexture(spriteSheet_); // Set texture only once here
 }
 
 void AnimatedSprite::loadAnimationData(const std::string &key) {
@@ -53,17 +56,14 @@ void AnimatedSprite::draw(sf::RenderWindow &window, Direction direction) {
   sf::IntRect currentRect_(currentFrame_ * frameWidth_,
                            static_cast<int>(direction) * frameHeight_,
                            frameWidth_, frameHeight_);
-  sprite_.setTexture(spriteSheet_);
-  sprite_.setTextureRect(currentRect_);
-  sprite_.setScale(2, 2);
+  sprite_.setTextureRect(currentRect_); // Only set texture rect here
 
-  // The origin determines the "center" of the sprite for transformations (like
-  // position)
-  sprite_.setOrigin((float)frameWidth_ / 2, (float)frameHeight_ / 2);
-  sprite_.setPosition(position_);
+  // Set position considering scale
+  sprite_.setPosition(position_.x + frameWidth_, position_.y + frameHeight_);
 
   window.draw(sprite_);
 }
+
 void AnimatedSprite::setPosition(const sf::Vector2f &pos) { position_ = pos; }
 
 sf::IntRect AnimatedSprite::getRect() const {

@@ -2,17 +2,15 @@
 #include <iostream>
 
 CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
-  // Here you can set attributes that are specific to a Charmander tower.
-  // For example, you might set the tower's range and damage based on what you
-  // want for a Charmander tower.
   name = "Charmander";
-  setSprite(name);
   range = 100;
   radius = 15;
   damage = 10;
   upgradeCost = 50;
-  animations[TowerState::Idle] = AnimatedSprite("CharmanderSleep");
-  animations[TowerState::Attacking] = AnimatedSprite("CharmanderStrike");
+  animations[TowerState::Idle] =
+      std::make_unique<AnimatedSprite>("CharmanderSleep");
+  animations[TowerState::Attacking] =
+      std::make_unique<AnimatedSprite>("CharmanderStrike");
 }
 
 int CharmanderTower::upgrade(int money) {
@@ -25,15 +23,19 @@ int CharmanderTower::upgrade(int money) {
   if (stage == TowerStage::First && level >= 2) {
     stage = TowerStage::Second;
     name = "Charmeleon";
-    animations[TowerState::Idle] = AnimatedSprite("CharmeleonSleep");
-    animations[TowerState::Attacking] = AnimatedSprite("CharmeleonShoot");
+    animations[TowerState::Idle] =
+        std::make_unique<AnimatedSprite>("CharmeleonSleep");
+    animations[TowerState::Attacking] =
+        std::make_unique<AnimatedSprite>("CharmeleonShoot");
     range = 200;
     damage = 20;
   } else if (stage == TowerStage::Second && level >= 3) {
     stage = TowerStage::Third;
     name = "Charizard";
-    animations[TowerState::Idle] = AnimatedSprite("CharizardSleep");
-    animations[TowerState::Attacking] = AnimatedSprite("CharizardShoot");
+    animations[TowerState::Idle] =
+        std::make_unique<AnimatedSprite>("ChariardSleep");
+    animations[TowerState::Attacking] =
+        std::make_unique<AnimatedSprite>("ChariardShoot");
     range = 300;
     damage = 30;
   }
