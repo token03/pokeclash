@@ -2,10 +2,9 @@
 #include <cmath>
 #include <iostream>
 
-Tower::Tower(int posX, int posY) {
+Tower::Tower(sf::Vector2f position) : Pokemon(position) {
   state = TowerState::Idle;
   direction = Direction::South;
-  position = sf::Vector2f(posX, posY);
   radius = 20;
   range = 100;
   damage = 10;

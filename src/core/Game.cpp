@@ -15,6 +15,12 @@ Game::Game() : window(sf::VideoMode(1000, 700), "Pokeclash"), isPaused(false) {
   if (!initialized) {
     // Handle the initialization failure
   }
+  ImGuiStyle &style = ImGui::GetStyle();
+  style.FramePadding = ImVec2(8, 4); // Adjust the padding around the button
+  style.FrameRounding = 4.0f; // Adjust the rounding of the button corners
+  style.ButtonTextAlign =
+      ImVec2(0.5f, 0.5f); // Adjust the alignment of the button text
+  style.ScaleAllSizes(1.3f);
 }
 
 void Game::run() {

@@ -1,7 +1,7 @@
 #include "CharmanderLine.h"
 #include <iostream>
 
-CharmanderTower::CharmanderTower(int posX, int posY) : Tower(posX, posY) {
+CharmanderTower::CharmanderTower(sf::Vector2f position) : Tower(position) {
   name = "Charmander";
   range = 100;
   radius = 15;
@@ -33,9 +33,9 @@ int CharmanderTower::upgrade(int money) {
     stage = TowerStage::Third;
     name = "Charizard";
     animations[TowerState::Idle] =
-        std::make_unique<AnimatedSprite>("ChariardSleep");
+        std::make_unique<AnimatedSprite>("CharizardSleep");
     animations[TowerState::Attacking] =
-        std::make_unique<AnimatedSprite>("ChariardShoot");
+        std::make_unique<AnimatedSprite>("CharizardShoot");
     range = 300;
     damage = 30;
   }

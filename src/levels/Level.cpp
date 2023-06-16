@@ -81,8 +81,9 @@ void Level::updateWave(float dt) {
 
 void Level::addTower(const PokemonType type, sf::Vector2i position) {
   if (validTowerPlacement(position, 20)) {
-    cout << "Tower added" << endl;
-    towers.push_back(TowerFactory::createTower(type, position));
+    cout << "Tower added at " << position.x << ", " << position.y << endl;
+    towers.push_back(TowerFactory::createTower(
+        type, sf::Vector2f((float)position.x, (float)position.y)));
   } else {
     cout << "Invalid tower placement" << endl;
   }

@@ -4,6 +4,6 @@
 
 class CharmanderTower : public Tower {
 public:
-  CharmanderTower(int posX, int posY);
+  CharmanderTower(sf::Vector2f position);
   int upgrade(int money) override;
 };

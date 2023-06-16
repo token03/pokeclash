@@ -5,7 +5,7 @@
 Mob::Mob(Path &path, int maxHp, float speed, float size, std::string &key)
     : path(path), speed(speed), maxHp(maxHp), hp(maxHp), size(size),
       sprite(key), currentPathPoint(0), shape(size),
-      position(path.getPoint(0).x, path.getPoint(0).y) {
+      Pokemon(sf::Vector2f(path.getPoint(0).x, path.getPoint(0).y)) {
   direction = Direction::South;
   sprite.setPosition(position);
   shape.setPosition(position);
@@ -124,10 +124,7 @@ Direction Mob::getDirectionToNextPoint() const {
   }
 }
 
-void Mob::onHit(int damage) {
-  hp -= damage;
-  std::cout << "Mob health: " << hp << std::endl;
-}
+void Mob::onHit(int damage) { hp -= damage; }
 
 bool Mob::hasReachedFinalPoint() const {
   return currentPathPoint == path.getNumPoints();

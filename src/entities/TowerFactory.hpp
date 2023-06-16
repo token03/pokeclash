@@ -2,7 +2,7 @@
 
 #include "Mob.h"
 #include "Tower.h"
-#include "towers/CharmanderLine.h" // Include all types of towers
+#include "towers/CharmanderLine.h"
 #include <memory>
 #include <vector>
 
@@ -19,9 +19,9 @@ public:
   TowerFactory &operator=(const TowerFactory &) = default;
   TowerFactory &operator=(TowerFactory &&) = default;
   static std::unique_ptr<Tower> createTower(const PokemonType type,
-                                            sf::Vector2i position) {
+                                            sf::Vector2f position) {
     if (type == PokemonType::Charmander) {
-      return std::make_unique<CharmanderTower>(position.x, position.y);
+      return std::make_unique<CharmanderTower>(position);
     } else {
       throw std::invalid_argument("Invalid tower type");
     }

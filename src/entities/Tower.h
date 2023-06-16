@@ -3,6 +3,7 @@
 #include "../graphics/AnimatedSprite.h"
 #include "../graphics/TextureManager.h"
 #include "Mob.h"
+#include "Pokemon.h"
 #include "Projectile.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/System/Vector2.hpp>
@@ -11,9 +12,9 @@
 enum class TowerStage { First, Second, Third };
 enum class TowerState { Idle, Attacking };
 
-class Tower {
+class Tower : public Pokemon {
 public:
-  Tower(int posX, int posY);                   // Constructor.
+  Tower(sf::Vector2f position);                // Constructor.
   void draw(sf::RenderWindow &window);         // Draw the tower.
   bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
   bool isClicked(sf::Vector2i clickPos) const; // Check if the tower is clicked.
@@ -37,12 +38,10 @@ public:
 protected:
   TowerStage stage;
   TowerState state;
-  Direction direction;
   std::map<TowerState, std::unique_ptr<AnimatedSprite>> animations;
   std::string name;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
-  sf::Vector2f position;
   float attackTimer;
   float attackDelay;
   float range;

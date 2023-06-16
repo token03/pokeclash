@@ -3,11 +3,12 @@
 #include "../graphics/AnimatedSprite.h"
 #include "../graphics/TextureManager.h"
 #include "../levels/Path.h"
+#include "Pokemon.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/System/Vector2.hpp>
 
-class Mob {
+class Mob : public Pokemon {
 public:
   Mob(Path &path, int maxHp, float speed, float size,
       std::string &animationKey);
@@ -22,9 +23,7 @@ public:
   Direction getDirectionToNextPoint() const; // Get the direction to the next
                                              // point in the path.
 private:
-  Direction direction;
   AnimatedSprite sprite;
-  sf::Vector2f position;
   sf::CircleShape shape;
   Path &path;
   int currentPathPoint;
