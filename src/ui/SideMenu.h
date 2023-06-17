@@ -18,11 +18,11 @@ public:
 
 private:
   void renderTowerPlacement();
-  void renderTowerMenu();
+  void renderTowerManagement();
   void renderStats();
-
   sf::RenderWindow &window;
   std::unique_ptr<Level> &level;
   std::optional<TowerMenu> towerMenu_;
   std::optional<PokemonType> currentPokemonToPlace;
+  Tower *selectedTower = nullptr;
 };

@@ -13,7 +13,7 @@ void SideMenu::render() {
                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
   renderTowerPlacement();
-  renderTowerMenu();
+  renderTowerManagement();
   renderStats();
 
   ImGui::End();
@@ -29,11 +29,26 @@ void SideMenu::renderTowerPlacement() {
   // Add more Pokemon options here
 }
 
-void SideMenu::renderTowerMenu() {
-  // Code for the tower management section goes here
+void SideMenu::renderTowerManagement() {
+  if (selectedTower) {
+    if (ImGui::TreeNode("Tower Management")) {
+      // Display tower information and controls
+      ImGui::Text("Name: %s", selectedTower->getName().c_str());
+      ImGui::Text("Level: %d", selectedTower->getLevel());
+      ImGui::Text("Damage: %.2f", selectedTower->getDamage());
+      ImGui::Text("Range: %.2f", selectedTower->getRange());
+      ImGui::Text("Position: (%f, %f)", selectedTower->getPosition().x,
+                  selectedTower->getPosition().y);
 
-  if (towerMenu_.has_value()) {
-    towerMenu_->render();
+      if (ImGui::Button("Upgrade")) {
+        selectedTower->upgrade(99);
+      }
+      if (ImGui::Button("Sell")) {
+        level->sellTower(selectedTower);
+        selectedTower = nullptr; // Clear selection after selling
+      }
+      ImGui::TreePop();
+    }
   }
 }
 

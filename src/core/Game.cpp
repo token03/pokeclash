@@ -10,7 +10,7 @@ Game::Game() : window(sf::VideoMode(1000, 700), "Pokeclash"), isPaused(false) {
   loadImgui();
 
   level = std::make_unique<Level>(window.getSize().x, window.getSize().y);
-
+  sideMenu.emplace(window, level);
   resourceIndicator = std::make_unique<ResourceIndicator>(*level);
 }
 

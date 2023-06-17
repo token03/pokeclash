@@ -6,6 +6,7 @@
 #include "../graphics/TextureManager.h"
 #include "../levels/Level.h"
 #include "../ui/ResourceIndicator.h"
+#include "../ui/SideMenu.h"
 #include "../ui/TowerMenu.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
@@ -33,6 +34,7 @@ private:
   bool isPaused;
   sf::RenderWindow window;
   std::unique_ptr<ResourceIndicator> resourceIndicator;
+  std::optional<SideMenu> sideMenu;
   std::unique_ptr<Level> level;
   std::optional<TowerMenu> towerMenu_;
   std::optional<PokemonType> currentPokemonToPlace;
