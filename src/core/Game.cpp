@@ -132,7 +132,7 @@ void Game::render() {
   level->draw(window);
   resourceIndicator->draw(window);
 
-  renderSideMenu(); // Add this line
+  sideMenu->render(); // Render the side menu
 
   ImGui::SFML::Render(window);
 
@@ -142,20 +142,24 @@ void Game::render() {
 void Game::handleClick(sf::Vector2i position) {
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
     sf::Vector2f worldPos = window.mapPixelToCoords(position);
+    auto currentPokemonToPlace = sideMenu->getCurrentPokemonToPlace();
     if (currentPokemonToPlace.has_value()) {
-      // Place a tower here
+      std::cout << "Attempting to place a tower.\n"; // Place a tower here
       level->addTower(currentPokemonToPlace.value(), worldPos);
-      currentPokemonToPlace.reset(); // Reset after placing
+      sideMenu->resetCurrentPokemonToPlace();
+      // Set the selected tower in the side menu to the tower just placed
+      sideMenu->setSelectedTower(level->getTowerAtPosition(worldPos));
     } else {
       Tower *tower = level->getTowerAtPosition(worldPos);
       if (tower) {
-        towerMenu_ = TowerMenu(tower, level.get());
+        // If a tower is clicked, set it as the selected tower in the side menu
+        sideMenu->setSelectedTower(tower);
       }
     }
   }
 
-  if (towerMenu_.has_value() && !towerMenu_->isVisible()) {
-    towerMenu_.reset();
+  if (sideMenu->getSelectedTower() == nullptr) {
+    sideMenu->reset();
   }
 }
 
@@ -188,34 +192,4 @@ void Game::loadTextures() {
   }
 
   std::cout << "Textures and animations loaded!" << std::endl;
-}
-
-void Game::renderSideMenu() {
-  ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.85f, 0),
-                          ImGuiCond_Always); // Set the position
-  ImGui::SetNextWindowSize(
-      ImVec2(window.getSize().x * 0.15f, window.getSize().y),
-      ImGuiCond_FirstUseEver); // Set the size
-
-  ImGui::Begin("Side Menu", nullptr,
-               ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
-
-  ImGui::Text("HP: %d", level->getHealth());     // Display HP
-  ImGui::Text("Money: %d", level->getCredits()); // Display money
-  ImGui::Text("Current Wave: %d",
-              level->getCurrentWave()); // Display current wave
-
-  if (ImGui::Button("Place Charmander")) {
-    // If Charmander is clicked
-    currentPokemonToPlace = PokemonType::Charmander;
-  }
-
-  // Similarly, you can add more Pokemon options to place here
-
-  // Tower management
-  if (towerMenu_.has_value()) {
-    towerMenu_->render();
-  }
-
-  ImGui::End();
 }

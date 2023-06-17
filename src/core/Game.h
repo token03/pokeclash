@@ -7,7 +7,6 @@
 #include "../levels/Level.h"
 #include "../ui/ResourceIndicator.h"
 #include "../ui/SideMenu.h"
-#include "../ui/TowerMenu.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Mouse.hpp>
 #include <imgui-SFML.h>
@@ -29,13 +28,10 @@ private:
   void render();
   void loadTextures();
   void loadImgui();
-  void renderSideMenu();
   bool isValidPlacement(int x, int y);
   bool isPaused;
   sf::RenderWindow window;
   std::unique_ptr<ResourceIndicator> resourceIndicator;
   std::optional<SideMenu> sideMenu;
   std::unique_ptr<Level> level;
-  std::optional<TowerMenu> towerMenu_;
-  std::optional<PokemonType> currentPokemonToPlace;
 };

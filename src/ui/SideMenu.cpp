@@ -12,42 +12,38 @@ void SideMenu::render() {
   ImGui::Begin("Side Menu", nullptr,
                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
+  renderStats();
   renderTowerPlacement();
   renderTowerManagement();
-  renderStats();
 
   ImGui::End();
 }
 
 void SideMenu::renderTowerPlacement() {
-  // Code for the tower placement section goes here
-
   if (ImGui::Button("Place Charmander")) {
     currentPokemonToPlace = PokemonType::Charmander;
+    std::cout << "Charmander selected for placement.\n";
   }
-
-  // Add more Pokemon options here
 }
 
 void SideMenu::renderTowerManagement() {
   if (selectedTower) {
-    if (ImGui::TreeNode("Tower Management")) {
-      // Display tower information and controls
-      ImGui::Text("Name: %s", selectedTower->getName().c_str());
-      ImGui::Text("Level: %d", selectedTower->getLevel());
-      ImGui::Text("Damage: %.2f", selectedTower->getDamage());
-      ImGui::Text("Range: %.2f", selectedTower->getRange());
-      ImGui::Text("Position: (%f, %f)", selectedTower->getPosition().x,
-                  selectedTower->getPosition().y);
+    ImGui::Text("Tower Management"); // Display a title for the section
 
-      if (ImGui::Button("Upgrade")) {
-        selectedTower->upgrade(99);
-      }
-      if (ImGui::Button("Sell")) {
-        level->sellTower(selectedTower);
-        selectedTower = nullptr; // Clear selection after selling
-      }
-      ImGui::TreePop();
+    // Display tower information and controls
+    ImGui::Text("Name: %s", selectedTower->getName().c_str());
+    ImGui::Text("Level: %d", selectedTower->getLevel());
+    ImGui::Text("Damage: %.2f", selectedTower->getDamage());
+    ImGui::Text("Range: %.2f", selectedTower->getRange());
+    ImGui::Text("Position: (%f, %f)", selectedTower->getPosition().x,
+                selectedTower->getPosition().y);
+
+    if (ImGui::Button("Upgrade")) {
+      selectedTower->upgrade(99);
+    }
+    if (ImGui::Button("Sell")) {
+      level->sellTower(selectedTower);
+      selectedTower = nullptr; // Clear selection after selling
     }
   }
 }
@@ -58,4 +54,18 @@ void SideMenu::renderStats() {
   ImGui::Text("HP: %d", level->getHealth());
   ImGui::Text("Money: %d", level->getCredits());
   ImGui::Text("Current Wave: %d", level->getCurrentWave());
+}
+
+void SideMenu::setSelectedTower(Tower *tower) { selectedTower = tower; }
+
+Tower *SideMenu::getSelectedTower() { return selectedTower; }
+
+void SideMenu::reset() { selectedTower = nullptr; }
+
+void SideMenu::resetCurrentPokemonToPlace() {
+  currentPokemonToPlace = std::nullopt;
+}
+
+std::optional<PokemonType> SideMenu::getCurrentPokemonToPlace() {
+  return currentPokemonToPlace;
 }
