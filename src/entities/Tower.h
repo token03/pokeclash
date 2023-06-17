@@ -17,7 +17,7 @@ public:
   Tower(sf::Vector2f position);                // Constructor.
   void draw(sf::RenderWindow &window);         // Draw the tower.
   bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
-  bool isClicked(sf::Vector2i clickPos) const; // Check if the tower is clicked.
+  bool isClicked(sf::Vector2f clickPos) const; // Check if the tower is clicked.
   void clearTargets();                         // Clear the tower's targets.
   void addTarget(Mob *mob);           // Add a mob to the tower's targets.
   virtual int upgrade(int money) = 0; // Upgrade the tower.

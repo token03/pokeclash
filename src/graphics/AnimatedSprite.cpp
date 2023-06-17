@@ -33,10 +33,8 @@ void AnimatedSprite::loadAnimationData(const std::string &key) {
   frameHeight_ = data.frameHeight;
   for (int i = 0; i < data.durations.size(); i++) {
     durations_.push_back(data.durations[i] / 100);
-    std::cout << "Duration: " << durations_[i] << "\n";
   }
   maxFrames_ = spriteSheet_.getSize().x / frameWidth_;
-  std::cout << "Frame Size: " << frameWidth_ << " " << frameHeight_ << "\n";
   sprite_.setTexture(spriteSheet_);
 }
 

@@ -61,7 +61,7 @@ sf::Vector2f Path::getPoint(int index) const {
   return sf::Vector2f(); // Return a zero vector if index is out of range
 }
 
-bool Path::overlap(sf::Vector2i point, int radius) {
+bool Path::overlap(sf::Vector2f point, int radius) {
   if (points.size() < 2)
     return false; // We need at least two points to draw a line
 

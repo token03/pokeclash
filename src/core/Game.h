@@ -26,13 +26,14 @@ private:
   void update(float dt);
   void handleClick(sf::Vector2i position);
   void render();
+  void loadTextures();
+  void loadImgui();
+  void renderSideMenu();
   bool isValidPlacement(int x, int y);
   bool isPaused;
-
-private:
-  void loadTextures();
   sf::RenderWindow window;
   std::unique_ptr<ResourceIndicator> resourceIndicator;
   std::unique_ptr<Level> level;
   std::optional<TowerMenu> towerMenu_;
+  std::optional<PokemonType> currentPokemonToPlace;
 };

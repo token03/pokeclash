@@ -1,26 +1,43 @@
 #include "Game.h"
 #include <filesystem>
 using std::string;
+;
 
 Game::Game() : window(sf::VideoMode(1000, 700), "Pokeclash"), isPaused(false) {
   window.setFramerateLimit(60);
 
   loadTextures();
+  loadImgui();
 
   level = std::make_unique<Level>(window.getSize().x, window.getSize().y);
 
   resourceIndicator = std::make_unique<ResourceIndicator>(*level);
+}
+
+void Game::loadImgui() {
 
   bool initialized = ImGui::SFML::Init(window);
   if (!initialized) {
     // Handle the initialization failure
   }
+
   ImGuiStyle &style = ImGui::GetStyle();
+  ImGui::StyleColorsLight(&style); // Apply the modified style
+
+  // Modifying colors
+  style.Colors[ImGuiCol_Button] =
+      ImVec4(0.8f, 0.2f, 0.2f, 1.0f); // Button color (red)
+  style.Colors[ImGuiCol_ButtonHovered] =
+      ImVec4(1.0f, 0.4f, 0.4f, 1.0f); // Button hover color (light red)
+  style.Colors[ImGuiCol_ButtonActive] =
+      ImVec4(1.0f, 0.6f, 0.6f, 1.0f); // Button pressed color (pale red)
+
+  // Modifying other properties
   style.FramePadding = ImVec2(8, 4); // Adjust the padding around the button
   style.FrameRounding = 4.0f; // Adjust the rounding of the button corners
   style.ButtonTextAlign =
-      ImVec2(0.5f, 0.5f); // Adjust the alignment of the button text
-  style.ScaleAllSizes(1.3f);
+      ImVec2(0.5f, 0.5f);    // Adjust the alignment of the button text
+  style.ScaleAllSizes(1.3f); // Scale all sizes by a factor of 1.1
 }
 
 void Game::run() {
@@ -68,11 +85,6 @@ void Game::processEvents() {
     case sf::Event::MouseMoved:
     case sf::Event::MouseEntered:
     case sf::Event::MouseLeft:
-    case sf::Event::JoystickButtonPressed:
-    case sf::Event::JoystickButtonReleased:
-    case sf::Event::JoystickMoved:
-    case sf::Event::JoystickConnected:
-    case sf::Event::JoystickDisconnected:
     case sf::Event::TouchBegan:
     case sf::Event::TouchMoved:
     case sf::Event::TouchEnded:
@@ -103,8 +115,9 @@ void Game::render() {
 
     drawList->AddRectFilled(ImVec2(0, 0), ImVec2(windowSize.x, windowSize.y),
                             IM_COL32(0, 0, 0, 128));
-    ImGui::SetNextWindowPos(ImVec2(windowSize.x / 2, windowSize.y / 2),
-                            ImGuiCond_Once, ImVec2(0.5f, 0.5f));
+    ImGui::SetNextWindowPos(
+        ImVec2((float)windowSize.x / 2, (float)windowSize.y / 2),
+        ImGuiCond_Once, ImVec2(0.5f, 0.5f));
 
     ImGui::Begin("Pause Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
     if (ImGui::Button("Resume")) {
@@ -116,14 +129,11 @@ void Game::render() {
     ImGui::End();
   }
 
-  if (towerMenu_.has_value()) {
-    towerMenu_->render();
-  }
-
   level->draw(window);
   resourceIndicator->draw(window);
 
-  // Render ImGui here
+  renderSideMenu(); // Add this line
+
   ImGui::SFML::Render(window);
 
   window.display();
@@ -131,13 +141,19 @@ void Game::render() {
 
 void Game::handleClick(sf::Vector2i position) {
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
-    Tower *tower = level->getTowerAtPosition(position);
-    if (tower) {
-      towerMenu_ = TowerMenu(tower, level.get());
+    sf::Vector2f worldPos = window.mapPixelToCoords(position);
+    if (currentPokemonToPlace.has_value()) {
+      // Place a tower here
+      level->addTower(currentPokemonToPlace.value(), worldPos);
+      currentPokemonToPlace.reset(); // Reset after placing
     } else {
-      level->addTower(PokemonType::Charmander, position);
+      Tower *tower = level->getTowerAtPosition(worldPos);
+      if (tower) {
+        towerMenu_ = TowerMenu(tower, level.get());
+      }
     }
   }
+
   if (towerMenu_.has_value() && !towerMenu_->isVisible()) {
     towerMenu_.reset();
   }
@@ -172,4 +188,34 @@ void Game::loadTextures() {
   }
 
   std::cout << "Textures and animations loaded!" << std::endl;
+}
+
+void Game::renderSideMenu() {
+  ImGui::SetNextWindowPos(ImVec2(window.getSize().x * 0.85f, 0),
+                          ImGuiCond_Always); // Set the position
+  ImGui::SetNextWindowSize(
+      ImVec2(window.getSize().x * 0.15f, window.getSize().y),
+      ImGuiCond_FirstUseEver); // Set the size
+
+  ImGui::Begin("Side Menu", nullptr,
+               ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+
+  ImGui::Text("HP: %d", level->getHealth());     // Display HP
+  ImGui::Text("Money: %d", level->getCredits()); // Display money
+  ImGui::Text("Current Wave: %d",
+              level->getCurrentWave()); // Display current wave
+
+  if (ImGui::Button("Place Charmander")) {
+    // If Charmander is clicked
+    currentPokemonToPlace = PokemonType::Charmander;
+  }
+
+  // Similarly, you can add more Pokemon options to place here
+
+  // Tower management
+  if (towerMenu_.has_value()) {
+    towerMenu_->render();
+  }
+
+  ImGui::End();
 }

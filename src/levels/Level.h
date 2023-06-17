@@ -19,13 +19,14 @@ public:
   void updateWave(float dt);
   void updateMobs(float dt);
   void updateTowers(float dt);
-  void addTower(const PokemonType type, sf::Vector2i position);
+  void addTower(const PokemonType type, sf::Vector2f position);
   void sellTower(Tower *tower);
   void addMob(const PokemonType type);
-  bool validTowerPlacement(sf::Vector2i position, int radius);
-  Tower *getTowerAtPosition(sf::Vector2i position);
+  bool validTowerPlacement(sf::Vector2f position, int radius);
+  Tower *getTowerAtPosition(sf::Vector2f position);
   int getCredits() const { return credits; }
   int getHealth() const { return health; }
+  int getCurrentWave() const { return wave; }
   void setBackground();
 
 private:

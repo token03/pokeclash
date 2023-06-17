@@ -97,7 +97,7 @@ void Tower::addTarget(Mob *target) {
 
 void Tower::clearTargets() { targets.clear(); }
 
-bool Tower::isClicked(sf::Vector2i clickPos) const {
+bool Tower::isClicked(sf::Vector2f clickPos) const {
   // Check if the given coordinates are within the tower's bounds.
   return clickPos.x >= position.x - radius &&
          clickPos.x <= position.x + radius &&

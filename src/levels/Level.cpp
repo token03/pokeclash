@@ -79,7 +79,7 @@ void Level::updateWave(float dt) {
   }
 }
 
-void Level::addTower(const PokemonType type, sf::Vector2i position) {
+void Level::addTower(const PokemonType type, sf::Vector2f position) {
   if (validTowerPlacement(position, 20)) {
     cout << "Tower added at " << position.x << ", " << position.y << endl;
     towers.push_back(TowerFactory::createTower(
@@ -105,7 +105,7 @@ void Level::addMob(const PokemonType type) {
   cout << "Mob added" << endl;
 }
 
-bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
+bool Level::validTowerPlacement(sf::Vector2f position, int radius) {
   // Check if the position is within the bounds of the level.
   if (position.x - radius < 0 || position.x + radius >= width ||
       position.y - radius < 0 || position.y + radius >= height) {
@@ -116,7 +116,7 @@ bool Level::validTowerPlacement(sf::Vector2i position, int radius) {
   return !path.overlap(position, radius);
 }
 
-Tower *Level::getTowerAtPosition(sf::Vector2i position) {
+Tower *Level::getTowerAtPosition(sf::Vector2f position) {
   for (const auto &tower : towers) {
     if (tower->isClicked(position)) {
       return tower.get();

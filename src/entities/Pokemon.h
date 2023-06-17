@@ -1,6 +1,8 @@
 #pragma once
 #include "../graphics/AnimatedSprite.h"
 
+/* enum class PokemonType { Pikachu, Charmander, Squirtle, Bulbasaur }; */
+
 class Pokemon {
 public:
   Pokemon(sf::Vector2f pos);
