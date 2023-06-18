@@ -9,22 +9,16 @@ TextureManager &TextureManager::getInstance() {
 }
 
 void TextureManager::loadTexture(const string &name, const string &filename) {
-  // Create a new sf::Texture
   sf::Texture tex;
-
-  // Try to load the texture from the file
   if (!tex.loadFromFile(filename)) {
     std::cerr << "Failed to load texture from file: " << filename << std::endl;
     return;
   }
-
-  // If the texture was loaded successfully, store it in the map
   textures[name] = tex;
   std::cout << "Loaded texture from file: " << name << std::endl;
 }
 
 sf::Texture &TextureManager::getRef(const string &texture) {
-  /* Retrieve a texture from the map by its name. */
   if (textures.find(texture) == textures.end())
     std::cerr << "Failed to find texture: " << texture << std::endl;
 
@@ -33,8 +27,6 @@ sf::Texture &TextureManager::getRef(const string &texture) {
 
 void TextureManager::loadAnimations(const std::filesystem::path &directory) {
   pugi::xml_document doc;
-
-  // Load the character's XML file
   if (!doc.load_file((directory / "AnimData.xml").c_str())) {
     // Handle error...
     return;
@@ -84,8 +76,6 @@ void TextureManager::loadAnimationData(const string &key,
   animData.frameHeight = node.child("FrameHeight").text().as_int();
   for (const auto &durations : node.child("Durations"))
     animData.durations.push_back(durations.text().as_float());
-
-  // Extract other animation data from the node...
 
   // Store the animation data in the map
   animationData[key] = animData;

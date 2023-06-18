@@ -1,0 +1,153 @@
+<TypeMatchups>
+    <Type name="Fire">
+        <Effectiveness against="Grass" value="2.0"/>
+        <Effectiveness against="Water" value="0.5"/>
+        <Effectiveness against="Fire" value="0.5"/>
+        <Effectiveness against="Ice" value="2.0"/>
+        <Effectiveness against="Bug" value="2.0"/>
+        <Effectiveness against="Rock" value="0.5"/>
+        <Effectiveness against="Dragon" value="0.5"/>
+        <Effectiveness against="Steel" value="2.0"/>
+    </Type>
+		<Type name="Water">
+				<Effectiveness against="Fire" value="2.0"/>
+				<Effectiveness against="Water" value="0.5"/>
+				<Effectiveness against="Grass" value="0.5"/>
+				<Effectiveness against="Ground" value="2.0"/>
+				<Effectiveness against="Rock" value="2.0"/>
+				<Effectiveness against="Dragon" value="0.5"/>
+		</Type>
+		<Type name="Grass">
+				<Effectiveness against="Fire" value="0.5"/>
+				<Effectiveness against="Water" value="2.0"/>
+				<Effectiveness against="Grass" value="0.5"/>
+				<Effectiveness against="Poison" value="0.5"/>
+				<Effectiveness against="Ground" value="2.0"/>
+				<Effectiveness against="Flying" value="0.5"/>
+				<Effectiveness against="Bug" value="0.5"/>
+				<Effectiveness against="Rock" value="2.0"/>
+				<Effectiveness against="Dragon" value="0.5"/>
+				<Effectiveness against="Steel" value="0.5"/>
+		</Type>
+		<Type name="Electric">
+				<Effectiveness against="Water" value="2.0"/>
+				<Effectiveness against="Electric" value="0.5"/>
+				<Effectiveness against="Grass" value="0.5"/>
+				<Effectiveness against="Ground" value="0.0"/>
+				<Effectiveness against="Flying" value="2.0"/>
+				<Effectiveness against="Dragon" value="0.5"/>
+			</Type>
+		<Type name="Ice">
+				<Effectiveness against="Fire" value="0.5"/>
+				<Effectiveness against="Water" value="0.5"/>
+				<Effectiveness against="Grass" value="2.0"/>
+				<Effectiveness against="Ice" value="0.5"/>
+				<Effectiveness against="Ground" value="2.0"/>
+				<Effectiveness against="Flying" value="2.0"/>
+				<Effectiveness against="Dragon" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+			</Type>
+		<Type name="Fighting">
+				<Effectiveness against="Normal" value="2.0"/>
+				<Effectiveness against="Ice" value="2.0"/>
+				<Effectiveness against="Poison" value="0.5"/>
+				<Effectiveness against="Flying" value="0.5"/>
+				<Effectiveness against="Psychic" value="0.5"/>
+				<Effectiveness against="Bug" value="0.5"/>
+				<Effectiveness against="Rock" value="2.0"/>
+				<Effectiveness against="Ghost" value="0.0"/>
+				<Effectiveness against="Dark" value="2.0"/>
+				<Effectiveness against="Steel" value="2.0"/>
+				<Effectiveness against="Fairy" value="0.5"/>
+			</Type>
+		<Type name="Poison">
+				<Effectiveness against="Grass" value="2.0"/>
+				<Effectiveness against="Poison" value="0.5"/>
+				<Effectiveness against="Ground" value="0.5"/>
+				<Effectiveness against="Rock" value="0.5"/>
+				<Effectiveness against="Ghost" value="0.5"/>
+				<Effectiveness against="Steel" value="0.0"/>
+				<Effectiveness against="Fairy" value="2.0"/>
+			</Type>
+		<Type name="Ground">
+				<Effectiveness against="Fire" value="2.0"/>
+				<Effectiveness against="Electric" value="2.0"/>
+				<Effectiveness against="Grass" value="0.5"/>
+				<Effectiveness against="Poison" value="2.0"/>
+				<Effectiveness against="Flying" value="0.0"/>
+				<Effectiveness against="Bug" value="0.5"/>
+				<Effectiveness against="Rock" value="2.0"/>
+				<Effectiveness against="Steel" value="2.0"/>
+			</Type>
+		<Type name="Flying">
+				<Effectiveness against="Electric" value="0.5"/>
+				<Effectiveness against="Grass" value="2.0"/>
+				<Effectiveness against="Fighting" value="2.0"/>
+				<Effectiveness against="Bug" value="2.0"/>
+				<Effectiveness against="Rock" value="0.5"/>
+				<Effectiveness against="Steel" value="0.5"/>
+			</Type>
+		<Type name="Psychic">
+				<Effectiveness against="Fighting" value="2.0"/>
+				<Effectiveness against="Poison" value="2.0"/>
+				<Effectiveness against="Psychic" value="0.5"/>
+				<Effectiveness against="Dark" value="0.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+			</Type>
+		<Type name="Bug">
+				<Effectiveness against="Fire" value="0.5"/>
+				<Effectiveness against="Grass" value="2.0"/>
+				<Effectiveness against="Fighting" value="0.5"/>
+				<Effectiveness against="Poison" value="0.5"/>
+				<Effectiveness against="Flying" value="0.5"/>
+				<Effectiveness against="Psychic" value="2.0"/>
+				<Effectiveness against="Ghost" value="0.5"/>
+				<Effectiveness against="Dark" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+				<Effectiveness against="Fairy" value="0.5"/>
+			</Type>
+		<Type name="Rock">
+				<Effectiveness against="Fire" value="2.0"/>
+				<Effectiveness against="Ice" value="2.0"/>
+				<Effectiveness against="Fighting" value="0.5"/>
+				<Effectiveness against="Ground" value="0.5"/>
+				<Effectiveness against="Flying" value="2.0"/>
+				<Effectiveness against="Bug" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+			</Type>
+		<Type name="Ghost">
+				<Effectiveness against="Normal" value="0.0"/>
+				<Effectiveness against="Psychic" value="2.0"/>
+				<Effectiveness against="Ghost" value="2.0"/>
+				<Effectiveness against="Dark" value="0.5"/>
+			</Type>
+		<Type name="Dragon">
+				<Effectiveness against="Dragon" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+				<Effectiveness against="Fairy" value="0.0"/>
+			</Type>
+		<Type name="Dark">
+				<Effectiveness against="Fighting" value="0.5"/>
+				<Effectiveness against="Psychic" value="2.0"/>
+				<Effectiveness against="Ghost" value="2.0"/>
+				<Effectiveness against="Dark" value="0.5"/>
+				<Effectiveness against="Fairy" value="0.5"/>
+			</Type>
+		<Type name="Steel">
+				<Effectiveness against="Fire" value="0.5"/>
+				<Effectiveness against="Water" value="0.5"/>
+				<Effectiveness against="Electric" value="0.5"/>
+				<Effectiveness against="Ice" value="2.0"/>
+				<Effectiveness against="Rock" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+				<Effectiveness against="Fairy" value="2.0"/>
+			</Type>
+		<Type name="Fairy">
+				<Effectiveness against="Fire" value="0.5"/>
+				<Effectiveness against="Fighting" value="2.0"/>
+				<Effectiveness against="Poison" value="0.5"/>
+				<Effectiveness against="Dragon" value="2.0"/>
+				<Effectiveness against="Dark" value="2.0"/>
+				<Effectiveness against="Steel" value="0.5"/>
+			</Type>
+</TypeMatchups>

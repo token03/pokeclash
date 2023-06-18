@@ -4,6 +4,7 @@
 #include "../entities/MobFactory.hpp"
 #include "../entities/Tower.h"
 #include "../entities/TowerFactory.hpp"
+#include "../entities/Type.hpp"
 #include "../graphics/TextureManager.h"
 #include "Path.h"
 #include "Wave.h"

@@ -10,6 +10,8 @@ Level::Level(int width, int height) : width(width), height(height), path() {
   Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 2.0f),
                  MobBatch(PokemonType::Charmander, 3, 2.0f)});
   waves.push_back(std::move(testWave));
+  std::cout << TypeChecker::getInstance().getMultiplier(Type::Fire, Type::Grass)
+            << std::endl;
 }
 
 void Level::draw(sf::RenderWindow &window) {

@@ -1,5 +1,6 @@
 #pragma once
-
+#include <pugixml.hpp>
+#include <string>
 #include <unordered_map>
 
 enum class Type {
@@ -44,21 +45,73 @@ public:
     return multiplier1 * multiplier2;
   }
 
-private:
-  TypeChecker() {
-    typeMatchups[Type::Fire] = {
-        {Type::Grass, 2.0f}, {Type::Water, 0.5f}, {Type::Fire, 0.5f},
-        // ...
-    };
+  Type mapStringToType(const std::string &typeName) {
+    if (typeName == "Normal")
+      return Type::Normal;
+    else if (typeName == "Fire")
+      return Type::Fire;
+    else if (typeName == "Water")
+      return Type::Water;
+    else if (typeName == "Grass")
+      return Type::Grass;
+    else if (typeName == "Electric")
+      return Type::Electric;
+    else if (typeName == "Ice")
+      return Type::Ice;
+    else if (typeName == "Fighting")
+      return Type::Fighting;
+    else if (typeName == "Poison")
+      return Type::Poison;
+    else if (typeName == "Ground")
+      return Type::Ground;
+    else if (typeName == "Flying")
+      return Type::Flying;
+    else if (typeName == "Psychic")
+      return Type::Psychic;
+    else if (typeName == "Bug")
+      return Type::Bug;
+    else if (typeName == "Rock")
+      return Type::Rock;
+    else if (typeName == "Ghost")
+      return Type::Ghost;
+    else if (typeName == "Dragon")
+      return Type::Dragon;
+    else if (typeName == "Dark")
+      return Type::Dark;
+    else if (typeName == "Steel")
+      return Type::Steel;
+    else if (typeName == "Fairy")
+      return Type::Fairy;
+    else
+      throw std::runtime_error("Invalid type name: " + typeName);
+  }
 
-    typeMatchups[Type::Water] = {
-        {Type::Fire, 2.0f}, {Type::Water, 0.5f}, {Type::Grass, 0.5f},
-        // ...
-    };
+private:
+  TypeChecker() { loadTypeMatchup("../src/data/Types.xml"); }
+
+  void loadTypeMatchup(const std::string &filename) {
+    pugi::xml_document doc;
+    pugi::xml_parse_result result = doc.load_file(filename.c_str());
+
+    if (!result) {
+      throw std::runtime_error("Failed to load XML file: " + filename);
+    }
+
+    pugi::xml_node typeMatchupsNode = doc.child("TypeMatchups");
+    for (pugi::xml_node typeNode : typeMatchupsNode.children("Type")) {
+      Type type = mapStringToType(typeNode.attribute("name").value());
+      for (pugi::xml_node effectivenessNode :
+           typeNode.children("Effectiveness")) {
+        Type against =
+            mapStringToType(effectivenessNode.attribute("against").value());
+        float effectiveness =
+            std::stof(effectivenessNode.attribute("value").value());
+        typeMatchups[type][against] = effectiveness;
+      }
+    }
   }
 
   std::unordered_map<Type, std::unordered_map<Type, float>> typeMatchups;
-
   TypeChecker(TypeChecker const &) = delete;
   void operator=(TypeChecker const &) = delete;
 };
