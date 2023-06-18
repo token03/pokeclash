@@ -2,12 +2,10 @@
 #include "../graphics/AnimatedSprite.h"
 #include "Type.hpp"
 
-/* enum class PokemonType { Pikachu, Charmander, Squirtle, Bulbasaur }; */
-
 struct PokemonData {
   std::string name;
-  std::string type1;
-  std::string type2; // This is optional and may be empty
+  Type primaryType;
+  Type secondaryType; // This is optional and may be empty
   std::string walkingAnimation;
   std::string shootingAnimation;
   std::string attackAnimation;
@@ -18,12 +16,13 @@ struct PokemonData {
   int mobHP;
   int mobSpeed;
   int mobHitbox;
-  std::string preEvolution; // This is optional and may be empty
-  std::string evolution;    // This is optional and may be empty
+  std::string preEvolution;
+  std::string evolution;
 };
 
 class Pokemon {
 public:
+  Pokemon(const std::string &name, sf::Vector2f pos);
   Pokemon(sf::Vector2f pos);
   sf::Vector2f getPosition() const { return position; }
   Direction getDirection() const { return direction; }

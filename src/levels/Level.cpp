@@ -12,6 +12,7 @@ Level::Level(int width, int height) : width(width), height(height), path() {
   waves.push_back(std::move(testWave));
   std::cout << TypeChecker::getInstance().getMultiplier(Type::Fire, Type::Grass)
             << std::endl;
+  Pokemon pokemon = Pokemon("Charmander", sf::Vector2f(0, 0));
 }
 
 void Level::draw(sf::RenderWindow &window) {

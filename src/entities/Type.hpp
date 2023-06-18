@@ -21,7 +21,8 @@ enum class Type {
   Dragon,
   Dark,
   Steel,
-  Fairy
+  Fairy,
+  None,
 };
 
 class TypeChecker {
@@ -45,7 +46,7 @@ public:
     return multiplier1 * multiplier2;
   }
 
-  Type mapStringToType(const std::string &typeName) {
+  static Type mapStringToType(const std::string &typeName) {
     if (typeName == "Normal")
       return Type::Normal;
     else if (typeName == "Fire")
@@ -82,6 +83,8 @@ public:
       return Type::Steel;
     else if (typeName == "Fairy")
       return Type::Fairy;
+    else if (typeName == "")
+      return Type::None;
     else
       throw std::runtime_error("Invalid type name: " + typeName);
   }

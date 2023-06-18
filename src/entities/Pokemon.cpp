@@ -1,5 +1,12 @@
 #include "Pokemon.h"
+#include <cstring>
+#include <iostream>
 #include <pugixml.hpp>
+
+Pokemon::Pokemon(const std::string &name, sf::Vector2f pos)
+    : position(pos), direction(Direction::South) {
+  loadPokemonData(name);
+}
 
 Pokemon::Pokemon(sf::Vector2f pos)
     : position(pos), direction(Direction::South) {}
@@ -13,14 +20,15 @@ PokemonData Pokemon::loadPokemonData(const std::string &name) {
   }
 
   pugi::xml_node pokemonsNode = doc.child("Pokemons");
-
   for (pugi::xml_node pokemonNode = pokemonsNode.child("Pokemon"); pokemonNode;
        pokemonNode = pokemonNode.next_sibling("Pokemon")) {
     if (pokemonNode.child_value("Name") == name) {
       PokemonData data;
       data.name = name;
-      data.type1 = pokemonNode.child_value("Type1");
-      data.type2 = pokemonNode.child_value("Type2");
+      data.primaryType =
+          TypeChecker::mapStringToType(pokemonNode.child_value("PrimaryType"));
+      data.secondaryType = TypeChecker::mapStringToType(
+          pokemonNode.child_value("SecondaryType"));
       data.walkingAnimation = pokemonNode.child_value("WalkingAnimation");
       data.shootingAnimation = pokemonNode.child_value("ShootingAnimation");
       data.attackAnimation = pokemonNode.child_value("AttackAnimation");

@@ -2,6 +2,7 @@
 
 #include "../entities/Mob.h"
 #include "../entities/MobFactory.hpp"
+#include "../entities/Pokemon.h"
 #include "../entities/Tower.h"
 #include "../entities/TowerFactory.hpp"
 #include "../entities/Type.hpp"

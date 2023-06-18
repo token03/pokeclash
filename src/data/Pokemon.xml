@@ -1,7 +1,7 @@
 <Pokemons>
   <Pokemon>
     <Name>Charmander</Name>
-    <Type>Fire</Type>
+		<PrimaryType>Fire</PrimaryType>
     <WalkingAnimation>CharmanderWalk</WalkingAnimation>
     <ShootingAnimation>CharmanderShoot</ShootingAnimation>
     <AttackAnimation>CharmanderAttack</AttackAnimation>
@@ -16,7 +16,7 @@
   </Pokemon>
   <Pokemon>
     <Name>Charmeleon</Name>
-    <Type>Fire</Type>
+		<PrimaryType>Fire</PrimaryType>
     <WalkingAnimation>CharmeleonWalk</WalkingAnimation>
     <ShootingAnimation>CharmeleonShoot</ShootingAnimation>
     <AttackAnimation>CharmeleonAttack</AttackAnimation>
@@ -32,12 +32,12 @@
   </Pokemon>
   <Pokemon>
     <Name>Charizard</Name>
-    <Type>Fire</Type>
-		<Type>Flying</Type>
+		<PrimaryType>Fire</PrimaryType>
+		<SecondaryType>Flying</SecondaryType>
     <WalkingAnimation>CharizardWalk</WalkingAnimation>
     <ShootingAnimation>CharizardShoot</ShootingAnimation>
     <AttackAnimation>CharizardAttack</AttackAnimation>
-    <IdleAnimation>CharizardSleep</IdleAnimation>
+    <IdleAnimation>CharmeleonSleep</IdleAnimation>
     <TowerAttack>20</TowerAttack>
     <TowerSpeed>10</TowerSpeed>
     <TowerRange>20</TowerRange>
