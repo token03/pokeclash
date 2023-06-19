@@ -2,19 +2,32 @@
 #include <cmath>
 #include <iostream>
 
-Tower::Tower(sf::Vector2f position) : Pokemon(position) {
-  state = TowerState::Idle;
+Tower::Tower(const std::string &name, sf::Vector2f position)
+    : Pokemon(position) {
+  pokemon = loadPokemonData(name);
+  setPokemon(pokemon);
+  state = State::Idle;
   direction = Direction::South;
-  radius = 20;
-  range = 100;
-  damage = 10;
-  attackDelay = 0.25f;
-  attackTimer = 0.0f;
-  level = 1;
   stage = TowerStage::First;
+  level = 1;
   maxTargets = 1;
-  cost = 100;
-  name = "Tower";
+}
+
+void Tower::setPokemon(PokemonData data) {
+  name = data.name;
+  baseRange = data.towerBaseRange;
+  baseDamage = data.towerBaseDamage;
+  attackDelay = 1.0f / data.towerAttacksPerSecond;
+  attackTimer = 0.0f;
+  animations[State::Idle] =
+      std::make_unique<AnimatedSprite>(data.idleAnimation);
+  animations[State::Attacking] =
+      std::make_unique<AnimatedSprite>(data.shootingAnimation);
+  range = baseRange;
+  damage = baseDamage;
+  hitboxRadius = data.hitboxRadius;
+  cost = data.towerCost;
+  upgradeCost = 1;
 }
 
 void Tower::draw(sf::RenderWindow &window) {
@@ -31,14 +44,15 @@ void Tower::draw(sf::RenderWindow &window) {
   rangeCircle.setOutlineThickness(1.0f);
 
   // Draw a circle representing the tower's radius.
-  sf::CircleShape radiusCircle(radius);
+  sf::CircleShape radiusCircle(hitboxRadius);
   radiusCircle.setFillColor(sf::Color::Transparent);
   radiusCircle.setOutlineColor(sf::Color::Red);
   radiusCircle.setOutlineThickness(1.0f);
 
   // Position the range circle so its center is at the tower's position.
   rangeCircle.setPosition(position.x - range, position.y - range);
-  radiusCircle.setPosition(position.x - radius, position.y - radius);
+  radiusCircle.setPosition(position.x - hitboxRadius,
+                           position.y - hitboxRadius);
 
   window.draw(rangeCircle);
   window.draw(radiusCircle);
@@ -62,9 +76,9 @@ void Tower::update(float dt) {
   // If there are targets, set the direction to face the first target.
   if (!targets.empty()) {
     direction = getDirectionToTarget(targets[0]);
-    state = TowerState::Attacking;
+    state = State::Attacking;
   } else {
-    state = TowerState::Idle;
+    state = State::Idle;
     direction = Direction::South;
   }
 
@@ -89,6 +103,23 @@ void Tower::update(float dt) {
   }
 }
 
+int Tower::upgrade(int money) {
+  if (money < upgradeCost || level == 100)
+    return 0;
+
+  level++;
+  damage += 5;
+  std::cout << "Evolution Level: " << pokemon.evolutionLevel << std::endl;
+
+  if (level >= pokemon.evolutionLevel) {
+    std::string name = pokemon.evolutionName;
+    std::cout << name << std::endl;
+    pokemon = loadPokemonData(name);
+    setPokemon(pokemon);
+  }
+
+  return upgradeCost;
+}
 void Tower::addTarget(Mob *target) {
   if (targets.size() < maxTargets) {
     targets.push_back(target);
@@ -99,9 +130,10 @@ void Tower::clearTargets() { targets.clear(); }
 
 bool Tower::isClicked(sf::Vector2f clickPos) const {
   // Check if the given coordinates are within the tower's bounds.
-  return clickPos.x >= position.x - radius &&
-         clickPos.x <= position.x + radius &&
-         clickPos.y >= position.y - radius && clickPos.y <= position.y + radius;
+  return clickPos.x >= position.x - hitboxRadius &&
+         clickPos.x <= position.x + hitboxRadius &&
+         clickPos.y >= position.y - hitboxRadius &&
+         clickPos.y <= position.y + hitboxRadius;
 }
 
 Direction Tower::getDirectionToTarget(const Mob *target) const {
@@ -144,5 +176,3 @@ Direction Tower::getDirectionToTarget(const Mob *target) const {
     return Direction::SouthEast;
   }
 }
-
-void Tower::sell() { isSold = true; }

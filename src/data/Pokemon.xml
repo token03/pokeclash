@@ -3,16 +3,17 @@
     <Name>Charmander</Name>
 		<PrimaryType>Fire</PrimaryType>
     <WalkingAnimation>CharmanderWalk</WalkingAnimation>
-    <ShootingAnimation>CharmanderShoot</ShootingAnimation>
+    <ShootingAnimation>CharmanderAttack</ShootingAnimation>
     <AttackAnimation>CharmanderAttack</AttackAnimation>
     <IdleAnimation>CharmanderSleep</IdleAnimation>
-    <TowerAttack>10</TowerAttack>
-    <TowerSpeed>5</TowerSpeed>
-    <TowerRange>10</TowerRange>
+    <TowerDamage>10</TowerDamage>
+    <TowerAttackSpeed>5</TowerAttackSpeed>
+    <TowerRange>100</TowerRange>
     <MobHP>100</MobHP>
     <MobSpeed>50</MobSpeed>
-    <MobHitbox>10</MobHitbox>
+    <HitboxRadius>10</HitboxRadius>
     <Evolution>Charmeleon</Evolution>
+		<EvolutionLevel>1</EvolutionLevel>
   </Pokemon>
   <Pokemon>
     <Name>Charmeleon</Name>
@@ -21,14 +22,15 @@
     <ShootingAnimation>CharmeleonShoot</ShootingAnimation>
     <AttackAnimation>CharmeleonAttack</AttackAnimation>
     <IdleAnimation>CharmeleonSleep</IdleAnimation>
-    <TowerAttack>20</TowerAttack>
-    <TowerSpeed>10</TowerSpeed>
-    <TowerRange>20</TowerRange>
+    <TowerDamage>20</TowerDamage>
+    <TowerAttackSpeed>10</TowerAttackSpeed>
+    <TowerRange>120</TowerRange>
     <MobHP>200</MobHP>
     <MobSpeed>100</MobSpeed>
-    <MobHitbox>20</MobHitbox>
+    <HitboxRadius>10</HitboxRadius>
     <PreEvolution>Charmander</PreEvolution>
     <Evolution>Charizard</Evolution>
+		<EvolutionLevel>2</EvolutionLevel>
   </Pokemon>
   <Pokemon>
     <Name>Charizard</Name>
@@ -37,15 +39,14 @@
     <WalkingAnimation>CharizardWalk</WalkingAnimation>
     <ShootingAnimation>CharizardShoot</ShootingAnimation>
     <AttackAnimation>CharizardAttack</AttackAnimation>
-    <IdleAnimation>CharmeleonSleep</IdleAnimation>
-    <TowerAttack>20</TowerAttack>
-    <TowerSpeed>10</TowerSpeed>
-    <TowerRange>20</TowerRange>
+    <IdleAnimation>CharizardSleep</IdleAnimation>
+    <TowerDamage>20</TowerDamage>
+    <TowerAttackSpeed>10</TowerAttackSpeed>
+    <TowerRange>130</TowerRange>
     <MobHP>200</MobHP>
     <MobSpeed>100</MobSpeed>
-    <MobHitbox>20</MobHitbox>
-    <PreEvolution>Charmander</PreEvolution>
-    <Evolution>Charizard</Evolution>
+    <HitboxRadius>10</HitboxRadius>
+		<PreEvolution>Charmeleon</PreEvolution>
   </Pokemon>
 </Pokemons>
 

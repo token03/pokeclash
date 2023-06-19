@@ -33,15 +33,18 @@ PokemonData Pokemon::loadPokemonData(const std::string &name) {
       data.shootingAnimation = pokemonNode.child_value("ShootingAnimation");
       data.attackAnimation = pokemonNode.child_value("AttackAnimation");
       data.idleAnimation = pokemonNode.child_value("IdleAnimation");
-      data.towerAttack = std::stoi(pokemonNode.child_value("TowerAttack"));
-      data.towerSpeed = std::stoi(pokemonNode.child_value("TowerSpeed"));
-      data.towerRange = std::stoi(pokemonNode.child_value("TowerRange"));
+      data.towerBaseDamage = std::stoi(pokemonNode.child_value("TowerDamage"));
+      data.towerAttacksPerSecond =
+          std::stoi(pokemonNode.child_value("TowerAttackSpeed"));
+      data.towerBaseRange = std::stoi(pokemonNode.child_value("TowerRange"));
       data.mobHP = std::stoi(pokemonNode.child_value("MobHP"));
       data.mobSpeed = std::stoi(pokemonNode.child_value("MobSpeed"));
-      data.mobHitbox = std::stoi(pokemonNode.child_value("MobHitbox"));
-      data.preEvolution = pokemonNode.child_value("PreEvolution");
-      data.evolution = pokemonNode.child_value("Evolution");
-
+      data.hitboxRadius = std::stoi(pokemonNode.child_value("HitboxRadius"));
+      data.preEvolutionName = pokemonNode.child_value("PreEvolution");
+      data.evolutionName = pokemonNode.child_value("Evolution");
+      if (std::strcmp(pokemonNode.child_value("EvolutionLevel"), "") != 0)
+        data.evolutionLevel =
+            std::stoi(pokemonNode.child_value("EvolutionLevel"));
       return data;
     }
   }

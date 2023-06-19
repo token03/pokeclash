@@ -10,15 +10,19 @@ struct PokemonData {
   std::string shootingAnimation;
   std::string attackAnimation;
   std::string idleAnimation;
-  int towerAttack;
-  int towerSpeed;
-  int towerRange;
+  int towerBaseDamage;
+  float towerAttacksPerSecond;
+  float towerBaseRange;
+  int towerCost;
   int mobHP;
   int mobSpeed;
-  int mobHitbox;
-  std::string preEvolution;
-  std::string evolution;
+  int hitboxRadius;
+  std::string preEvolutionName;
+  std::string evolutionName;
+  int evolutionLevel;
 };
+
+enum class State { Idle, Attacking, Walking, Dead };
 
 class Pokemon {
 public:
