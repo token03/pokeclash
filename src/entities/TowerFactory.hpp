@@ -9,6 +9,7 @@ enum class PokemonType {
   Charmander,
   Bulbasaur,
   Squirtle,
+  Chimchar,
 };
 
 class TowerFactory {
@@ -21,6 +22,8 @@ public:
                                             sf::Vector2f position) {
     if (type == PokemonType::Charmander) {
       return std::make_unique<Tower>("Charmander", position);
+    } else if (type == PokemonType::Chimchar) {
+      return std::make_unique<Tower>("Chimchar", position);
     } else {
       throw std::invalid_argument("Invalid tower type");
     }

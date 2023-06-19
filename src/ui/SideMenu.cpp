@@ -12,18 +12,45 @@ void SideMenu::render() {
   ImGui::Begin("Side Menu", nullptr,
                ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
 
+  // Backup current font size
+  ImFont *font = ImGui::GetFont();
+  float oldFontSize = font->Scale;
+
+  // Set new font size
+  font->Scale = oldFontSize * 1.2f; // Increase font size by 50%
+  ImGui::PushFont(font);
+
   renderStats();
   renderTowerPlacement();
   renderTowerManagement();
+
+  // Restore the original font size
+  ImGui::PopFont();
+  font->Scale = oldFontSize;
 
   ImGui::End();
 }
 
 void SideMenu::renderTowerPlacement() {
-  if (ImGui::Button("Place Charmander")) {
+  TextureManager &tm = TextureManager::getInstance();
+  ImGui::Columns(2, "mycolumns");
+
+  ImTextureID charmanderIcon =
+      reinterpret_cast<void *>(tm.getRef("CharmanderIcon").getNativeHandle());
+  if (ImGui::ImageButton(charmanderIcon, ImVec2(32, 32))) {
     currentPokemonToPlace = PokemonType::Charmander;
     std::cout << "Charmander selected for placement.\n";
   }
+  ImGui::NextColumn();
+  ImTextureID chimcharIcon =
+      reinterpret_cast<void *>(tm.getRef("ChimcharIcon").getNativeHandle());
+  if (ImGui::ImageButton(chimcharIcon, ImVec2(32, 32))) {
+    currentPokemonToPlace = PokemonType::Chimchar;
+    std::cout << "Chimchar selected for placement.\n";
+  }
+
+  // Reset to 1 column so the layout goes back to normal.
+  ImGui::Columns(1);
 }
 
 void SideMenu::renderTowerManagement() {
@@ -50,9 +77,6 @@ void SideMenu::renderTowerManagement() {
 
 void SideMenu::renderStats() {
   // Code for the statistics section goes here
-
-  ImGui::Text("HP: %d", level->getHealth());
-  ImGui::Text("Money: %d", level->getCredits());
   ImGui::Text("Current Wave: %d", level->getCurrentWave());
 }
 

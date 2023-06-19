@@ -125,7 +125,8 @@ void Game::handleClick(sf::Vector2i position) {
   if (!ImGui::IsWindowHovered(ImGuiHoveredFlags_AnyWindow)) {
     sf::Vector2f worldPos = window.mapPixelToCoords(position);
     auto currentPokemonToPlace = sideMenu->getCurrentPokemonToPlace();
-    if (currentPokemonToPlace.has_value()) {
+    if (currentPokemonToPlace.has_value() &&
+        level->validTowerPlacement(worldPos, 5)) {
       std::cout << "Attempting to place a tower.\n"; // Place a tower here
       level->addTower(currentPokemonToPlace.value(), worldPos);
       sideMenu->resetCurrentPokemonToPlace();

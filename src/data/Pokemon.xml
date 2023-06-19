@@ -2,7 +2,7 @@
 	<Pokemon>
     <Name>Bulbasaur</Name>
 		<PrimaryType>Grass</PrimaryType>
-    <WalkingAnimation>BulbsaurWalk</WalkingAnimation>
+    <WalkingAnimation>BulbasaurWalk</WalkingAnimation>
     <ShootingAnimation>BulbasaurAttack</ShootingAnimation>
     <AttackAnimation>BulbasaurAttack</AttackAnimation>
     <IdleAnimation>BulbasaurSleep</IdleAnimation>
@@ -64,5 +64,56 @@
     <HitboxRadius>10</HitboxRadius>
 		<PreEvolution>Charmeleon</PreEvolution>
   </Pokemon>
+	<Pokemon>
+		<Name>Chimchar</Name>
+		<PrimaryType>Fire</PrimaryType>
+		<WalkingAnimation>ChimcharWalk</WalkingAnimation>
+		<ShootingAnimation>ChimcharShoot</ShootingAnimation>
+		<AttackAnimation>ChimcharAttack</AttackAnimation>
+		<IdleAnimation>ChimcharSleep</IdleAnimation>
+		<TowerDamage>10</TowerDamage>
+		<TowerAttackSpeed>5</TowerAttackSpeed>
+		<TowerRange>100</TowerRange>
+		<MobHP>100</MobHP>
+		<MobSpeed>50</MobSpeed>
+		<HitboxRadius>10</HitboxRadius>
+		<Evolution>Monferno</Evolution>
+		<EvolutionLevel>1</EvolutionLevel>
+	</Pokemon>
+	<Pokemon>
+		<Name>Monferno</Name>
+		<PrimaryType>Fire</PrimaryType>
+		<SecondaryType>Fighting</SecondaryType>
+		<WalkingAnimation>MonfernoWalk</WalkingAnimation>
+		<ShootingAnimation>MonfernoShoot</ShootingAnimation>
+		<AttackAnimation>MonfernoAttack</AttackAnimation>
+		<IdleAnimation>MonfernoSleep</IdleAnimation>
+		<TowerDamage>10</TowerDamage>
+		<TowerAttackSpeed>5</TowerAttackSpeed>
+		<TowerRange>100</TowerRange>
+		<MobHP>100</MobHP>
+		<MobSpeed>50</MobSpeed>
+		<HitboxRadius>10</HitboxRadius>
+		<Evolution>Infernape</Evolution>
+		<PreEvolution>Chimchar</PreEvolution>
+		<EvolutionLevel>2</EvolutionLevel>
+	</Pokemon>
+	<Pokemon>
+		<Name>Infernape</Name>
+		<PrimaryType>Fire</PrimaryType>
+		<SecondaryType>Fighting</SecondaryType>
+		<WalkingAnimation>InfernapeWalk</WalkingAnimation>
+		<ShootingAnimation>InfernapeShoot</ShootingAnimation>
+		<AttackAnimation>InfernapeAttack</AttackAnimation>
+		<IdleAnimation>InfernapeSleep</IdleAnimation>
+		<TowerDamage>10</TowerDamage>
+		<TowerAttackSpeed>5</TowerAttackSpeed>
+		<TowerRange>100</TowerRange>
+		<MobHP>100</MobHP>
+		<MobSpeed>50</MobSpeed>
+		<HitboxRadius>10</HitboxRadius>
+		<Evolution>Infernape</Evolution>
+		<PreEvolution>Monferno</PreEvolution>
+	</Pokemon>
 </Pokemons>
 
