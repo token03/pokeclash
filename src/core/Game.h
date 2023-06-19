@@ -5,6 +5,7 @@
 #include "../entities/TowerFactory.hpp"
 #include "../graphics/TextureManager.h"
 #include "../levels/Level.h"
+#include "../ui/PauseMenu.h"
 #include "../ui/ResourceIndicator.h"
 #include "../ui/SideMenu.h"
 #include <SFML/Graphics.hpp>
@@ -22,6 +23,7 @@ public:
   void run();
 
 private:
+  PauseMenu pauseMenu = PauseMenu();
   void processEvents();
   void update(float dt);
   void handleClick(sf::Vector2i position);

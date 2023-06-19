@@ -4,13 +4,14 @@ using std::string;
 ;
 
 Game::Game() : window(sf::VideoMode(1000, 700), "Pokeclash"), isPaused(false) {
-  window.setFramerateLimit(60);
 
+  window.setFramerateLimit(60);
   loadTextures();
   loadImgui();
 
   level = std::make_unique<Level>(window.getSize().x, window.getSize().y);
   sideMenu.emplace(window, level);
+
   resourceIndicator = std::make_unique<ResourceIndicator>(*level);
 }
 
@@ -18,13 +19,11 @@ void Game::loadImgui() {
 
   bool initialized = ImGui::SFML::Init(window);
   if (!initialized) {
-    // Handle the initialization failure
+    std::cout << "Failed to initialize ImGui.\n";
   }
 
   ImGuiStyle &style = ImGui::GetStyle();
   ImGui::StyleColorsLight(&style); // Apply the modified style
-
-  // Modifying colors
   style.Colors[ImGuiCol_Button] =
       ImVec4(0.8f, 0.2f, 0.2f, 1.0f); // Button color (red)
   style.Colors[ImGuiCol_ButtonHovered] =
@@ -32,7 +31,6 @@ void Game::loadImgui() {
   style.Colors[ImGuiCol_ButtonActive] =
       ImVec4(1.0f, 0.6f, 0.6f, 1.0f); // Button pressed color (pale red)
 
-  // Modifying other properties
   style.FramePadding = ImVec2(8, 4); // Adjust the padding around the button
   style.FrameRounding = 4.0f; // Adjust the rounding of the button corners
   style.ButtonTextAlign =
@@ -109,30 +107,14 @@ void Game::update(float dt) {
 void Game::render() {
   window.clear(sf::Color::White);
 
-  if (isPaused) {
-    sf::Vector2u windowSize = window.getSize();
-    ImDrawList *drawList = ImGui::GetForegroundDrawList();
-
-    drawList->AddRectFilled(ImVec2(0, 0), ImVec2(windowSize.x, windowSize.y),
-                            IM_COL32(0, 0, 0, 128));
-    ImGui::SetNextWindowPos(
-        ImVec2((float)windowSize.x / 2, (float)windowSize.y / 2),
-        ImGuiCond_Once, ImVec2(0.5f, 0.5f));
-
-    ImGui::Begin("Pause Menu", nullptr, ImGuiWindowFlags_NoTitleBar);
-    if (ImGui::Button("Resume")) {
-      isPaused = false;
-    }
-    if (ImGui::Button("Quit")) {
-      window.close();
-    }
-    ImGui::End();
-  }
-
   level->draw(window);
   resourceIndicator->draw(window);
 
-  sideMenu->render(); // Render the side menu
+  if (isPaused) {
+    pauseMenu.render(window, isPaused);
+  } else {
+    sideMenu->render(); // Render the side menu
+  }
 
   ImGui::SFML::Render(window);
 
@@ -147,17 +129,14 @@ void Game::handleClick(sf::Vector2i position) {
       std::cout << "Attempting to place a tower.\n"; // Place a tower here
       level->addTower(currentPokemonToPlace.value(), worldPos);
       sideMenu->resetCurrentPokemonToPlace();
-      // Set the selected tower in the side menu to the tower just placed
       sideMenu->setSelectedTower(level->getTowerAtPosition(worldPos));
     } else {
       Tower *tower = level->getTowerAtPosition(worldPos);
       if (tower) {
-        // If a tower is clicked, set it as the selected tower in the side menu
         sideMenu->setSelectedTower(tower);
       }
     }
   }
-
   if (sideMenu->getSelectedTower() == nullptr) {
     sideMenu->reset();
   }
@@ -187,6 +166,7 @@ void Game::loadTextures() {
         for (const auto &entry :
              std::filesystem::directory_iterator(subFolderPath)) {
         }
+      } else if (subDirName == "icons") {
       }
     }
   }
