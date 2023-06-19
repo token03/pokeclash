@@ -1,4 +1,20 @@
 <Pokemons>
+	<Pokemon>
+    <Name>Bulbasaur</Name>
+		<PrimaryType>Grass</PrimaryType>
+    <WalkingAnimation>BulbsaurWalk</WalkingAnimation>
+    <ShootingAnimation>BulbasaurAttack</ShootingAnimation>
+    <AttackAnimation>BulbasaurAttack</AttackAnimation>
+    <IdleAnimation>BulbasaurSleep</IdleAnimation>
+    <TowerDamage>10</TowerDamage>
+    <TowerAttackSpeed>5</TowerAttackSpeed>
+    <TowerRange>100</TowerRange>
+    <MobHP>100</MobHP>
+    <MobSpeed>50</MobSpeed>
+    <HitboxRadius>10</HitboxRadius>
+    <Evolution>Ivysaur</Evolution>
+		<EvolutionLevel>1</EvolutionLevel>
+  </Pokemon>
   <Pokemon>
     <Name>Charmander</Name>
 		<PrimaryType>Fire</PrimaryType>
@@ -13,7 +29,7 @@
     <MobSpeed>50</MobSpeed>
     <HitboxRadius>10</HitboxRadius>
     <Evolution>Charmeleon</Evolution>
-		<EvolutionLevel>1</EvolutionLevel>
+		<EvolutionLevel>2</EvolutionLevel>
   </Pokemon>
   <Pokemon>
     <Name>Charmeleon</Name>
@@ -30,7 +46,7 @@
     <HitboxRadius>10</HitboxRadius>
     <PreEvolution>Charmander</PreEvolution>
     <Evolution>Charizard</Evolution>
-		<EvolutionLevel>2</EvolutionLevel>
+		<EvolutionLevel>3</EvolutionLevel>
   </Pokemon>
   <Pokemon>
     <Name>Charizard</Name>

@@ -111,7 +111,7 @@ int Tower::upgrade(int money) {
   damage += 5;
   std::cout << "Evolution Level: " << pokemon.evolutionLevel << std::endl;
 
-  if (level >= pokemon.evolutionLevel) {
+  if (level >= pokemon.evolutionLevel && pokemon.evolutionName != "") {
     std::string name = pokemon.evolutionName;
     std::cout << name << std::endl;
     pokemon = loadPokemonData(name);

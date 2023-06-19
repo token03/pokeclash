@@ -2,27 +2,28 @@
 #include <cmath>
 #include <iostream>
 
-Mob::Mob(Path &path, int maxHp, float speed, float size, std::string &key)
-    : path(path), speed(speed), maxHp(maxHp), hp(maxHp), size(size),
-      sprite(key), currentPathPoint(0), shape(size),
+Mob::Mob(Path &path, std::string &name)
+    : path(path), currentPathPoint(0),
       Pokemon(sf::Vector2f(path.getPoint(0).x, path.getPoint(0).y)) {
   direction = Direction::South;
-  sprite.setPosition(position);
-  shape.setPosition(position);
-  shape.setFillColor(sf::Color::Red);
+  pokemon = loadPokemonData(name);
+  setPokemon(pokemon);
+  hp = maxHp;
+  state = State::Walking;
 }
 
 void Mob::draw(sf::RenderWindow &window) {
-  sprite.draw(window, direction);
+  animations[state]->draw(window, direction);
 
   // Draw a circle representing the tower's radius.
-  sf::CircleShape radiusCircle(size);
+  sf::CircleShape radiusCircle(hitboxRadius);
   radiusCircle.setFillColor(sf::Color::Transparent);
   radiusCircle.setOutlineColor(sf::Color::Red);
   radiusCircle.setOutlineThickness(1.0f);
 
   // Position the range circle so its center is at the tower's position.
-  radiusCircle.setPosition(position.x - size, position.y - size);
+  radiusCircle.setPosition(position.x - hitboxRadius,
+                           position.y - hitboxRadius);
 
   window.draw(radiusCircle);
 }
@@ -33,13 +34,9 @@ void Mob::drawHpBar(sf::RenderWindow &window) {
   hpBackground.setSize(sf::Vector2f(50, 5)); // width and height of the HP bar
   hpBackground.setFillColor(sf::Color::Red);
   hpBackground.setOrigin(hpBackground.getSize().x / 2,
-                         hpBackground.getSize().y /
-                             2); // set the origin to the center of the hp bar
-  hpBackground.setPosition(
-      sprite.getPosition().x,
-      sprite.getPosition().y -
-          sprite.getRect().height); // position the HP bar at the center and
-                                    // move it above the mob sprite
+                         hpBackground.getSize().y / 2);
+  hpBackground.setPosition(position.x,
+                           position.y - animations[state]->getRect().height);
   hpBackground.setOutlineColor(sf::Color::Black);
   hpBackground.setOutlineThickness(1);
 
@@ -50,14 +47,9 @@ void Mob::drawHpBar(sf::RenderWindow &window) {
   currentHp.setSize(sf::Vector2f(50 * (static_cast<float>(hp) / maxHp),
                                  5)); // width is proportional to the mob's HP
   currentHp.setFillColor(sf::Color::Green);
-  currentHp.setOrigin(0,
-                      currentHp.getSize().y /
-                          2); // set the origin to the center-left of the hp bar
-  currentHp.setPosition(
-      sprite.getPosition().x - hpBackground.getSize().x / 2,
-      sprite.getPosition().y -
-          sprite.getRect().height); // position the HP bar at the center-left
-                                    // above the mob sprite
+  currentHp.setOrigin(0, currentHp.getSize().y / 2);
+  currentHp.setPosition(position.x - hpBackground.getSize().x / 2,
+                        position.y - animations[state]->getRect().height);
 
   window.draw(currentHp);
 }
@@ -65,8 +57,9 @@ void Mob::drawHpBar(sf::RenderWindow &window) {
 void Mob::update(float dt) {
   if (currentPathPoint < path.getNumPoints()) {
     sf::Vector2f targetPoint = path.getPoint(currentPathPoint);
-    sf::Vector2f dir = targetPoint - sf::Vector2f(position.x + size / 2,
-                                                  position.y + size / 2);
+    sf::Vector2f dir =
+        targetPoint - sf::Vector2f(position.x + hitboxRadius / 2,
+                                   position.y + hitboxRadius / 2);
     float distance = std::sqrt(dir.x * dir.x + dir.y * dir.y);
 
     // Check if the mob has reached the current point
@@ -76,11 +69,23 @@ void Mob::update(float dt) {
       // Normalize direction vector
       dir /= distance;
       position += speed * dir * dt;
-      sprite.setPosition(position);
-      direction = getDirectionToNextPoint();
-      sprite.update(dt, direction);
     }
+    animations[state]->setPosition(position);
+    direction = getDirectionToNextPoint();
+    animations[state]->update(dt, direction);
   }
+}
+
+void Mob::setPokemon(PokemonData data) {
+  speed = data.mobSpeed;
+  maxHp = data.mobHP;
+  animations[State::Idle] =
+      std::make_unique<AnimatedSprite>(data.idleAnimation);
+  animations[State::Attacking] =
+      std::make_unique<AnimatedSprite>(data.shootingAnimation);
+  animations[State::Walking] =
+      std::make_unique<AnimatedSprite>(data.walkingAnimation);
+  hitboxRadius = data.hitboxRadius;
 }
 
 Direction Mob::getDirectionToNextPoint() const {

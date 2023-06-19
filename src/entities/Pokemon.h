@@ -32,11 +32,15 @@ public:
   Direction getDirection() const { return direction; }
   void setPosition(const sf::Vector2f &pos);
   void setDirection(Direction dir) { direction = dir; }
-  void draw(sf::RenderWindow &window);
-  void update(float dt);
+  virtual void draw(sf::RenderWindow &window) = 0;
+  virtual void update(float dt) = 0;
+  virtual void setPokemon(PokemonData data) = 0;
   static PokemonData loadPokemonData(const std::string &name);
 
 protected:
+  PokemonData pokemon;
+  State state;
+  std::map<State, std::unique_ptr<AnimatedSprite>> animations;
   sf::Vector2f position;
   Direction direction;
 };

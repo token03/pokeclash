@@ -15,15 +15,15 @@ class Tower : public Pokemon {
 public:
   Tower(sf::Vector2f position);                          // Constructor.
   Tower(const std::string &name, sf::Vector2f position); // Constructor.
-  void draw(sf::RenderWindow &window);                   // Draw the tower.
-  void setPokemon(PokemonData data);           // Set the tower's stats.
+  void draw(sf::RenderWindow &window) override;          // Draw the tower.
+  void setPokemon(PokemonData data) override;  // Set the tower's stats.
   bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
   bool isClicked(sf::Vector2f clickPos) const; // Check if the tower is clicked.
   void clearTargets();                         // Clear the tower's targets.
-  void addTarget(Mob *mob); // Add a mob to the tower's targets.
-  int upgrade(int money);   // Upgrade the tower.
-  void sell();              // Sell the tower.
-  void update(float dt);    // Update the tower's state.
+  void addTarget(Mob *mob);       // Add a mob to the tower's targets.
+  int upgrade(int money);         // Upgrade the tower.
+  void sell();                    // Sell the tower.
+  void update(float dt) override; // Update the tower's state.
   sf::Vector2f getPosition() const { return position; } // Returns position.
   std::string getName() const { return name; } // Returns the tower's name.
   float getDamage() const { return damage; }   // Returns the tower's damage.
@@ -36,13 +36,9 @@ public:
   Direction getDirectionToTarget(const Mob *target) const;
 
 protected:
-  PokemonData pokemon;
   TowerStage stage;
-  State state;
-  std::map<State, std::unique_ptr<AnimatedSprite>> animations;
   std::vector<Mob *> targets;
   std::vector<Projectile> projectiles;
-
   std::string name;
   float attackTimer;
   float attackDelay;

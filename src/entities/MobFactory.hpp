@@ -12,28 +12,19 @@ public:
   MobFactory &operator=(const MobFactory &) = default;
   MobFactory &operator=(MobFactory &&) = default;
   static std::unique_ptr<Mob> createMob(const PokemonType type, Path &path) {
-    std::string aniKey;
-    int maxHp;
-    float speed;
-    int size;
+    std::string name;
     switch (type) {
     case PokemonType::Bulbasaur: {
-      maxHp = 100;
-      speed = 40;
-      size = 20;
-      aniKey = "BulbasaurWalk";
+      name = "Bulbasaur";
       break;
     }
     case PokemonType::Charmander: {
-      maxHp = 100;
-      speed = 30;
-      size = 20;
-      aniKey = "CharmanderWalk";
+      name = "Charmander";
       break;
     }
     default:
       throw std::invalid_argument("Invalid mob type");
     }
-    return std::make_unique<Mob>(path, maxHp, speed, size, aniKey);
+    return std::make_unique<Mob>(path, name);
   }
 };
