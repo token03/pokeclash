@@ -16,7 +16,7 @@ public:
   Tower(sf::Vector2f position);                          // Constructor.
   Tower(const std::string &name, sf::Vector2f position); // Constructor.
   void draw(sf::RenderWindow &window) override;          // Draw the tower.
-  void setPokemon(PokemonData data) override;  // Set the tower's stats.
+  void setPokemon(PokemonData &data) override; // Set the tower's stats.
   bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
   bool isClicked(sf::Vector2f clickPos) const; // Check if the tower is clicked.
   void clearTargets();                         // Clear the tower's targets.

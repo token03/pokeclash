@@ -34,7 +34,7 @@ public:
   void setDirection(Direction dir) { direction = dir; }
   virtual void draw(sf::RenderWindow &window) = 0;
   virtual void update(float dt) = 0;
-  virtual void setPokemon(PokemonData data) = 0;
+  virtual void setPokemon(PokemonData &data) = 0;
   static PokemonData loadPokemonData(const std::string &name);
 
 protected:

@@ -76,7 +76,7 @@ void Mob::update(float dt) {
   }
 }
 
-void Mob::setPokemon(PokemonData data) {
+void Mob::setPokemon(PokemonData &data) {
   speed = data.mobSpeed;
   maxHp = data.mobHP;
   animations[State::Idle] =

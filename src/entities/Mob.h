@@ -12,7 +12,7 @@ class Mob : public Pokemon {
 public:
   Mob(Path &path, std::string &name);
   void draw(sf::RenderWindow &window) override; // Draw the mob.
-  void setPokemon(PokemonData data) override;   // Set the mob's stats.
+  void setPokemon(PokemonData &data) override;  // Set the mob's stats.
   void drawHpBar(sf::RenderWindow &window);     // Draw the mob's HP bar.
   sf::Vector2f getPosition() const { return position; } // Get position.
   void update(float dt) override;              // Update the mob's state.

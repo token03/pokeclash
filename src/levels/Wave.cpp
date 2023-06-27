@@ -1,7 +1,7 @@
 #include "Wave.h"
 
 Wave::Wave(std::initializer_list<MobBatch> batchesInit)
-    : batches(batchesInit.begin(), batchesInit.end()),
+    : allSpawned(false), batches(batchesInit.begin(), batchesInit.end()),
       currentBatch(batches.begin()) {
   if (!batches.empty()) {
     timer = batches.front().spawnInterval;
@@ -25,8 +25,12 @@ void Wave::update(float dt) {
   // currentBatch
   if (spawnMob == false && currentBatch->quantity == 0) {
     ++currentBatch;
+    if (currentBatch == batches.end()) {
+      allSpawned = true;
+    }
   }
 }
+
 PokemonType Wave::getCurrentType() const {
   if (isFinished()) {
     throw std::runtime_error("Wave is finished, no current type");

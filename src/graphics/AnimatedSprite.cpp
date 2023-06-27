@@ -4,7 +4,7 @@
 #include <string>
 
 AnimatedSprite::AnimatedSprite(const std::string &name)
-    : currentFrame_(0), frameDelay_(0.2f), frameTimer_(0), name(name) {
+    : currentFrame_(0), frameTimer_(0), name(name) {
   setSpriteSheet(name);
   loadAnimationData(name);
 
@@ -34,13 +34,14 @@ void AnimatedSprite::loadAnimationData(const std::string &key) {
   for (int i = 0; i < data.durations.size(); i++) {
     durations_.push_back(data.durations[i] / 100);
   }
+  scaledDurations_ = durations_;
   maxFrames_ = spriteSheet_.getSize().x / frameWidth_;
   sprite_.setTexture(spriteSheet_);
 }
 
 void AnimatedSprite::update(float dt, Direction dir) {
   frameTimer_ += dt;
-  if (frameTimer_ >= durations_[currentFrame_]) {
+  if (frameTimer_ >= scaledDurations_[currentFrame_]) {
     if (currentFrame_ >= maxFrames_ - 1) {
       currentFrame_ = 0;
     } else {
@@ -66,4 +67,22 @@ void AnimatedSprite::setPosition(const sf::Vector2f &pos) { position_ = pos; }
 
 sf::IntRect AnimatedSprite::getRect() const {
   return sf::IntRect(currentFrame_ * frameWidth_, 0, frameWidth_, frameHeight_);
+}
+
+void AnimatedSprite::setAttackSpeed(float attacksPerSecond) {
+  attacksPerSecond = std::min(attacksPerSecond, 10.0f);
+
+  float totalAnimationDuration = 0.0f;
+  for (auto duration : durations_) {
+    totalAnimationDuration += duration;
+  }
+
+  float desiredTotalDuration = 1.0f / attacksPerSecond;
+
+  float scaleFactor = desiredTotalDuration / totalAnimationDuration;
+
+  // Scale durations
+  for (size_t i = 0; i < durations_.size(); i++) {
+    scaledDurations_[i] = durations_[i] * scaleFactor;
+  }
 }

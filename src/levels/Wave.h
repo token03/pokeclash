@@ -20,11 +20,13 @@ public:
   bool shouldSpawnMob() const { return spawnMob; }
   void mobSpawned() { spawnMob = false; }
   PokemonType getCurrentType() const;
+  bool allMobsSpawned() const { return allSpawned; }
 
 private:
   std::vector<MobBatch> batches;
   std::vector<MobBatch>::iterator currentBatch;
   float timer = 0;
   bool spawnMob = false;
+  bool allSpawned;
 };
 ;

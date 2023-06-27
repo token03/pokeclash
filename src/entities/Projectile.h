@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Mob.h"
 #include <SFML/Graphics.hpp>
 
@@ -13,6 +12,7 @@ public:
   bool isCollidingWithTarget() const; // Check if the projectile is colliding.
 
 protected:
+  Type type;
   sf::Vector2f position;  // The position of the projectile.
   sf::CircleShape shape;  // The graphical representation of the projectile.
   sf::Vector2f direction; // The position of the target when the projectile

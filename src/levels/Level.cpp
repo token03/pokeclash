@@ -66,7 +66,7 @@ void Level::updateWave(float dt) {
     Wave &currentWave = waves.front();
     currentWave.update(dt);
 
-    if (currentWave.isFinished()) {
+    if (currentWave.allMobsSpawned() && mobs.empty()) {
       waves.erase(waves.begin());
     } else {
       if (currentWave.shouldSpawnMob()) {

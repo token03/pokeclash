@@ -10,7 +10,8 @@ void SideMenu::render() {
       ImVec2(window.getSize().x * 0.15f, window.getSize().y), ImGuiCond_Always);
 
   ImGui::Begin("Side Menu", nullptr,
-               ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove);
+               ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize |
+                   ImGuiWindowFlags_NoMove);
 
   // Backup current font size
   ImFont *font = ImGui::GetFont();
@@ -21,7 +22,9 @@ void SideMenu::render() {
   ImGui::PushFont(font);
 
   renderStats();
+  ImGui::Separator();
   renderTowerPlacement();
+  ImGui::Separator();
   renderTowerManagement();
 
   // Restore the original font size
@@ -55,15 +58,13 @@ void SideMenu::renderTowerPlacement() {
 
 void SideMenu::renderTowerManagement() {
   if (selectedTower) {
-    ImGui::Text("Tower Management"); // Display a title for the section
-
     // Display tower information and controls
     ImGui::Text("Name: %s", selectedTower->getName().c_str());
     ImGui::Text("Level: %d", selectedTower->getLevel());
     ImGui::Text("Damage: %.2f", selectedTower->getDamage());
     ImGui::Text("Range: %.2f", selectedTower->getRange());
-    ImGui::Text("Position: (%f, %f)", selectedTower->getPosition().x,
-                selectedTower->getPosition().y);
+    ImGui::Text("(%i, %i)", (int)selectedTower->getPosition().x,
+                (int)selectedTower->getPosition().y);
 
     if (ImGui::Button("Upgrade")) {
       selectedTower->upgrade(99);
@@ -72,6 +73,7 @@ void SideMenu::renderTowerManagement() {
       level->sellTower(selectedTower);
       selectedTower = nullptr; // Clear selection after selling
     }
+    ImGui::Separator();
   }
 }
 

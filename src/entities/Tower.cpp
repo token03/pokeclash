@@ -13,7 +13,7 @@ Tower::Tower(const std::string &name, sf::Vector2f position)
   maxTargets = 1;
 }
 
-void Tower::setPokemon(PokemonData data) {
+void Tower::setPokemon(PokemonData &data) {
   name = data.name;
   baseRange = data.towerBaseRange;
   baseDamage = data.towerBaseDamage;
@@ -23,6 +23,7 @@ void Tower::setPokemon(PokemonData data) {
       std::make_unique<AnimatedSprite>(data.idleAnimation);
   animations[State::Attacking] =
       std::make_unique<AnimatedSprite>(data.shootingAnimation);
+  animations[State::Attacking]->setAttackSpeed(data.towerAttacksPerSecond);
   range = baseRange;
   damage = baseDamage;
   hitboxRadius = data.hitboxRadius;
