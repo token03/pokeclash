@@ -3,12 +3,13 @@
 #include "../entities/MobFactory.hpp"
 #include <vector>
 
+using std::string;
 struct MobBatch {
-  PokemonType type;
+  string type;
   int quantity;
   float spawnInterval;
 
-  MobBatch(PokemonType type, int quantity, float spawnInterval)
+  MobBatch(string type, int quantity, float spawnInterval)
       : type(type), quantity(quantity), spawnInterval(spawnInterval) {}
 };
 
@@ -19,7 +20,7 @@ public:
   void update(float dt);
   bool shouldSpawnMob() const { return spawnMob; }
   void mobSpawned() { spawnMob = false; }
-  PokemonType getCurrentType() const;
+  string getCurrentType() const;
   bool allMobsSpawned() const { return allSpawned; }
 
 private:

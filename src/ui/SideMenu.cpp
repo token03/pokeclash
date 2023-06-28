@@ -41,14 +41,14 @@ void SideMenu::renderTowerPlacement() {
   ImTextureID charmanderIcon =
       reinterpret_cast<void *>(tm.getRef("CharmanderIcon").getNativeHandle());
   if (ImGui::ImageButton(charmanderIcon, ImVec2(32, 32))) {
-    currentPokemonToPlace = PokemonType::Charmander;
+    currentPokemonToPlace = "Charmander";
     std::cout << "Charmander selected for placement.\n";
   }
   ImGui::NextColumn();
   ImTextureID chimcharIcon =
       reinterpret_cast<void *>(tm.getRef("ChimcharIcon").getNativeHandle());
   if (ImGui::ImageButton(chimcharIcon, ImVec2(32, 32))) {
-    currentPokemonToPlace = PokemonType::Chimchar;
+    currentPokemonToPlace = "Chimchar";
     std::cout << "Chimchar selected for placement.\n";
   }
 
@@ -92,6 +92,6 @@ void SideMenu::resetCurrentPokemonToPlace() {
   currentPokemonToPlace = std::nullopt;
 }
 
-std::optional<PokemonType> SideMenu::getCurrentPokemonToPlace() {
+std::optional<string> SideMenu::getCurrentPokemonToPlace() {
   return currentPokemonToPlace;
 }

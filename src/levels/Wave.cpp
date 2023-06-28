@@ -31,7 +31,7 @@ void Wave::update(float dt) {
   }
 }
 
-PokemonType Wave::getCurrentType() const {
+string Wave::getCurrentType() const {
   if (isFinished()) {
     throw std::runtime_error("Wave is finished, no current type");
   }

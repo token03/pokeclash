@@ -21,9 +21,9 @@ public:
   void updateWave(float dt);
   void updateMobs(float dt);
   void updateTowers(float dt);
-  void addTower(const PokemonType type, sf::Vector2f position);
+  void addTower(const std::string &pokemon, sf::Vector2f position);
   void sellTower(Tower *tower);
-  void addMob(const PokemonType type);
+  void addMob(const std::string &pokemon);
   bool validTowerPlacement(sf::Vector2f position, int radius);
   Tower *getTowerAtPosition(sf::Vector2f position);
   int getCredits() const { return credits; }

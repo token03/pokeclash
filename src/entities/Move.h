@@ -9,6 +9,7 @@ class Move {
 public:
   std::unique_ptr<Projectile> use(Mob *target, sf::Vector2f position);
   Move(Type type, Category category, std::string name, int damage, int speed);
+  Move(std::string name);
   void loadMoveData(const std::string &name);
   Type getType() const { return type; }
   int getDamage() const { return damage; }

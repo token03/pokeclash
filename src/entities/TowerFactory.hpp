@@ -2,15 +2,9 @@
 
 #include "Mob.h"
 #include "Tower.h"
+#include <iostream>
 #include <memory>
 #include <vector>
-
-enum class PokemonType {
-  Charmander,
-  Bulbasaur,
-  Squirtle,
-  Chimchar,
-};
 
 class TowerFactory {
 public:
@@ -18,14 +12,13 @@ public:
   TowerFactory(TowerFactory &&) = default;
   TowerFactory &operator=(const TowerFactory &) = default;
   TowerFactory &operator=(TowerFactory &&) = default;
-  static std::unique_ptr<Tower> createTower(const PokemonType type,
+  static std::unique_ptr<Tower> createTower(const std::string &pokemon,
                                             sf::Vector2f position) {
-    if (type == PokemonType::Charmander) {
-      return std::make_unique<Tower>("Charmander", position);
-    } else if (type == PokemonType::Chimchar) {
-      return std::make_unique<Tower>("Chimchar", position);
-    } else {
-      throw std::invalid_argument("Invalid tower type");
+    try {
+      return std::make_unique<Tower>(pokemon, position);
+    } catch (const std::exception &e) {
+      std::cout << e.what() << std::endl;
+      return nullptr;
     }
   }
 };

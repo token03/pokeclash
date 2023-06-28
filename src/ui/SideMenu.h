@@ -10,6 +10,8 @@
 #include <memory>
 #include <optional>
 
+using std::string;
+
 class SideMenu {
 public:
   SideMenu(sf::RenderWindow &window, std::unique_ptr<Level> &level);
@@ -17,7 +19,7 @@ public:
   void setSelectedTower(Tower *tower);
   Tower *getSelectedTower();
   void resetCurrentPokemonToPlace();
-  std::optional<PokemonType> getCurrentPokemonToPlace();
+  std::optional<string> getCurrentPokemonToPlace();
   void reset();
 
 private:
@@ -26,6 +28,6 @@ private:
   void renderStats();
   sf::RenderWindow &window;
   std::unique_ptr<Level> &level;
-  std::optional<PokemonType> currentPokemonToPlace;
+  std::optional<string> currentPokemonToPlace;
   Tower *selectedTower = nullptr;
 };

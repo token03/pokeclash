@@ -8,8 +8,8 @@ Level::Level(int width, int height) : width(width), height(height), path() {
   credits = 999;
   health = 100;
   setBackground();
-  Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 2.0f),
-                 MobBatch(PokemonType::Charmander, 3, 2.0f)});
+  Wave testWave(
+      {MobBatch("Bulbasaur", 3, 2.0f), MobBatch("Charmander", 3, 2.0f)});
   waves.push_back(std::move(testWave));
   std::cout << TypeChecker::getInstance().getMultiplier(Type::Fire, Type::Grass)
             << std::endl;
@@ -76,17 +76,17 @@ void Level::updateWave(float dt) {
       }
     }
   } else {
-    Wave testWave({MobBatch(PokemonType::Bulbasaur, 3, 1.0f),
-                   MobBatch(PokemonType::Charmander, 3, 1.0f)});
+    Wave testWave(
+        {MobBatch("Bulbasaur", 3, 1.0f), MobBatch("Charmander", 3, 1.0f)});
     waves.push_back(std::move(testWave));
   }
 }
 
-void Level::addTower(const PokemonType type, sf::Vector2f position) {
+void Level::addTower(const std::string &pokemon, sf::Vector2f position) {
   if (validTowerPlacement(position, 20)) {
     cout << "Tower added at " << position.x << ", " << position.y << endl;
     towers.push_back(TowerFactory::createTower(
-        type, sf::Vector2f((float)position.x, (float)position.y)));
+        pokemon, sf::Vector2f((float)position.x, (float)position.y)));
   } else {
     cout << "Invalid tower placement" << endl;
   }
@@ -103,7 +103,7 @@ void Level::sellTower(Tower *tower) {
   }
 }
 
-void Level::addMob(const PokemonType type) {
+void Level::addMob(const std::string &type) {
   mobs.push_back(MobFactory::createMob(type, path));
   cout << "Mob added" << endl;
 }

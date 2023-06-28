@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 
-Mob::Mob(Path &path, std::string &name)
+Mob::Mob(Path &path, const std::string &name)
     : path(path), currentPathPoint(0),
       Pokemon(sf::Vector2f(path.getPoint(0).x, path.getPoint(0).y)) {
   direction = Direction::South;
