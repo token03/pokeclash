@@ -3,6 +3,7 @@
 #include "../graphics/AnimatedSprite.h"
 #include "../graphics/TextureManager.h"
 #include "Mob.h"
+#include "Move.h"
 #include "Pokemon.h"
 #include "Projectile.h"
 #include <SFML/Graphics.hpp>
@@ -37,8 +38,9 @@ public:
 
 protected:
   TowerStage stage;
+  std::vector<Move> moves;
   std::vector<Mob *> targets;
-  std::vector<Projectile> projectiles;
+  std::vector<std::unique_ptr<Projectile>> projectiles;
   std::string name;
   float attackTimer;
   float attackDelay;

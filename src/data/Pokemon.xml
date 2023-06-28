@@ -25,7 +25,7 @@
     <AttackAnimation>CharmanderAttack</AttackAnimation>
     <IdleAnimation>CharmanderSleep</IdleAnimation>
     <TowerDamage>10</TowerDamage>
-    <TowerAttackSpeed>2</TowerAttackSpeed>
+    <TowerAttackSpeed>4</TowerAttackSpeed>
     <TowerRange>100</TowerRange>
     <MobHP>100</MobHP>
     <MobSpeed>50</MobSpeed>
@@ -42,7 +42,7 @@
     <AttackAnimation>CharmeleonAttack</AttackAnimation>
     <IdleAnimation>CharmeleonSleep</IdleAnimation>
     <TowerDamage>20</TowerDamage>
-    <TowerAttackSpeed>10</TowerAttackSpeed>
+    <TowerAttackSpeed>4</TowerAttackSpeed>
     <TowerRange>120</TowerRange>
     <MobHP>200</MobHP>
     <MobSpeed>100</MobSpeed>
@@ -61,7 +61,7 @@
     <AttackAnimation>CharizardAttack</AttackAnimation>
     <IdleAnimation>CharizardSleep</IdleAnimation>
     <TowerDamage>20</TowerDamage>
-    <TowerAttackSpeed>10</TowerAttackSpeed>
+    <TowerAttackSpeed>4</TowerAttackSpeed>
     <TowerRange>130</TowerRange>
     <MobHP>200</MobHP>
     <MobSpeed>100</MobSpeed>

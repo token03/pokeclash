@@ -1,5 +1,6 @@
 #include "Level.h"
 #include <iostream>
+#include <math.h>
 
 using std::cout, std::endl;
 
@@ -114,6 +115,19 @@ bool Level::validTowerPlacement(sf::Vector2f position, int radius) {
     cout << "Out of bounds" << endl;
     return false;
   }
+
+  // Check if the position overlaps with an existing tower.
+  for (const auto &tower : towers) {
+    sf::Vector2f towerPos = tower->getPosition();
+    float distance =
+        sqrt(pow(towerPos.x - position.x, 2) + pow(towerPos.y - position.y, 2));
+    if (distance < radius + tower->getRadius()) { // change getRadius() with
+                                                  // actual tower's radius
+      cout << "Overlaps with an existing tower" << endl;
+      return false;
+    }
+  }
+
   // Check if the position is on the path.
   return !path.overlap(position, radius);
 }

@@ -2,6 +2,8 @@
 #include "Mob.h"
 #include <SFML/Graphics.hpp>
 
+enum ProjectileType { Bullet, Beam, Column, Physical };
+
 class Projectile {
 public:
   Projectile(sf::Vector2f position, Mob *target, int damage, float speed);

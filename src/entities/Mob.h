@@ -19,12 +19,14 @@ public:
   bool isDead() const { return hp <= 0; }      // Check if the mob is dead.
   void onHit(int damage);                      // Called when the mob is hit.
   int getSize() const { return hitboxRadius; } // Get the mob's size.
+  int getCost() const;                         // Get the mob's cost.
   bool hasReachedFinalPoint() const; // Check if the mob has reached the end.
   Direction getDirectionToNextPoint() const; // Get the direction to the next
                                              // point in the path.
 private:
   Path &path;
   int currentPathPoint;
+  int cost;
   float speed;
   int maxHp;
   int hp;

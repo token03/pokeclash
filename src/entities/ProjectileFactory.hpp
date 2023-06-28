@@ -7,18 +7,13 @@
 #include <memory>
 #include <vector>
 
-enum class ProjectileType {
-  BeamProjectile,
-  BulletProjectile,
-};
-
 class ProjectileFactory {
 public:
   static std::unique_ptr<Projectile> createProjectile(const ProjectileType type,
                                                       sf::Vector2f position,
                                                       Mob *target, int damage,
                                                       float speed) {
-    if (type == ProjectileType::BulletProjectile) {
+    if (type == ProjectileType::Bullet) {
       return std::make_unique<BulletProjectile>(position, target, damage,
                                                 speed);
     } else {

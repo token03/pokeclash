@@ -1,0 +1,26 @@
+<Moves>
+    <Move>
+        <Name>Ember</Name>
+        <Type>Fire</Type>
+        <Damage>90</Damage>
+        <Speed>60</Speed>
+        <BoundingBox>
+            <Width>10</Width>
+            <Height>10</Height>
+        </BoundingBox>
+        <ProjectileType>Bullet</ProjectileType>
+        <Category>Special</Category>
+    </Move>
+    <Move>
+        <Name>Flamethrower</Name>
+        <Type>Fire</Type>
+        <Damage>90</Damage>
+        <Speed>60</Speed>
+        <BoundingBox>
+            <Width>50</Width>
+            <Height>10</Height>
+        </BoundingBox>
+        <ProjectileType>Beam</ProjectileType>
+        <Category>Special</Category>
+    </Move>
+</Moves>

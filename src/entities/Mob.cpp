@@ -134,3 +134,5 @@ void Mob::onHit(int damage) { hp -= damage; }
 bool Mob::hasReachedFinalPoint() const {
   return currentPathPoint == path.getNumPoints();
 }
+
+int Mob::getCost() const { return cost; }
