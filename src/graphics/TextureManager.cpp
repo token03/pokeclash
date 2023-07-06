@@ -15,7 +15,7 @@ void TextureManager::loadTexture(const string &name, const string &filename) {
     return;
   }
   textures[name] = tex;
-  std::cout << "Loaded texture from file: " << name << std::endl;
+  // std::cout << "Loaded texture from file: " << name << std::endl;
 }
 
 sf::Texture &TextureManager::getRef(const string &texture) {
@@ -79,10 +79,9 @@ void TextureManager::loadAnimationData(const string &key,
 
   // Store the animation data in the map
   animationData[key] = animData;
-
-  std::cout << "Loaded animation data: " << key << std::endl;
-  std::cout << "Frame width: " << animData.frameWidth << std::endl;
-  std::cout << "Frame height: " << animData.frameHeight << std::endl;
+  /* std::cout << "Loaded animation data: " << key << std::endl; */
+  /* std::cout << "Frame width: " << animData.frameWidth << std::endl; */
+  /* std::cout << "Frame height: " << animData.frameHeight << std::endl; */
 }
 
 AnimationData &TextureManager::getAnimationData(const string &animation) {

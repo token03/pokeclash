@@ -3,7 +3,7 @@
         <Name>Ember</Name>
         <Type>Fire</Type>
         <Damage>90</Damage>
-        <Speed>60</Speed>
+        <Speed>20</Speed>
         <BoundingBox>
             <Width>10</Width>
             <Height>10</Height>
@@ -15,7 +15,7 @@
         <Name>Flamethrower</Name>
         <Type>Fire</Type>
         <Damage>90</Damage>
-        <Speed>60</Speed>
+        <Speed>30</Speed>
         <BoundingBox>
             <Width>50</Width>
             <Height>10</Height>

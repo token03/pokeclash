@@ -1,13 +1,17 @@
 #pragma once
 
-#include "Projectile.h"
+#include "Mob.h"
 
+class Tower;
+class Projectile;
+
+enum class ProjectileType { Bullet, Beam, Column, Physical };
 enum class Category { Special, Physical, Status };
 enum class Effect { None, Burn, Freeze, Paralyze, Poison, Sleep };
 
 class Move {
 public:
-  std::unique_ptr<Projectile> use(Mob *target, sf::Vector2f position);
+  std::unique_ptr<Projectile> use(Mob &target, Tower &owner);
   Move(Type type, Category category, std::string name, int damage, int speed);
   Move(std::string name);
   void loadMoveData(const std::string &name);

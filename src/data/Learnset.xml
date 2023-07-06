@@ -1,0 +1,16 @@
+<Learnsets>
+  <Learnset>
+    <Pokemon>Pikachu</Pokemon>
+    <Pairs>
+			<Pair level="5" move="Thunder Shock"/>
+      <Pair level="10" move="Quick Attack"/>
+    </Pairs>
+  </Learnset>
+  <Learnset>
+    <Pokemon>Charmander</Pokemon>
+    <Pairs>
+			<Pair level="5" move="Ember"/>
+      <Pair level="10" move="Flamethrower"/>
+    </Pairs>
+  </Learnset>
+</Learnsets>
