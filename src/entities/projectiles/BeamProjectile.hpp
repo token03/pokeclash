@@ -1,19 +1,54 @@
 #pragma once
 #include "../Projectile.h"
+#include <cmath>
+#include <iostream>
 
 class BeamProjectile : public Projectile {
 public:
   BeamProjectile(Mob &target, Tower &owner, int damage, float speed)
       : Projectile(target, owner, damage, speed) {
-    // Change the shape and color of the projectile to be bullet-like.
-    shape.setRadius(2);
-    shape.setFillColor(sf::Color::Black);
-    setSprite("Bullet"); // Suppose you have a "Bullet" texture loaded.
+    beam = sf::RectangleShape(sf::Vector2f(20, 100)); // width, length
+    beam.setFillColor(sf::Color::Red);
   }
 
-  void onHit() {
-    Projectile::onHit(); // Use base class's onHit.
-    // Here you could add bullet-specific effects (like a small explosion or
-    // so).
+  void update(float dt) override {
+    // Always position the beam so that it starts from the tower and points
+    // towards the target.
+    position = owner.getPosition();
+    direction = target.getPosition() - position;
+    float length =
+        std::sqrt(direction.x * direction.x + direction.y * direction.y);
+    direction /= length; // Normalize the direction vector.
+
+    // Set the beam's position and rotation.
+    beam.setPosition(position);
+    float angle = std::atan2(direction.y, direction.x) * 180 / M_PI;
+    beam.setRotation(angle);
   }
+
+  bool isOutOfBounds(int windowHeight, int windowWidth) const {
+    // Beam is never out of bounds since it always starts from the tower.
+    return false;
+  }
+
+  bool isCollidingWithTarget() const override {
+    // Beam is always colliding with the target since it always points towards
+    // the target.
+    return target.isDead();
+  }
+
+  void onHit() override {
+    // Damage the target every time onHit is called.
+    // The game loop needs to call this method frequently to mimic the
+    // continuous damage effect of a beam.
+    target.onHit(damage);
+  }
+
+  void draw(sf::RenderWindow &window) override {
+    // Draw the beam.
+    window.draw(beam);
+  }
+
+private:
+  sf::RectangleShape beam;
 };

@@ -7,12 +7,13 @@
 class Projectile {
 public:
   Projectile(Mob &target, Tower &owner, int damage, float speed);
-  void update(float dt); // Move the projectile towards the target.
-  void draw(sf::RenderWindow &window);
-  void onHit(); // Called when the projectile hits the target.
+  virtual void update(float dt); // Move the projectile towards the target.
+  virtual void draw(sf::RenderWindow &window);
+  virtual void onHit(); // Called when the projectile hits the target.
   bool isOutOfBounds(int windowHeight, int windowWidth) const;
-  bool isCollidingWithTarget() const; // Check if the projectile is colliding.
-  void setSprite(std::string key);    // Set the sprite of the projectile.
+  virtual bool
+  isCollidingWithTarget() const;   // Check if the projectile is colliding.
+  void setSprite(std::string key); // Set the sprite of the projectile.
 
 protected:
   Tower &owner; // The tower that fired this projectile.
@@ -22,6 +23,7 @@ protected:
   sf::CircleShape shape;  // The graphical representation of the projectile.
   sf::Vector2f direction; // The position of the target when the projectile
   sf::Sprite sprite;      // The graphical representation of the projectile.
-  int damage;             // The amount of damage this projectile deals.
-  float speed;            // The speed at which the projectile moves.
+  AnimatedSprite animatedSprite;
+  int damage;  // The amount of damage this projectile deals.
+  float speed; // The speed at which the projectile moves.
 };

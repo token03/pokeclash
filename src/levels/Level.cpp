@@ -33,6 +33,7 @@ void Level::update(float dt) {
   updateWave(dt);
   updateMobs(dt);
   updateTowers(dt);
+  updateProjectiles(dt);
 }
 
 void Level::updateMobs(float dt) {
@@ -79,6 +80,23 @@ void Level::updateWave(float dt) {
     Wave testWave(
         {MobBatch("Bulbasaur", 3, 1.0f), MobBatch("Charmander", 3, 1.0f)});
     waves.push_back(std::move(testWave));
+  }
+}
+
+void Level::updateProjectiles(float dt) {
+  for (size_t i = 0; i < projectiles.size(); ++i) {
+    if (projectiles[i]->isCollidingWithTarget()) {
+      projectiles[i]->onHit();
+      projectiles.erase(projectiles.begin() + i);
+      // Decrease the index to ensure we don't skip the next projectile.
+      --i;
+    } else if (projectiles[i]->isOutOfBounds(height, width)) {
+      projectiles.erase(projectiles.begin() + i);
+      // Decrease the index to ensure we don't skip the next projectile.
+      --i;
+    } else {
+      projectiles[i]->update(dt);
+    }
   }
 }
 

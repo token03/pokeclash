@@ -21,6 +21,7 @@ public:
   void updateWave(float dt);
   void updateMobs(float dt);
   void updateTowers(float dt);
+  void updateProjectiles(float dt);
   void addTower(const std::string &pokemon, sf::Vector2f position);
   void sellTower(Tower *tower);
   void addMob(const std::string &pokemon);
@@ -36,6 +37,7 @@ private:
   int height;
   std::vector<std::unique_ptr<Mob>> mobs;
   std::vector<std::unique_ptr<Tower>> towers;
+  std::vector<std::unique_ptr<Projectile>> projectiles;
   Path path;
   std::vector<Wave> waves;
   int credits;

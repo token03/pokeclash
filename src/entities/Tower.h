@@ -25,6 +25,7 @@ public:
   int upgrade(int money);         // Upgrade the tower.
   void sell();                    // Sell the tower.
   void update(float dt) override; // Update the tower's state.
+  std::unique_ptr<Projectile> shoot(Mob *target);       // Attack the target
   sf::Vector2f getPosition() const { return position; } // Returns position.
   std::string getName() const { return name; } // Returns the tower's name.
   float getDamage() const { return damage; }   // Returns the tower's damage.
