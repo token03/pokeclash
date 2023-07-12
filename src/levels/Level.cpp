@@ -27,6 +27,9 @@ void Level::draw(sf::RenderWindow &window) {
   for (const auto &tower : towers) {
     tower->draw(window);
   }
+  for (const auto &projectile : projectiles) {
+    projectile->draw(window);
+  }
 }
 
 void Level::update(float dt) {
@@ -60,6 +63,13 @@ void Level::updateTowers(float dt) {
       }
     }
     tower->update(dt);
+
+    // Attempt to shoot from tower, if successful, add projectile to Level's
+    // list.
+    auto projectile = tower->shoot();
+    if (projectile) {
+      projectiles.push_back(std::move(projectile));
+    }
   }
 }
 

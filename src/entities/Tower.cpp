@@ -12,7 +12,7 @@ Tower::Tower(const std::string &name, sf::Vector2f position)
   stage = TowerStage::First;
   level = 1;
   maxTargets = 1;
-  moves.emplace_back("Flamethrower");
+  moves.emplace_back("Ember");
 }
 
 void Tower::setPokemon(PokemonData &data) {
@@ -59,10 +59,6 @@ void Tower::draw(sf::RenderWindow &window) {
 
   window.draw(rangeCircle);
   window.draw(radiusCircle);
-
-  for (const auto &projectile : projectiles) {
-    projectile->draw(window);
-  }
 }
 
 bool Tower::isInRange(const Mob &mob) const {
@@ -86,29 +82,15 @@ void Tower::update(float dt) {
   }
 
   animations[state]->update(dt, direction);
+}
 
-  if (attackTimer >= attackDelay) {
-    for (Mob *target : targets) {
-      auto projectile = moves[0].use(*target, *this);
-      projectiles.push_back(std::move(projectile));
-    }
+std::unique_ptr<Projectile> Tower::shoot() {
+  if (attackTimer >= attackDelay && !targets.empty()) {
     attackTimer = 0.0f; // Reset the attack timer.
+    // Just use the first mob as the target for the projectile.
+    return moves[0].use(*targets[0], *this);
   }
-
-  for (size_t i = 0; i < projectiles.size(); ++i) {
-    if (projectiles[i]->isCollidingWithTarget()) {
-      projectiles[i]->onHit();
-      projectiles.erase(projectiles.begin() + i);
-      // Decrease the index to ensure we don't skip the next projectile.
-      --i;
-    } else if (projectiles[i]->isOutOfBounds(windowHeight, windowWidth)) {
-      projectiles.erase(projectiles.begin() + i);
-      // Decrease the index to ensure we don't skip the next projectile.
-      --i;
-    } else {
-      projectiles[i]->update(dt);
-    }
-  }
+  return nullptr;
 }
 
 int Tower::upgrade(int money) {
