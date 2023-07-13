@@ -21,9 +21,10 @@ public:
     direction /= length; // Normalize the direction vector.
 
     // Set the beam's position and rotation.
+    beam.setSize(sf::Vector2f(20, length));
     beam.setPosition(position);
     float angle = std::atan2(direction.y, direction.x) * 180 / M_PI;
-    beam.setRotation(angle);
+    beam.setRotation(angle - 90);
   }
 
   bool isOutOfBounds(int windowHeight, int windowWidth) const {
@@ -34,7 +35,7 @@ public:
   bool isCollidingWithTarget() const override {
     // Beam is always colliding with the target since it always points towards
     // the target.
-    return target.isDead();
+    return false;
   }
 
   void onHit() override {

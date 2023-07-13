@@ -66,7 +66,7 @@ void Level::updateTowers(float dt) {
 
     // Attempt to shoot from tower, if successful, add projectile to Level's
     // list.
-    auto projectile = tower->shoot();
+    auto projectile = tower->useMove();
     if (projectile) {
       projectiles.push_back(std::move(projectile));
     }

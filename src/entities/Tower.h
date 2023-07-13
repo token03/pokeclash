@@ -21,11 +21,12 @@ public:
   bool isInRange(const Mob &mob) const;        // Check if the mob is in range.
   bool isClicked(sf::Vector2f clickPos) const; // Check if the tower is clicked.
   void clearTargets();                         // Clear the tower's targets.
-  void addTarget(Mob *mob);            // Add a mob to the tower's targets.
-  int upgrade(int money);              // Upgrade the tower.
-  void sell();                         // Sell the tower.
-  void update(float dt) override;      // Update the tower's state.
-  std::unique_ptr<Projectile> shoot(); // Attack the target
+  void addTarget(Mob *mob);       // Add a mob to the tower's targets.
+  int upgrade(int money);         // Upgrade the tower.
+  void sell();                    // Sell the tower.
+  void update(float dt) override; // Update the tower's state.
+  void extracted();
+  std::unique_ptr<Projectile> useMove();                // Attack the target
   sf::Vector2f getPosition() const { return position; } // Returns position.
   std::string getName() const { return name; } // Returns the tower's name.
   float getDamage() const { return damage; }   // Returns the tower's damage.
@@ -55,4 +56,5 @@ protected:
   int cost;
   int upgradeCost;
   int maxTargets;
+  bool isFiringBeam;
 };

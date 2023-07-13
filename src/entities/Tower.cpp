@@ -12,7 +12,7 @@ Tower::Tower(const std::string &name, sf::Vector2f position)
   stage = TowerStage::First;
   level = 1;
   maxTargets = 1;
-  moves.emplace_back("Ember");
+  moves.emplace_back("Flamethrower");
 }
 
 void Tower::setPokemon(PokemonData &data) {
@@ -84,11 +84,30 @@ void Tower::update(float dt) {
   animations[state]->update(dt, direction);
 }
 
-std::unique_ptr<Projectile> Tower::shoot() {
-  if (attackTimer >= attackDelay && !targets.empty()) {
-    attackTimer = 0.0f; // Reset the attack timer.
-    // Just use the first mob as the target for the projectile.
-    return moves[0].use(*targets[0], *this);
+std::unique_ptr<Projectile> Tower::useMove() {
+  switch (moves[0].getProjectileType()) {
+  case ProjectileType::Bullet:
+    if (attackTimer >= attackDelay && !targets.empty()) {
+      attackTimer = 0.0f; // Reset the attack timer.
+      // Just use the first mob as the target for the projectile.
+      return moves[0].use(*targets[0], *this);
+    }
+    return nullptr;
+    break;
+  case ProjectileType::Beam:
+    if (!isFiringBeam && attackTimer >= attackDelay && !targets.empty()) {
+      isFiringBeam = true; // Set the beam firing flag.
+      attackTimer = 0.0f;  // Reset the attack timer.
+      // Create a new beam.
+      return moves[0].use(*targets[0], *this);
+    }
+    break;
+  case ProjectileType::Column:
+    break;
+  case ProjectileType::Physical:
+    break;
+  default:
+    break;
   }
   return nullptr;
 }

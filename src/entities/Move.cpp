@@ -17,7 +17,7 @@ Move::Move(std::string name) { loadMoveData(name); }
 std::unique_ptr<Projectile> Move::use(Mob &target, Tower &owner) {
   // Note To Self: THIS WILL cause a memory LEAK and you SHOULD FIX IT
 
-  return std::make_unique<Projectile>(target, owner, damage, speed);
+  /* return std::make_unique<Projectile>(target, owner, damage, speed); */
 
   switch (projectileType) {
   case ProjectileType::Bullet:
