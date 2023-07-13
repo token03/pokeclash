@@ -30,10 +30,21 @@ PokemonData Pokemon::loadPokemonData(const std::string &name) {
           pokemonNode.attribute("SecondaryType").value());
 
       pugi::xml_node animationsNode = pokemonNode.child("Animations");
-      data.walkingAnimation = animationsNode.attribute("Walking").value();
-      data.shootingAnimation = animationsNode.attribute("Shooting").value();
-      data.attackAnimation = animationsNode.attribute("Attack").value();
-      data.idleAnimation = animationsNode.attribute("Idle").value();
+      data.walkingAnimation =
+          animationsNode.attribute("Walk")
+              ? name + animationsNode.attribute("Walk").value()
+              : name + "Walk";
+      data.shootingAnimation =
+          animationsNode.attribute("Shoot")
+              ? name + animationsNode.attribute("Shoot").value()
+              : name + "Shoot";
+      data.attackAnimation =
+          animationsNode.attribute("Attack")
+              ? name + animationsNode.attribute("Attack").value()
+              : name + "Attack";
+      data.idleAnimation = animationsNode.attribute("Idle")
+                               ? name + animationsNode.attribute("Idle").value()
+                               : name + "Sleep";
 
       pugi::xml_node towerNode = pokemonNode.child("Tower");
       data.towerBaseDamage = std::stoi(towerNode.attribute("Damage").value());

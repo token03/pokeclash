@@ -1,47 +1,41 @@
 <Pokemons>
     <Pokemon Name="Bulbasaur" DexNumber="1" PrimaryType="Grass">
-        <Animations Walking="BulbasaurWalk" Shooting="BulbasaurAttack" Attack="BulbasaurAttack" Idle="BulbasaurSleep"/>
         <Tower Damage="10" AttackSpeed="5" Range="100"/>
         <Mob HP="100" Speed="50"/>
         <Hitbox Radius="10"/>
         <Evolution Name="Ivysaur" Level="1"/>
     </Pokemon>
     <Pokemon Name="Charmander" DexNumber="4" PrimaryType="Fire">
-        <Animations Walking="CharmanderWalk" Shooting="CharmanderAttack" Attack="CharmanderAttack" Idle="CharmanderSleep"/>
+        <Animations Shoot="Attack"/>
         <Tower Damage="10" AttackSpeed="4" Range="100"/>
         <Mob HP="100" Speed="50"/>
         <Hitbox Radius="10"/>
         <Evolution Name="Charmeleon" Level="2"/>
     </Pokemon>
     <Pokemon Name="Charmeleon" DexNumber="5" PrimaryType="Fire">
-        <Animations Walking="CharmeleonWalk" Shooting="CharmeleonShoot" Attack="CharmeleonAttack" Idle="CharmeleonSleep"/>
         <Tower Damage="20" AttackSpeed="4" Range="120"/>
         <Mob HP="200" Speed="100"/>
         <Hitbox Radius="10"/>
         <Evolution Name="Charizard" Level="3"/>
     </Pokemon>
     <Pokemon Name="Charizard" DexNumber="6" PrimaryType="Fire" SecondaryType="Flying">
-        <Animations Walking="CharizardWalk" Shooting="CharizardShoot" Attack="CharizardAttack" Idle="CharizardSleep"/>
         <Tower Damage="20" AttackSpeed="4" Range="130"/>
         <Mob HP="200" Speed="100"/>
         <Hitbox Radius="10"/>
     </Pokemon>
     <Pokemon Name="Chimchar" DexNumber="390" PrimaryType="Fire">
-        <Animations Walking="ChimcharWalk" Shooting="ChimcharShoot" Attack="ChimcharAttack" Idle="ChimcharSleep"/>
         <Tower Damage="10" AttackSpeed="5" Range="100"/>
         <Mob HP="100" Speed="50"/>
         <Hitbox Radius="10"/>
         <Evolution Name="Monferno" Level="1"/>
     </Pokemon>
     <Pokemon Name="Monferno" DexNumber="391" PrimaryType="Fire" SecondaryType="Fighting">
-        <Animations Walking="MonfernoWalk" Shooting="MonfernoShoot" Attack="MonfernoAttack" Idle="MonfernoSleep"/>
         <Tower Damage="10" AttackSpeed="5" Range="100"/>
         <Mob HP="100" Speed="50"/>
         <Hitbox Radius="10"/>
         <Evolution Name="Infernape" Level="2"/>
     </Pokemon>
     <Pokemon Name="Infernape" DexNumber="392" PrimaryType="Fire" SecondaryType="Fighting">
-        <Animations Walking="InfernapeWalk" Shooting="InfernapeShoot" Attack="InfernapeAttack" Idle="InfernapeSleep"/>
         <Tower Damage="10" AttackSpeed="5" Range="100"/>
         <Mob HP="100" Speed="50"/>
         <Hitbox Radius="10"/>
